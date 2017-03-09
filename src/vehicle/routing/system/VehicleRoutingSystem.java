@@ -32,9 +32,27 @@ public class VehicleRoutingSystem {
         Scanner cy8 = new Scanner(new File("cycle8.txt")); //Takes in cycle 8 data
         Scanner cy9 = new Scanner(new File("cycle9.txt")); //Takes in cycle 9 data
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
+        String input[] = TakeInInput(cy1);
         
         
         
     }
-
+        
+        static String[] TakeInInput(Scanner a) { //Reads in text files
+            int i = 0;
+            String useless = "";
+            String[] input = new String[10000];
+            while (a.hasNext()) {
+                if (i < 2) {
+                    useless = a.nextLine();
+                    i ++;
+                }
+                else {
+                input[i] = a.nextLine();
+                System.out.println(input[i]);
+                i++;
+                }
+            }
+            return input;
+        }
 }

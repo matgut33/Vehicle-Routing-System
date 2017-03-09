@@ -45,7 +45,7 @@ public class Location {
         return houseNum;
     }
     
-    public void clearHouse() {
+    public void clearHouse() { //clears street, avenue and house number
         street = 1;
         ave = 1;
         houseNum = "A";
