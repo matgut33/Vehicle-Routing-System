@@ -20,6 +20,8 @@ public class VehicleRoutingSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+        int cycleDay = 0; //For labeling cycles
+        Location locations[] = new Location[10000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
         Scanner cy2 = new Scanner(new File("cycle2.txt")); //Takes in cycle 2 data
         Scanner cy3 = new Scanner(new File("cycle3.txt")); //Takes in cycle 3 data
@@ -30,6 +32,9 @@ public class VehicleRoutingSystem {
         Scanner cy8 = new Scanner(new File("cycle8.txt")); //Takes in cycle 8 data
         Scanner cy9 = new Scanner(new File("cycle9.txt")); //Takes in cycle 9 data
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
+        
+        
+        
     }
 
 }
