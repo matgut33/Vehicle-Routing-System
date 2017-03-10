@@ -20,7 +20,7 @@ public class VehicleRoutingSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
-        int cycleDay = 0; //For labeling cycles
+        int cycleDay = 0, num = 0, index = 0, a = 0, s = 0; //For labeling cycles
         Location locations[] = new Location[10000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
         Scanner cy2 = new Scanner(new File("cycle2.txt")); //Takes in cycle 2 data
@@ -32,27 +32,44 @@ public class VehicleRoutingSystem {
         Scanner cy8 = new Scanner(new File("cycle8.txt")); //Takes in cycle 8 data
         Scanner cy9 = new Scanner(new File("cycle9.txt")); //Takes in cycle 9 data
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
-        String input[] = TakeInInput(cy1);
-        
+        int counter = 1;
+        while(cy1.hasNext()) {
+            if (cy1.nextLine().equals("Bart Complex") || cy1.nextLine().equals("Lisa Complex")) {
+                continue;
+            }
+            else {
+                counter ++;
+            }
+            
+        }
+        String input[] = TakeInInput(cy1, counter);
+        for (int i = 0; i < counter; i++ ) {
+            num = input[i].indexOf("s");
+            s = Integer.parseInt(input[i].substring(0, num));
+            System.out.println(s);
+        }
         
         
     }
         
-        static String[] TakeInInput(Scanner a) { //Reads in text files
+        static String[] TakeInInput(Scanner a, int counter) { //Reads in text files
             int i = 0;
             String useless = "";
-            String[] input = new String[10000];
+            String[] input = new String[counter];
             while (a.hasNext()) {
                 if (i < 2) {
                     useless = a.nextLine();
                     i ++;
                 }
-                else {
-                input[i] = a.nextLine();
-                System.out.println(input[i]);
+                else {                
+                input[i] = a.nextLine();                
+                if (input[i].equals("Bart Complex") || input[i].equals("Lisa Complex")) {
+                    input[i] = a.nextLine();
+                }
                 i++;
                 }
             }
+            
             return input;
         }
 }
