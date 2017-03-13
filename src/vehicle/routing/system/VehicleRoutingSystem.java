@@ -33,23 +33,18 @@ public class VehicleRoutingSystem {
         Scanner cy9 = new Scanner(new File("cycle9.txt")); //Takes in cycle 9 data
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
         int counter = 1;
-        while(cy1.hasNext()) {
-            if (cy1.nextLine().equals("Bart Complex") || cy1.nextLine().equals("Lisa Complex")) {
-                continue;
+        String useless = "";
+        for (int i = 0; cy1.hasNext(); i++) {
+            if (i < 2) {
+                useless = "";
             }
             else {
-                counter ++;
-            }
-            
-        }
-        String input[] = TakeInInput(cy1, counter);
-        for (int i = 0; i < counter; i++ ) {
-            num = input[i].indexOf("s");
-            s = Integer.parseInt(input[i].substring(0, num));
+            useless = cy1.nextLine();
+            num = useless.indexOf("s");
+            s = Integer.parseInt(useless.substring(0, num));
             System.out.println(s);
+            }
         }
-        
-        
     }
         
         static String[] TakeInInput(Scanner a, int counter) { //Reads in text files
