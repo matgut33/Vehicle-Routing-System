@@ -21,7 +21,7 @@ public class VehicleRoutingSystem {
      */
     public static void main(String[] args) throws IOException {
         int cycleDay = 0; //For labeling cycles
-        int s = 0;
+        int s = 0, b = 0, l = 0;
         Location locations[] = new Location[10000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
         Scanner cy2 = new Scanner(new File("cycle2.txt")); //Takes in cycle 2 data
@@ -37,14 +37,21 @@ public class VehicleRoutingSystem {
         int counter = 1; int num = 0;
         String useless = "";
         for (int i = 0; cy1.hasNext(); i++) {
-            if (i < 2) {
-                useless = "";
-            }
-            else {
-            useless = cy1.nextLine();
-            num = useless.indexOf("s");
-            s = Integer.parseInt(useless.substring(0, num));
-            System.out.println(s);
+            if (i <= 2) {
+                useless = cy1.nextLine();
+            } else {
+                useless = cy1.nextLine();
+                if (useless.equals("Bart Complex")) {
+                    b = cy1.nextInt();
+                    System.out.println(b);
+                } else if (useless.equals("Lisa Complex")) {
+                    l = cy1.nextInt();
+                    System.out.println(l);
+                } else {
+                    num = useless.indexOf("s");
+                    s = Integer.parseInt(useless.substring(0, num));
+                    System.out.println(s);
+                }
             }
         }
 
