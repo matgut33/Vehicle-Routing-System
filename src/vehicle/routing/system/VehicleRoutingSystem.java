@@ -21,7 +21,7 @@ public class VehicleRoutingSystem {
      */
     public static void main(String[] args) throws IOException {
         int cycleDay = 0; //For labeling cycles
-        int s = 0, b = 0, l = 0;
+        int s[] = new int[100000], a[] = new int[10000], b = 0, l = 0, houseNum[] = new int[10000];
         Location locations[] = new Location[10000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
         Scanner cy2 = new Scanner(new File("cycle2.txt")); //Takes in cycle 2 data
@@ -42,41 +42,24 @@ public class VehicleRoutingSystem {
             } else {
                 useless = cy1.nextLine();
                 if (useless.equals("Bart Complex")) {
-                    b = cy1.nextInt();
-                    System.out.println(b);
-                } else if (useless.equals("Lisa Complex")) {
-                    l = cy1.nextInt();
-                    System.out.println(l);
+                    break;
                 } else {
                     num = useless.indexOf("s");
-                    s = Integer.parseInt(useless.substring(0, num));
-                    System.out.println(s);
+                    s[i] = Integer.parseInt(useless.substring(0, num));
+                    counter = useless.indexOf("a");
+                    a[i] = Integer.parseInt(useless.substring((num+2), counter));
+                    num = useless.length();
+                    houseNum[i] = Integer.parseInt(useless.substring((counter+2), num));
+                    System.out.println(s[i]);
                 }
             }
         }
-
-        String input[] = TakeInInput(cy1);
-        
-        
-        
-
+        b = cy1.nextInt();
+        useless = cy1.nextLine();
+        useless = cy1.nextLine();
+        l = cy1.nextInt();
+        for (int i = 0; i < 10000; i++) {
+            locations[i] = new Location(s[i], a[i], " ", b, l);
+        }
     }
-        
-        static String[] TakeInInput(Scanner a) { //Reads in text files
-            int i = 0;
-            String useless = "";
-            String[] input = new String[10000];
-            while (a.hasNext()) {
-                if (i < 2) {
-                    useless = a.nextLine();
-                    i ++;
-                }
-                else {
-                input[i] = a.nextLine();
-                System.out.println(input[i]);
-                i++;
-                }
-            }
-            return input;
-        }
 }
