@@ -21,7 +21,8 @@ public class VehicleRoutingSystem {
      */
     public static void main(String[] args) throws IOException {
         int cycleDay = 0; //For labeling cycles
-        int s[] = new int[100000], a[] = new int[10000], b = 0, l = 0, houseNum[] = new int[10000];
+        int s[] = new int[100000], a[] = new int[10000], b = 0, l = 0, houseNum[] = new int[10000]; 
+        String houseLet[] = new String[10000];
         Location locations[] = new Location[10000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
         Scanner cy2 = new Scanner(new File("cycle2.txt")); //Takes in cycle 2 data
@@ -49,8 +50,28 @@ public class VehicleRoutingSystem {
                     counter = useless.indexOf("a");
                     a[i] = Integer.parseInt(useless.substring((num+2), counter));
                     num = useless.length();
-                    houseNum[i] = Integer.parseInt(useless.substring((counter+2), num));
-                    System.out.println(s[i]);
+                    houseLet[i] = (useless.substring((counter+2), num));
+                    if(houseLet[i].equals("A")) houseNum[i] = 1;
+                    else if(houseLet[i].equals("AA")) houseNum[i] = 2;
+                    else if(houseLet[i].equals("B")) houseNum[i] = 3;
+                    else if(houseLet[i].equals("BB")) houseNum[i] = 4;
+                    else if(houseLet[i].equals("C")) houseNum[i] = 5;
+                    else if(houseLet[i].equals("CC")) houseNum[i] = 6;
+                    else if(houseLet[i].equals("D")) houseNum[i] = 7;
+                    else if(houseLet[i].equals("DD")) houseNum[i] = 8;
+                    else if(houseLet[i].equals("E")) houseNum[i] = 9;
+                    else if(houseLet[i].equals("EE")) houseNum[i] = 10;
+                    else if(houseLet[i].equals("F")) houseNum[i] = 11;
+                    else if(houseLet[i].equals("FF")) houseNum[i] = 12;
+                    else if(houseLet[i].equals("G")) houseNum[i] = 13;
+                    else if(houseLet[i].equals("GG")) houseNum[i] = 14;
+                    else if(houseLet[i].equals("H")) houseNum[i] = 15;
+                    else if(houseLet[i].equals("HH")) houseNum[i] = 16;
+                    else if(houseLet[i].equals("I")) houseNum[i] = 17;
+                    else if(houseLet[i].equals("II")) houseNum[i] = 18;
+                    else if(houseLet[i].equals("J")) houseNum[i] = 19;
+                    else if(houseLet[i].equals("JJ")) houseNum[i] = 20;
+                    System.out.println(houseNum[i] + "   " + houseLet[i]);
                 }
             }
         }
@@ -59,7 +80,7 @@ public class VehicleRoutingSystem {
         useless = cy1.nextLine();
         l = cy1.nextInt();
         for (int i = 0; i < 10000; i++) {
-            locations[i] = new Location(s[i], a[i], " ", b, l);
+            locations[i] = new Location(s[i], a[i], houseNum[i], b, l);
         }
     }
 }

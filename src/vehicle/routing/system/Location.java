@@ -6,19 +6,17 @@ package vehicle.routing.system;
  * @author Period 8
  */
 public class Location {
-    private int street = 0, ave = 0;
-    private String houseNum = "";
-    private int bart = 0, lisa = 0;
+    private int street = 0, ave = 0, houseNum = 0, bart = 0, lisa = 0;
     
     public Location() { //DEFAULT CONSTRUCTOR FOR HOMES
-        street = 1;
-        ave = 1;
-        houseNum = "A";
-        bart = 1;
-        lisa = 1;
+        street = 0;
+        ave = 0;
+        houseNum = 0;
+        bart = 0;
+        lisa = 0;
     }
     
-    public Location(int s, int a, String h, int b, int l) { //OVERLOADED CONSTRUCTOR
+    public Location(int s, int a, int h, int b, int l) { //OVERLOADED CONSTRUCTOR
         street = s;
         ave = a;
         houseNum = h;
@@ -42,11 +40,11 @@ public class Location {
         return ave;
     }
     
-    public void setHouse(String h) {
+    public void setHouse(int h) {
         houseNum = h;
     }
     
-    public String getHouse() {
+    public int getHouse() {
         return houseNum;
     }
     
@@ -67,8 +65,8 @@ public class Location {
     }
     
     public void clearHouse() { //clears street, avenue and house number
-        street = 1;
-        ave = 1;
-        houseNum = "A";
+        street = 0;
+        ave = 0;
+        houseNum = 0;
     }
 }
