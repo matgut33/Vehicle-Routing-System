@@ -21,9 +21,9 @@ public class VehicleRoutingSystem {
      */
     public static void main(String[] args) throws IOException {
         int cycleDay = 0; //For labeling cycles
-        int s[] = new int[100000], a[] = new int[10000], b = 0, l = 0, houseNum[] = new int[10000]; 
-        String houseLet[] = new String[10000];
-        Location locations[] = new Location[10000]; //Used for taking in locations
+        int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0, houseNum[] = new int[100000]; 
+        String houseLet[] = new String[10000000];
+        Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
         Scanner cy2 = new Scanner(new File("cycle2.txt")); //Takes in cycle 2 data
         Scanner cy3 = new Scanner(new File("cycle3.txt")); //Takes in cycle 3 data
@@ -34,15 +34,20 @@ public class VehicleRoutingSystem {
         Scanner cy8 = new Scanner(new File("cycle8.txt")); //Takes in cycle 8 data
         Scanner cy9 = new Scanner(new File("cycle9.txt")); //Takes in cycle 9 data
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
-
+        Scanner cy11 = new Scanner(new File("cycle11.txt")); //Takes in cycle 11 data
         int counter = 1; int num = 0;
         String useless = "";
+        for (int h = 0; h <= 11; h++) {
         for (int i = 0; cy1.hasNext(); i++) {
             if (i < 2) {
                 useless = cy1.nextLine();
             } else {
                 useless = cy1.nextLine();
                 if (useless.equals("Bart Complex")) {
+                    b = cy1.nextInt();
+                    useless = cy1.nextLine();
+                    useless = cy1.nextLine();
+                    l = cy1.nextInt();
                     break;
                 } else {
                     num = useless.indexOf("s");
@@ -71,16 +76,24 @@ public class VehicleRoutingSystem {
                     else if(houseLet[i].equals("II")) houseNum[i] = 18;
                     else if(houseLet[i].equals("J")) houseNum[i] = 19;
                     else if(houseLet[i].equals("JJ")) houseNum[i] = 20;
-                    System.out.println(houseNum[i] + "   " + houseLet[i]);
+                    System.out.println(houseNum[i] + "   " + houseLet[i] + " " + i);
                 }
             }
         }
-        b = cy1.nextInt();
-        useless = cy1.nextLine();
-        useless = cy1.nextLine();
-        l = cy1.nextInt();
-        for (int i = 0; i < 10000; i++) {
-            locations[i] = new Location(s[i], a[i], houseNum[i], b, l);
+        for (int j = 0; j < 10000; j++) {
+            locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
+        }
+        
+        if (h == 0) cy1 = cy2;
+        if (h == 1) cy1 = cy3;
+        if (h == 2) cy1 = cy4;
+        if (h == 3) cy1 = cy5;
+        if (h == 4) cy1 = cy6;
+        if (h == 5) cy1 = cy7;
+        if (h == 6) cy1 = cy8;
+        if (h == 7) cy1 = cy9;
+        if (h == 8) cy1 = cy10;
+        if (h == 9) cy1 = cy11;
         }
     }
 }
