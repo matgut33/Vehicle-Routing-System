@@ -38,7 +38,7 @@ public class VehicleRoutingSystem {
         int counter = 1; int num = 0;
         String useless = "";
         for (int i = 0; cy1.hasNext(); i++) {
-            if (i <= 2) {
+            if (i < 2) {
                 useless = cy1.nextLine();
             } else {
                 useless = cy1.nextLine();
