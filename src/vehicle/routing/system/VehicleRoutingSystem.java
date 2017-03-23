@@ -34,10 +34,9 @@ public class VehicleRoutingSystem {
         Scanner cy8 = new Scanner(new File("cycle8.txt")); //Takes in cycle 8 data
         Scanner cy9 = new Scanner(new File("cycle9.txt")); //Takes in cycle 9 data
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
-        Scanner cy11 = new Scanner(new File("cycle11.txt")); //Takes in cycle 11 data
         int counter = 1; int num = 0;
         String useless = "";
-        for (int h = 0; h <= 11; h++) {
+        for (int h = 0; h <= 10; h++) {
         for (int i = 0; cy1.hasNext(); i++) {
             if (i < 2) {
                 useless = cy1.nextLine();
@@ -76,7 +75,7 @@ public class VehicleRoutingSystem {
                     else if(houseLet[i].equals("II")) houseNum[i] = 18;
                     else if(houseLet[i].equals("J")) houseNum[i] = 19;
                     else if(houseLet[i].equals("JJ")) houseNum[i] = 20;
-                    System.out.println(houseNum[i] + "   " + houseLet[i] + " " + i);
+                    System.out.println(s[i] + " " + a[i] + " " + houseLet[i]);
                 }
             }
         }
@@ -84,16 +83,15 @@ public class VehicleRoutingSystem {
             locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
         }
         
-        if (h == 0) cy1 = cy2;
-        if (h == 1) cy1 = cy3;
-        if (h == 2) cy1 = cy4;
-        if (h == 3) cy1 = cy5;
-        if (h == 4) cy1 = cy6;
-        if (h == 5) cy1 = cy7;
-        if (h == 6) cy1 = cy8;
-        if (h == 7) cy1 = cy9;
-        if (h == 8) cy1 = cy10;
-        if (h == 9) cy1 = cy11;
+        if (h == 1) cy1 = cy2;
+        if (h == 2) cy1 = cy3;
+        if (h == 3) cy1 = cy4;
+        if (h == 4) cy1 = cy5;
+        if (h == 5) cy1 = cy6;
+        if (h == 6) cy1 = cy7;
+        if (h == 7) cy1 = cy8;
+        if (h == 8) cy1 = cy9;
+        if (h == 9) cy1 = cy10;
         }
     }
 }
