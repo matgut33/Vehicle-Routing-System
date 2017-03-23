@@ -22,7 +22,7 @@ public class VehicleRoutingSystem {
     public static void main(String[] args) throws IOException {
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0, houseNum[] = new int[100000]; 
-        String houseLet[] = new String[10000000];
+        String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
         Scanner cy2 = new Scanner(new File("cycle2.txt")); //Takes in cycle 2 data
@@ -36,6 +36,7 @@ public class VehicleRoutingSystem {
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
         int counter = 1; int num = 0;
         String useless = "";
+        boolean runagain = false;
         for (int h = 0; h <= 10; h++) {
         for (int i = 0; cy1.hasNext(); i++) {
             if (i < 2) {
@@ -77,10 +78,21 @@ public class VehicleRoutingSystem {
                     else if(houseLet[i].equals("JJ")) houseNum[i] = 20;
                     System.out.println(s[i] + " " + a[i] + " " + houseLet[i]);
                 }
+                
             }
+            
         }
         for (int j = 0; j < 10000; j++) {
             locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
+        }
+        System.out.println("Would you like to run again?");
+        Scanner run = new Scanner(System.in);
+        runAgain = run.nextLine();
+        if(runAgain.equals("Y")) {
+            runagain = true;
+        }
+        else if (runAgain.equals("N")) {
+            break;
         }
         
         if (h == 1) cy1 = cy2;
@@ -92,6 +104,7 @@ public class VehicleRoutingSystem {
         if (h == 7) cy1 = cy8;
         if (h == 8) cy1 = cy9;
         if (h == 9) cy1 = cy10;
+        
         }
     }
 }
