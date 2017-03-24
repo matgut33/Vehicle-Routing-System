@@ -36,8 +36,9 @@ public class VehicleRoutingSystem {
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
         int counter = 1; int num = 0;
         String useless = "";
-        boolean runagain = false;
-        for (int h = 0; h <= 10; h++) {
+        Scanner run = new Scanner(System.in);
+        
+        for (int h = 0; h <= 9; h++)  {
         for (int i = 0; cy1.hasNext(); i++) {
             if (i < 2) {
                 useless = cy1.nextLine();
@@ -85,26 +86,24 @@ public class VehicleRoutingSystem {
         for (int j = 0; j < 10000; j++) {
             locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
         }
-        System.out.println("Would you like to run again?");
-        Scanner run = new Scanner(System.in);
+        
+        if (h == 0) cy1 = cy2;
+        if (h == 1) cy1 = cy3;
+        if (h == 2) cy1 = cy4;
+        if (h == 3) cy1 = cy5;
+        if (h == 4) cy1 = cy6;
+        if (h == 5) cy1 = cy7;
+        if (h == 6) cy1 = cy8;
+        if (h == 7) cy1 = cy9;
+        if (h == 8) cy1 = cy10;
+        
+        System.out.println("Would you like to run again? ");
         runAgain = run.nextLine();
-        if(runAgain.equals("Y")) {
-            runagain = true;
-        }
-        else if (runAgain.equals("N")) {
+        if(runAgain.equals("N") || runAgain.equals("n")) {
             break;
-        }
+        }  
         
-        if (h == 1) cy1 = cy2;
-        if (h == 2) cy1 = cy3;
-        if (h == 3) cy1 = cy4;
-        if (h == 4) cy1 = cy5;
-        if (h == 5) cy1 = cy6;
-        if (h == 6) cy1 = cy7;
-        if (h == 7) cy1 = cy8;
-        if (h == 8) cy1 = cy9;
-        if (h == 9) cy1 = cy10;
-        
+        h++;
         }
     }
 }
