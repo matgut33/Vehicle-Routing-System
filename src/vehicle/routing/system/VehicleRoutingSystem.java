@@ -19,7 +19,7 @@ public class VehicleRoutingSystem {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws Exception {
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0, houseNum[] = new int[100000]; 
         String houseLet[] = new String[10000000], runAgain = "";
