@@ -98,11 +98,11 @@ public class VehicleRoutingSystem {
         if (h == 7) cy1 = cy9;
         if (h == 8) cy1 = cy10;
         
-        System.out.println("Would you like to run again? ");
+        /*(System.out.print("Would you like to run again? ");
         runAgain = run.nextLine();
         if(runAgain.equals("N") || runAgain.equals("n")) {
             break;
-        }  
+        }*/  
         
         h++;
         }
