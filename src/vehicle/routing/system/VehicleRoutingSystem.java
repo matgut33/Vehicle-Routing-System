@@ -21,7 +21,8 @@ public class VehicleRoutingSystem {
      */
     public static void main(String[] args) throws Exception {
         int cycleDay = 0; //For labeling cycles
-        int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0, houseNum[] = new int[100000]; 
+        int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0; 
+        double houseNum[] = new double[100000]; 
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
@@ -57,26 +58,26 @@ public class VehicleRoutingSystem {
                     a[i] = Integer.parseInt(useless.substring((num+2), counter));
                     num = useless.length();
                     houseLet[i] = (useless.substring((counter+2), num));
-                    if(houseLet[i].equals("A")) houseNum[i] = 1;
-                    else if(houseLet[i].equals("AA")) houseNum[i] = 2;
-                    else if(houseLet[i].equals("B")) houseNum[i] = 3;
-                    else if(houseLet[i].equals("BB")) houseNum[i] = 4;
-                    else if(houseLet[i].equals("C")) houseNum[i] = 5;
-                    else if(houseLet[i].equals("CC")) houseNum[i] = 6;
-                    else if(houseLet[i].equals("D")) houseNum[i] = 7;
-                    else if(houseLet[i].equals("DD")) houseNum[i] = 8;
-                    else if(houseLet[i].equals("E")) houseNum[i] = 9;
-                    else if(houseLet[i].equals("EE")) houseNum[i] = 10;
-                    else if(houseLet[i].equals("F")) houseNum[i] = 11;
-                    else if(houseLet[i].equals("FF")) houseNum[i] = 12;
-                    else if(houseLet[i].equals("G")) houseNum[i] = 13;
-                    else if(houseLet[i].equals("GG")) houseNum[i] = 14;
-                    else if(houseLet[i].equals("H")) houseNum[i] = 15;
-                    else if(houseLet[i].equals("HH")) houseNum[i] = 16;
-                    else if(houseLet[i].equals("I")) houseNum[i] = 17;
-                    else if(houseLet[i].equals("II")) houseNum[i] = 18;
-                    else if(houseLet[i].equals("J")) houseNum[i] = 19;
-                    else if(houseLet[i].equals("JJ")) houseNum[i] = 20;
+                    if(houseLet[i].equals("A")) houseNum[i] = 0;
+                    else if(houseLet[i].equals("AA")) houseNum[i] = 0;
+                    else if(houseLet[i].equals("B")) houseNum[i] = .02;
+                    else if(houseLet[i].equals("BB")) houseNum[i] = .02;
+                    else if(houseLet[i].equals("C")) houseNum[i] = .04;
+                    else if(houseLet[i].equals("CC")) houseNum[i] = .04;
+                    else if(houseLet[i].equals("D")) houseNum[i] = .06;
+                    else if(houseLet[i].equals("DD")) houseNum[i] = .06;
+                    else if(houseLet[i].equals("E")) houseNum[i] = .08;
+                    else if(houseLet[i].equals("EE")) houseNum[i] = .08;
+                    else if(houseLet[i].equals("F")) houseNum[i] = .1;
+                    else if(houseLet[i].equals("FF")) houseNum[i] = .1;
+                    else if(houseLet[i].equals("G")) houseNum[i] = .12;
+                    else if(houseLet[i].equals("GG")) houseNum[i] = .12;
+                    else if(houseLet[i].equals("H")) houseNum[i] = .14;
+                    else if(houseLet[i].equals("HH")) houseNum[i] = .14;
+                    else if(houseLet[i].equals("I")) houseNum[i] = .16;
+                    else if(houseLet[i].equals("II")) houseNum[i] = .16;
+                    else if(houseLet[i].equals("J")) houseNum[i] = .18;
+                    else if(houseLet[i].equals("JJ")) houseNum[i] = .18;
                     System.out.println(s[i] + " " + a[i] + " " + houseLet[i]);
                 }
                 

@@ -6,7 +6,8 @@ package vehicle.routing.system;
  * @author Period 8
  */
 public class Location {
-    private int street = 0, ave = 0, houseNum = 0, bart = 0, lisa = 0;
+    private int street = 0, ave = 0, bart = 0, lisa = 0;
+    private double houseNum = 0;
     
     public Location() { //DEFAULT CONSTRUCTOR FOR HOMES
         street = 0;
@@ -16,7 +17,7 @@ public class Location {
         lisa = 0;
     }
     
-    public Location(int s, int a, int h, int b, int l) { //OVERLOADED CONSTRUCTOR
+    public Location(int s, int a, double h, int b, int l) { //OVERLOADED CONSTRUCTOR
         street = s;
         ave = a;
         houseNum = h;
@@ -40,11 +41,11 @@ public class Location {
         return ave;
     }
     
-    public void setHouse(int h) {
+    public void setHouse(double h) {
         houseNum = h;
     }
     
-    public int getHouse() {
+    public double getHouse() {
         return houseNum;
     }
     
