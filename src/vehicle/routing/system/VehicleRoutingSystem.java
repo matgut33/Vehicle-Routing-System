@@ -14,6 +14,8 @@ package vehicle.routing.system;
 
 import java.util.Scanner;
 import java.io.*;
+import java.awt.Point;
+
 public class VehicleRoutingSystem {
 
     /**
@@ -22,7 +24,7 @@ public class VehicleRoutingSystem {
     public static void main(String[] args) throws Exception {
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0; 
-        double houseNum[] = new double[100000]; 
+        int houseNum[] = new int[100000]; 
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
@@ -60,24 +62,24 @@ public class VehicleRoutingSystem {
                     houseLet[i] = (useless.substring((counter+2), num));
                     if(houseLet[i].equals("A")) houseNum[i] = 0;
                     else if(houseLet[i].equals("AA")) houseNum[i] = 0;
-                    else if(houseLet[i].equals("B")) houseNum[i] = .02;
-                    else if(houseLet[i].equals("BB")) houseNum[i] = .02;
-                    else if(houseLet[i].equals("C")) houseNum[i] = .04;
-                    else if(houseLet[i].equals("CC")) houseNum[i] = .04;
-                    else if(houseLet[i].equals("D")) houseNum[i] = .06;
-                    else if(houseLet[i].equals("DD")) houseNum[i] = .06;
-                    else if(houseLet[i].equals("E")) houseNum[i] = .08;
-                    else if(houseLet[i].equals("EE")) houseNum[i] = .08;
-                    else if(houseLet[i].equals("F")) houseNum[i] = .1;
-                    else if(houseLet[i].equals("FF")) houseNum[i] = .1;
-                    else if(houseLet[i].equals("G")) houseNum[i] = .12;
-                    else if(houseLet[i].equals("GG")) houseNum[i] = .12;
-                    else if(houseLet[i].equals("H")) houseNum[i] = .14;
-                    else if(houseLet[i].equals("HH")) houseNum[i] = .14;
-                    else if(houseLet[i].equals("I")) houseNum[i] = .16;
-                    else if(houseLet[i].equals("II")) houseNum[i] = .16;
-                    else if(houseLet[i].equals("J")) houseNum[i] = .18;
-                    else if(houseLet[i].equals("JJ")) houseNum[i] = .18;
+                    else if(houseLet[i].equals("B")) houseNum[i] = 100;
+                    else if(houseLet[i].equals("BB")) houseNum[i] = 100;
+                    else if(houseLet[i].equals("C")) houseNum[i] = 200;
+                    else if(houseLet[i].equals("CC")) houseNum[i] = 200;
+                    else if(houseLet[i].equals("D")) houseNum[i] = 300;
+                    else if(houseLet[i].equals("DD")) houseNum[i] = 300;
+                    else if(houseLet[i].equals("E")) houseNum[i] = 400;
+                    else if(houseLet[i].equals("EE")) houseNum[i] = 400;
+                    else if(houseLet[i].equals("F")) houseNum[i] = 500;
+                    else if(houseLet[i].equals("FF")) houseNum[i] = 500;
+                    else if(houseLet[i].equals("G")) houseNum[i] = 600;
+                    else if(houseLet[i].equals("GG")) houseNum[i] = 600;
+                    else if(houseLet[i].equals("H")) houseNum[i] = 700;
+                    else if(houseLet[i].equals("HH")) houseNum[i] = 700;
+                    else if(houseLet[i].equals("I")) houseNum[i] = 800;
+                    else if(houseLet[i].equals("II")) houseNum[i] = 800;
+                    else if(houseLet[i].equals("J")) houseNum[i] = 900;
+                    else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
                     System.out.println(s[i] + " " + a[i] + " " + houseLet[i]);
                 }
                 
@@ -86,6 +88,7 @@ public class VehicleRoutingSystem {
         }
         for (int j = 0; j < 10000; j++) {
             locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
+            System.out.println(locations[j].getCoord()); 
         }
         
         if (h == 0) cy1 = cy2;
@@ -98,11 +101,6 @@ public class VehicleRoutingSystem {
         if (h == 7) cy1 = cy9;
         if (h == 8) cy1 = cy10;
         
-        /*(System.out.print("Would you like to run again? ");
-        runAgain = run.nextLine();
-        if(runAgain.equals("N") || runAgain.equals("n")) {
-            break;
-        }*/  
         
         h++;
         }
