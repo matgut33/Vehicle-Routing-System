@@ -87,8 +87,10 @@ public class VehicleRoutingSystem {
             
         }
         for (int j = 0; j < 10000; j++) {
+            if (s[j] != 0){
             locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
             System.out.println(locations[j].getCoord()); 
+            }
         }
         
         if (h == 0) cy1 = cy2;
