@@ -9,6 +9,7 @@ import java.awt.Point;
 
 public class Location {
     private int street = 0, ave = 0, bart = 0, lisa = 0, houseNum = 0;
+    private Point Coordinate;
     
     public Location() { //DEFAULT CONSTRUCTOR FOR HOMES
         street = 0;
@@ -24,6 +25,7 @@ public class Location {
         houseNum = h;
         bart = b;
         lisa = l;
+        Coordinate = new Point((street - 1) * 200, (((ave - 1) * 1000) + houseNum));
     }
     
     public void setStreet(int s) {
@@ -73,7 +75,14 @@ public class Location {
     }
     
     public Point getCoord() {
-        Point Coordinate = new Point((street - 1) * 200, (((ave - 1) * 1000) + houseNum));
         return Coordinate;
+    }
+    
+    public int getCoordX() {
+        return Coordinate.x;
+    }
+    
+    public int getCoordY() {
+        return Coordinate.y;
     }
 }
