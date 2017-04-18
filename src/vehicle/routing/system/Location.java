@@ -78,8 +78,16 @@ public class Location {
         return Coordinate;
     }
     
+    public void setCoordX(int x) {
+        Coordinate.x = x;
+    }
+    
     public int getCoordX() {
         return Coordinate.x;
+    }
+    
+    public void setCoordY(int y) {
+        Coordinate.y = y;
     }
     
     public int getCoordY() {
