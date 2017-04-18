@@ -16,15 +16,19 @@ import java.util.Scanner;
 import java.io.*;
 import java.awt.Point;
 
+
 public class VehicleRoutingSystem {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) throws IOException {
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0; 
         int houseNum[] = new int[100000]; 
+        int distance[] = new int[10];
+        int minimum = 100000;
+        int minimumslot = 0;
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
@@ -80,20 +84,39 @@ public class VehicleRoutingSystem {
                     else if(houseLet[i].equals("II")) houseNum[i] = 800;
                     else if(houseLet[i].equals("J")) houseNum[i] = 900;
                     else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
-                    System.out.println(s[i] + " " + a[i] + " " + houseLet[i]);
+                    
                 }
-                
+                distance[h] += 45800;
+                distance[h] += locations[0].getCoordX();
+                while(i != 0)
+                {
+                    for(int k = 0; k <= i; k ++) { //closest avenue values (y)
+                    if(locations[k].getCoordX() == locations[k+1].getCoordX())
+                    {
+                       if(Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY()) < minimum)
+                       {
+                       minimum = Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY());
+                       minimumslot = k + 1;
+                       }
+                      
+                    }
+                    
+                    
+                }
+                }
             }
             
         }
-        for (int j = 0; j < 10000; j++) {
+        /*for (int j = 0; j < 10000; j++) {
             if (s[j] != 0){
             locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
             System.out.println(locations[j].getCoord()); 
             }
         }
+        */
+
         
-        if (h == 0) cy1 = cy2;
+        /*if (h == 0) cy1 = cy2;
         if (h == 1) cy1 = cy3;
         if (h == 2) cy1 = cy4;
         if (h == 3) cy1 = cy5;
@@ -104,7 +127,9 @@ public class VehicleRoutingSystem {
         if (h == 8) cy1 = cy10;
         
         
-        h++;
+        h++; //last thing in our code before printng out results
+        */
         }
+  
     }
 }
