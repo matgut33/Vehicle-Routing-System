@@ -45,68 +45,68 @@ public class VehicleRoutingSystem {
         String useless = "";
         Scanner run = new Scanner(System.in);
         
-        for (int h = 0; h <= 9; h++)  {
-        for (int i = 0; cy1.hasNext(); i++) {
-            if (i < 2) {
-                useless = cy1.nextLine();
-            } else {
-                useless = cy1.nextLine();
-                if (useless.equals("Bart Complex")) {
-                    b = cy1.nextInt();
+        for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
+            for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
+                if (i < 2) {
                     useless = cy1.nextLine();
-                    useless = cy1.nextLine();
-                    l = cy1.nextInt();
-                    break;
                 } else {
-                    num = useless.indexOf("s");
-                    s[i] = Integer.parseInt(useless.substring(0, num));
-                    counter = useless.indexOf("a");
-                    a[i] = Integer.parseInt(useless.substring((num+2), counter));
-                    num = useless.length();
-                    houseLet[i] = (useless.substring((counter+2), num));
-                    if(houseLet[i].equals("A")) houseNum[i] = 0;
-                    else if(houseLet[i].equals("AA")) houseNum[i] = 0;
-                    else if(houseLet[i].equals("B")) houseNum[i] = 100;
-                    else if(houseLet[i].equals("BB")) houseNum[i] = 100;
-                    else if(houseLet[i].equals("C")) houseNum[i] = 200;
-                    else if(houseLet[i].equals("CC")) houseNum[i] = 200;
-                    else if(houseLet[i].equals("D")) houseNum[i] = 300;
-                    else if(houseLet[i].equals("DD")) houseNum[i] = 300;
-                    else if(houseLet[i].equals("E")) houseNum[i] = 400;
-                    else if(houseLet[i].equals("EE")) houseNum[i] = 400;
-                    else if(houseLet[i].equals("F")) houseNum[i] = 500;
-                    else if(houseLet[i].equals("FF")) houseNum[i] = 500;
-                    else if(houseLet[i].equals("G")) houseNum[i] = 600;
-                    else if(houseLet[i].equals("GG")) houseNum[i] = 600;
-                    else if(houseLet[i].equals("H")) houseNum[i] = 700;
-                    else if(houseLet[i].equals("HH")) houseNum[i] = 700;
-                    else if(houseLet[i].equals("I")) houseNum[i] = 800;
-                    else if(houseLet[i].equals("II")) houseNum[i] = 800;
-                    else if(houseLet[i].equals("J")) houseNum[i] = 900;
-                    else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
-                    
-                }
-                distance[h] += 45800;
-                distance[h] += locations[0].getCoordX();
-                while(i != 0)
-                {
-                    for(int k = 0; k <= i; k ++) { //closest avenue values (y)
-                    if(locations[k].getCoordX() == locations[k+1].getCoordX())
-                    {
-                       if(Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY()) < minimum)
-                       {
-                       minimum = Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY());
-                       minimumslot = k + 1;
-                       }
-                      
+                    useless = cy1.nextLine();
+                    if (useless.equals("Bart Complex")) {
+                        b = cy1.nextInt();
+                        useless = cy1.nextLine();
+                        useless = cy1.nextLine();
+                        l = cy1.nextInt();
+                        break;
+                    } else {
+                        num = useless.indexOf("s");
+                        s[i] = Integer.parseInt(useless.substring(0, num));
+                        counter = useless.indexOf("a");
+                        a[i] = Integer.parseInt(useless.substring((num+2), counter));
+                        num = useless.length();
+                        houseLet[i] = (useless.substring((counter+2), num));
+                        if(houseLet[i].equals("A")) houseNum[i] = 0;
+                        else if(houseLet[i].equals("AA")) houseNum[i] = 0;
+                        else if(houseLet[i].equals("B")) houseNum[i] = 100;
+                        else if(houseLet[i].equals("BB")) houseNum[i] = 100;
+                        else if(houseLet[i].equals("C")) houseNum[i] = 200;
+                        else if(houseLet[i].equals("CC")) houseNum[i] = 200;
+                        else if(houseLet[i].equals("D")) houseNum[i] = 300;
+                        else if(houseLet[i].equals("DD")) houseNum[i] = 300;
+                        else if(houseLet[i].equals("E")) houseNum[i] = 400;
+                        else if(houseLet[i].equals("EE")) houseNum[i] = 400;
+                        else if(houseLet[i].equals("F")) houseNum[i] = 500;
+                        else if(houseLet[i].equals("FF")) houseNum[i] = 500;
+                        else if(houseLet[i].equals("G")) houseNum[i] = 600;
+                        else if(houseLet[i].equals("GG")) houseNum[i] = 600;
+                        else if(houseLet[i].equals("H")) houseNum[i] = 700;
+                        else if(houseLet[i].equals("HH")) houseNum[i] = 700;
+                        else if(houseLet[i].equals("I")) houseNum[i] = 800;
+                        else if(houseLet[i].equals("II")) houseNum[i] = 800;
+                        else if(houseLet[i].equals("J")) houseNum[i] = 900;
+                        else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
+
                     }
-                    
-                    
+                    distance[h] += 45800;
+                    distance[h] += locations[0].getCoordX();
+                    while(i != 0)
+                    {
+                        for(int k = 0; k <= i; k ++) { //closest avenue values (y)
+                        if(locations[k].getCoordX() == locations[k+1].getCoordX())
+                        {
+                           if(Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY()) < minimum)
+                           {
+                           minimum = Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY());
+                           minimumslot = k + 1;
+                           }
+
+                        }
+
+
+                    }
+                    }
                 }
-                }
+
             }
-            
-        }
         /*for (int j = 0; j < 10000; j++) {
             if (s[j] != 0){
             locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
