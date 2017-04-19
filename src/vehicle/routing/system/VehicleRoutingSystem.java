@@ -29,6 +29,7 @@ public class VehicleRoutingSystem {
         int distance[] = new int[10];
         int minimum = 100000;
         int minimumslot = 0;
+        int arraylength = 0;
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
@@ -84,36 +85,56 @@ public class VehicleRoutingSystem {
                         else if(houseLet[i].equals("II")) houseNum[i] = 800;
                         else if(houseLet[i].equals("J")) houseNum[i] = 900;
                         else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
+                        
+                        locations[i - 2] = new Location(s[i], a[i], houseNum[i], b, l);
+                        arraylength = i - 2;
 
                     }
-                    distance[h] += 45800;
-                    distance[h] += locations[0].getCoordX();
-                    while(i != 0)
-                    {
-                        for(int k = 0; k <= i; k ++) { //closest avenue values (y)
-                        if(locations[k].getCoordX() == locations[k+1].getCoordX())
-                        {
-                           if(Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY()) < minimum)
-                           {
-                           minimum = Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY());
-                           minimumslot = k + 1;
-                           }
-
-                        }
-
-
-                    }
-                    }
+                    
                 }
 
             }
-        /*for (int j = 0; j < 10000; j++) {
-            if (s[j] != 0){
-            locations[j] = new Location(s[j], a[j], houseNum[j], b, l);
-            System.out.println(locations[j].getCoord()); 
-            }
-        }
-        */
+            
+            distance[h] += 45800;
+                    
+                    while(arraylength != 0)
+                    {
+                        minimum = 10000;
+                        for(int k = 0; k <= arraylength; k ++) 
+                        { //closest avenue values (y)
+                            if(locations[0].getCoordX() == locations[k].getCoordX())
+                            {
+                           
+                                if(Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) < minimum)
+                                    {
+                                    minimum = Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY());
+                                    minimumslot = k;
+                                    }
+                                
+
+                            }
+
+
+                        }
+                        
+                        locations[0] = locations[minimumslot]; //reset 0 to the new point
+                        
+                        for(int k = 0; k <= arraylength; k++)
+                        {
+                            
+                            if(k > minimumslot)
+                            {
+                                locations[k - 1] = locations[k];
+                            }
+                            
+                        }
+                        
+                        arraylength --;
+                        System.out.println(locations[0].getCoordX());
+                    }
+            
+        
+        
 
         
         /*if (h == 0) cy1 = cy2;
@@ -129,6 +150,7 @@ public class VehicleRoutingSystem {
         
         h++; //last thing in our code before printng out results
         */
+                    
         }
   
     }
