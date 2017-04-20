@@ -72,6 +72,8 @@ public class Location {
         street = 0;
         ave = 0;
         houseNum = 0;
+        Coordinate.x = 0;
+        Coordinate.y = 0;
     }
     
     public void setCoord(int x, int y) {
