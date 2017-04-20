@@ -74,6 +74,11 @@ public class Location {
         houseNum = 0;
     }
     
+    public void setCoord(int x, int y) {
+        Coordinate.x = x;
+        Coordinate.y = y;
+    }
+    
     public Point getCoord() {
         return Coordinate;
     }
