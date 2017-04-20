@@ -86,40 +86,46 @@ public class VehicleRoutingSystem {
                         else if(houseLet[i].equals("J")) houseNum[i] = 900;
                         else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
                         
-                        locations[i - 2] = new Location(s[i], a[i], houseNum[i], b, l);
-                        arraylength = i - 2;
+                        locations[i - 1] = new Location(s[i], a[i], houseNum[i], b, l);
+                        arraylength = i - 1;
 
                     }
                     
                 }
 
             }
+            locations[0] = new Location(1,1,0,b,l);
+                    
             
             distance[h] += 45800;
-                    
+            
                     while(arraylength != 0)
                     {
-                        minimum = 10000;
-                        for(int k = 0; k <= arraylength; k ++) 
+                        minimum = 1000000;
+                        minimumslot = 0;
+                        for(int k = 1; k <= arraylength; k ++) 
                         { //closest avenue values (y)
                             if(locations[0].getCoordX() == locations[k].getCoordX())
                             {
                            
                                 if(Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) < minimum)
                                     {
-                                    minimum = Math.abs(locations[k].getCoordY() - locations[k+1].getCoordY());
+                                    minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY());
                                     minimumslot = k;
                                     }
                                 
 
                             }
-
+                            
+                            
 
                         }
                         
+                        System.out.println(locations[minimumslot].getCoord());
+                        
                         locations[0] = locations[minimumslot]; //reset 0 to the new point
                         
-                        for(int k = 0; k <= arraylength; k++)
+                        for(int k = 1; k <= arraylength; k++)
                         {
                             
                             if(k > minimumslot)
@@ -130,7 +136,7 @@ public class VehicleRoutingSystem {
                         }
                         
                         arraylength --;
-                        System.out.println(locations[0].getCoordX());
+                        System.out.println(minimum);
                     }
             
         
