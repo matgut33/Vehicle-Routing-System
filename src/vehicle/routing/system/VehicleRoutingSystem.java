@@ -15,6 +15,7 @@ package vehicle.routing.system;
 import java.util.Scanner;
 import java.io.*;
 import java.awt.Point;
+import java.text.DecimalFormat;
 
 
 public class VehicleRoutingSystem {
@@ -23,13 +24,18 @@ public class VehicleRoutingSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+        DecimalFormat two = new DecimalFormat("#.##");
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0; 
         int houseNum[] = new int[100000]; 
-        int distance[] = new int[10];
+        int distance[] = new int[10]; 
+        int visited[] = new int[10];
+        double time[] = new double[10];
+        double price[] = new double[10];
         int minimum = 100000;
         int minimumslot = 0;
         int arraylength = 0;
+        double miles[] = new double[10];
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
@@ -45,6 +51,7 @@ public class VehicleRoutingSystem {
         int counter = 1; int num = 0;
         String useless = "";
         Scanner run = new Scanner(System.in);
+        price[0] = 100000;
         
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
@@ -121,9 +128,27 @@ public class VehicleRoutingSystem {
 
                         }
                         
-                        System.out.println(locations[minimumslot].getCoord());
+                        if(minimum == 1000000)
+                        {
+                            for (int k = 1; k <= arraylength; k++) { //closest avenue values (y)
+                                if (locations[0].getCoordX() + 200 == locations[k].getCoordX()) {
+
+                                    if (Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) < minimum) {
+                                        minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY() + 200);
+                                        minimumslot = k;
+                                    }
+
+                                }
+
+                            } 
+                        }
+                        
+                        //System.out.println(locations[minimumslot].getCoord());
                         
                         locations[0] = locations[minimumslot]; //reset 0 to the new point
+                        
+                        
+                        
                         
                         for(int k = 1; k <= arraylength; k++)
                         {
@@ -134,16 +159,31 @@ public class VehicleRoutingSystem {
                             }
                             
                         }
-                        
+                        distance[h] += minimum;
+                        visited[h] ++;
+                        time[h] += 60; 
                         arraylength --;
-                        System.out.println(minimum);
+                        //System.out.println(minimum);
                     }
+                    
+                    miles[h] = distance[h] / 5000;
+                    
+                    price[h] += (miles[h] * 5);
+                    time[h] += ((miles[h] / 50) * 30);
+                    
+                    System.out.println(two.format(time[h] / 3600) + " hours on Cycle " + (h + 1));
+                    
+                    
+            
+              
+                    
+                    
             
         
         
 
         
-        /*if (h == 0) cy1 = cy2;
+        if (h == 0) cy1 = cy2;
         if (h == 1) cy1 = cy3;
         if (h == 2) cy1 = cy4;
         if (h == 3) cy1 = cy5;
@@ -154,8 +194,8 @@ public class VehicleRoutingSystem {
         if (h == 8) cy1 = cy10;
         
         
-        h++; //last thing in our code before printng out results
-        */
+         //last thing in our code before printng out results
+        
                     
         }
   
