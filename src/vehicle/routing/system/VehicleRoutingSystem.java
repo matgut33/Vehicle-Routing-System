@@ -131,13 +131,25 @@ public class VehicleRoutingSystem {
                         if(minimum == 1000000)
                         {
                             for (int k = 1; k <= arraylength; k++) { //closest avenue values (y)
-                                if (locations[0].getCoordX() + 200 == locations[k].getCoordX()) {
-
-                                    if (Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) < minimum) {
-                                        minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY() + 200);
-                                        minimumslot = k;
+                                if (locations[0].getCoordX() + 200 == locations[k].getCoordX()) 
+                                {
+                                    if(locations[0].getCoordY() > 25000)
+                                    {
+                                        if(locations[k].getCoordY() > locations[minimumslot].getCoordY())
+                                        {
+                                            minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) + 200;
+                                            minimumslot = k;
+                                        }      
                                     }
-
+                                    
+                                    if(locations[0].getCoordY() <= 25000)
+                                    {
+                                        if(locations[k].getCoordY() < locations[minimumslot].getCoordY())
+                                        {
+                                            minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) + 200;
+                                            minimumslot = k;
+                                        }      
+                                    }
                                 }
 
                             } 
@@ -170,8 +182,9 @@ public class VehicleRoutingSystem {
                     
                     price[h] += (miles[h] * 5);
                     time[h] += ((miles[h] / 50) * 30);
-                    
-                    System.out.println(two.format(time[h] / 3600) + " hours on Cycle " + (h + 1));
+                    System.out.println(price[h]);
+                    //System.out.println(miles[h]);
+                    //System.out.println(two.format(time[h] / 3600) + " hours on Cycle " + (h + 1));
                     
                     
             
@@ -198,6 +211,7 @@ public class VehicleRoutingSystem {
         
                     
         }
+        
   
     }
 }
