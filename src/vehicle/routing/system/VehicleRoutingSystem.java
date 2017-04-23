@@ -25,6 +25,7 @@ public class VehicleRoutingSystem {
      */
     public static void main(String[] args) throws IOException {
         DecimalFormat two = new DecimalFormat("#.##");
+        DecimalFormat money = new DecimalFormat("#.##");
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0; 
         int houseNum[] = new int[100000]; 
@@ -155,8 +156,6 @@ public class VehicleRoutingSystem {
                             } 
                         }
                         
-                        //System.out.println(locations[minimumslot].getCoord());
-                        
                         locations[0] = locations[minimumslot]; //reset 0 to the new point
                         
                         
@@ -175,27 +174,15 @@ public class VehicleRoutingSystem {
                         visited[h] ++;
                         time[h] += 60; 
                         arraylength --;
-                        //System.out.println(minimum);
                     }
                     
                     miles[h] = distance[h] / 5000;
                     
                     price[h] += (miles[h] * 5);
                     time[h] += ((miles[h] / 50) * 30);
-                    System.out.println(price[h]);
-                    //System.out.println(miles[h]);
-                    //System.out.println(two.format(time[h] / 3600) + " hours on Cycle " + (h + 1));
+                    System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
                     
-                    
-            
-              
-                    
-                    
-            
-        
-        
 
-        
         if (h == 0) cy1 = cy2;
         if (h == 1) cy1 = cy3;
         if (h == 2) cy1 = cy4;
