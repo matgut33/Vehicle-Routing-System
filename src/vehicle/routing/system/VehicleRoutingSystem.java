@@ -110,7 +110,7 @@ public class VehicleRoutingSystem {
                     while(arraylength != 0)
                     {
                         minimum = 100000;
-                        minimumslot = 0;
+                        minimumslot = 1;
                         for(int k = 1; k <= arraylength; k ++) 
                         { //closest avenue values (y)
                             if(locations[0].getCoordX() == locations[k].getCoordX())
@@ -164,11 +164,20 @@ public class VehicleRoutingSystem {
                             } 
                         }
                         
+                        
+                        if(minimum == 100000)
+                        {
+                            minimum = Math.abs(locations[0].getCoordY() - locations[1].getCoordY());  
+                        }
+                        //System.out.println(locations[0].getCoord());
+                        //System.out.println(minimum);
+                        //System.out.println(locations[minimumslot].getCoord());
+                        distance[h] += minimum;
+                        visited[h] ++;
+                        time[h] += 60; 
+                        arraylength --;
+                        
                         locations[0] = locations[minimumslot]; //reset 0 to the new point
-                        
-                        
-                        
-                        
                         for(int k = 1; k <= arraylength; k++)
                         {
                             
@@ -178,15 +187,6 @@ public class VehicleRoutingSystem {
                             }
                             
                         }
-                        
-                        if(minimum != 100000)
-                        {
-                            distance[h] += minimum;
-                            visited[h] ++;
-                            time[h] += 60; 
-                            arraylength --;  
-                        }
-                        
                     }
                     
                     miles[h] = distance[h] / 5000;
