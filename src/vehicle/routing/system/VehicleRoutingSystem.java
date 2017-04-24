@@ -37,6 +37,8 @@ public class VehicleRoutingSystem {
         int minimumslot = 0;
         int arraylength = 0;
         double miles[] = new double[10];
+        int start[] = new int[8];
+        int finish[] = new int[8];
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
@@ -50,9 +52,15 @@ public class VehicleRoutingSystem {
         Scanner cy9 = new Scanner(new File("cycle9.txt")); //Takes in cycle 9 data
         Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
         int counter = 1; int num = 0;
+        int trucktime[] = new int[8];
+        int truckvisited[] = new int[8];
+        int truckdistance[] = new int[8];
+        double truckmiles[] = new double[8];
+        double truckprice[] = new double[8];
+        
         String useless = "";
         Scanner run = new Scanner(System.in);
-        price[0] = 100000;
+        price[0] = 800000;
         
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
@@ -103,59 +111,75 @@ public class VehicleRoutingSystem {
 
             }
             locations[0] = new Location(1,1,0,b,l);
-                    
+            start[0] = 0;
+            finish[0] = arraylength/8;
+            start[1] = arraylength/8;
+            finish[1] = arraylength/8 * 2;
+            start[2] = arraylength/8 * 2;
+            finish[2] = arraylength/8 * 3;
+            start[3] = arraylength/8 * 3;
+            finish[3] = arraylength/8 * 4;
+            start[4] = arraylength/8 * 4;
+            finish[4] = arraylength/8 * 5;
+            start[5] = arraylength/8 * 5;
+            finish[5] = arraylength/8 * 6;
+            start[6] = arraylength/8 * 6;
+            finish[6] = arraylength/8 * 7;
+            start[7] = arraylength/8 * 7;
+            finish[7] = arraylength;
             
-            distance[h] += 45800;
             
-                    while(arraylength != 0)
+            
+            for(int tnum = 0; tnum <= 7; tnum++)
+            {
+                truckdistance[tnum] = 0;
+                truckmiles[tnum] = 0;
+                truckprice[tnum] = 0;
+                truckvisited[tnum] = 0;
+                trucktime[tnum] = 0;
+                
+                truckdistance[tnum] += Math.abs(locations[start[tnum]].getCoordX() - 24800) + Math.abs(locations[start[tnum]].getCoordY() - 21000);
+                while(finish[tnum] != start[tnum])
                     {
                         minimum = 100000;
-                        minimumslot = 1;
-                        for(int k = 1; k <= arraylength; k ++) 
+                        minimumslot = start[tnum] + 1;
+                        for(int k = start[tnum] + 1; k <= finish[tnum]; k ++) 
                         { //closest avenue values (y)
-                            if(locations[0].getCoordX() == locations[k].getCoordX())
+                            if(locations[start[tnum]].getCoordX() == locations[k].getCoordX())
                             {
-                           
-                                if(Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) < minimum)
+                                if(Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) < minimum)
                                     {
-                                    minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY());
+                                    minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY());
                                     minimumslot = k;
                                     }
-                                
-
                             }
-                            
-                            
-
                         }
-                        
                         if(minimum == 100000)
                         {
-                            for (int k = 1; k <= arraylength; k++) { //closest avenue values (y)
-                                if (locations[0].getCoordX() + 200 == locations[k].getCoordX()) 
+                            for (int k = start[tnum] + 1; k <= finish[tnum]; k++) { //closest avenue values (y)
+                                if (locations[start[tnum]].getCoordX() + 200 == locations[k].getCoordX()) 
                                 {
-                                    if(locations[0].getCoordY() > 25000)
+                                    if(locations[start[tnum]].getCoordY() > 25000)
                                     {
                                         if(locations[k].getCoordY() > locations[minimumslot].getCoordY())
                                         {
-                                            minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) + 200;
+                                            minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + 200;
                                             minimumslot = k;
-                                            if (locations[0].getAve() == locations[k].getAve()) 
+                                            if (locations[start[tnum]].getAve() == locations[k].getAve()) 
                                             {
-                                                minimum = ((locations[0].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
+                                                minimum = ((locations[start[tnum]].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
                                             }
                                         }      
                                     }
-                                    
-                                    if(locations[0].getCoordY() <= 25000)
+                                    if(locations[start[tnum]].getCoordY() <= 25000)
                                     {
                                         if(locations[k].getCoordY() < locations[minimumslot].getCoordY())
                                         {
-                                            minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) + 200;
+                                            minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + 200;
                                             minimumslot = k;
-                                            if(locations[0].getAve() == locations[k].getAve())
+                                            if(locations[start[tnum]].getAve() == locations[k].getAve())
                                             {
-                                                minimum = ((locations[0].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
+                                                minimum = ((locations[start[tnum]].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
                                             }
                                         }      
                                     }
@@ -163,25 +187,17 @@ public class VehicleRoutingSystem {
 
                             } 
                         }
-                        
-                        
-                        if(minimum == 100000 && minimumslot == 1)
+                        if(minimum == 100000 && minimumslot == start[tnum] + 1)
                         {
-                            System.out.println(minimum + "  " + locations[0].getCoord() + "  " + locations[1].getCoord());
-                            minimum = Math.abs(locations[0].getCoordY() - locations[1].getCoordY()) + 200;  
+                            minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[start[tnum] + 1].getCoordY()) + 200;  
                         }
-                        //System.out.println(locations[0].getCoord());
-                        //System.out.println(minimum);
-                        //System.out.println(locations[minimumslot].getCoord());
-                        distance[h] += minimum;
-                        visited[h] ++;
-                        time[h] += 60; 
-                        arraylength --;
-                        
-                        locations[0] = locations[minimumslot]; //reset 0 to the new point
-                        for(int k = 1; k <= arraylength; k++)
+                        truckdistance[tnum] += minimum;
+                        truckvisited[tnum] ++;
+                        trucktime[tnum] += 60; 
+                        finish[tnum] --;
+                        locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
+                        for(int k = start[tnum] + 1; k <= finish[tnum]; k++)
                         {
-                            
                             if(k > minimumslot)
                             {
                                 locations[k - 1] = locations[k];
@@ -189,11 +205,27 @@ public class VehicleRoutingSystem {
                             
                         }
                     }
+            }
+            time[h] = 0;        
+            for(int tnum = 0; tnum <= 6; tnum++)
+            {
+                truckmiles[tnum] = truckdistance[tnum] / 5000;
+                truckprice[tnum] = truckmiles[tnum] * 5;
+                trucktime[tnum] += truckmiles[tnum] * 150;
+                if(trucktime[tnum] > time[h])
+                {
+                    time[h] = trucktime[tnum];
+                }
+                miles[h] += truckmiles[tnum];
+                price[h] += truckprice[tnum];
+            }
+            
                     
-                    miles[h] = distance[h] / 5000;
                     
-                    price[h] += (miles[h] * 5);
-                    time[h] += (miles[h] * 150); //travel time
+                    
+                    
+                    
+                    
                     
                     System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
                     
