@@ -109,7 +109,7 @@ public class VehicleRoutingSystem {
             
                     while(arraylength != 0)
                     {
-                        minimum = 1000000;
+                        minimum = 100000;
                         minimumslot = 0;
                         for(int k = 1; k <= arraylength; k ++) 
                         { //closest avenue values (y)
@@ -129,7 +129,7 @@ public class VehicleRoutingSystem {
 
                         }
                         
-                        if(minimum == 1000000)
+                        if(minimum == 100000)
                         {
                             for (int k = 1; k <= arraylength; k++) { //closest avenue values (y)
                                 if (locations[0].getCoordX() + 200 == locations[k].getCoordX()) 
@@ -140,6 +140,10 @@ public class VehicleRoutingSystem {
                                         {
                                             minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) + 200;
                                             minimumslot = k;
+                                            if (locations[0].getAve() == locations[k].getAve()) 
+                                            {
+                                                minimum = ((locations[0].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
+                                            }
                                         }      
                                     }
                                     
@@ -149,6 +153,10 @@ public class VehicleRoutingSystem {
                                         {
                                             minimum = Math.abs(locations[0].getCoordY() - locations[k].getCoordY()) + 200;
                                             minimumslot = k;
+                                            if(locations[0].getAve() == locations[k].getAve())
+                                            {
+                                                minimum = ((locations[0].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
+                                            }
                                         }      
                                     }
                                 }
@@ -170,16 +178,22 @@ public class VehicleRoutingSystem {
                             }
                             
                         }
-                        distance[h] += minimum;
-                        visited[h] ++;
-                        time[h] += 60; 
-                        arraylength --;
+                        
+                        if(minimum != 100000)
+                        {
+                            distance[h] += minimum;
+                            visited[h] ++;
+                            time[h] += 60; 
+                            arraylength --;  
+                        }
+                        
                     }
                     
                     miles[h] = distance[h] / 5000;
                     
                     price[h] += (miles[h] * 5);
-                    time[h] += ((miles[h] / 50) * 30);
+                    time[h] += (miles[h] * 150); //travel time
+                    
                     System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
                     
 
