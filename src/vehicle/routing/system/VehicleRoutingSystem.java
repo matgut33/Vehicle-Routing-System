@@ -60,7 +60,6 @@ public class VehicleRoutingSystem {
         
         String useless = "";
         Scanner run = new Scanner(System.in);
-        price[0] = 800000;
         
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
@@ -212,12 +211,14 @@ public class VehicleRoutingSystem {
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
                 truckprice[tnum] = truckmiles[tnum] * 5;
                 trucktime[tnum] += truckmiles[tnum] * 150;
+               
                 if(trucktime[tnum] > time[h])
                 {
                     time[h] = trucktime[tnum];
                 }
                 miles[h] += truckmiles[tnum];
                 price[h] += truckprice[tnum];
+                price[h] += truckmiles[tnum] * 5;
             }
             
                     
@@ -228,6 +229,7 @@ public class VehicleRoutingSystem {
                     
                     
                     System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
+                   
                     
 
         if (h == 0) cy1 = cy2;
@@ -245,7 +247,11 @@ public class VehicleRoutingSystem {
         
                     
         }
-        
+         double totalprice = 800000;
+                    for (int i = 0; i < 10; i ++) {
+                        totalprice += price[i];
+                    }  
+        System.out.println("Total price = $" + money.format(totalprice));
   
     }
 }
