@@ -165,9 +165,10 @@ public class VehicleRoutingSystem {
                         }
                         
                         
-                        if(minimum == 100000)
+                        if(minimum == 100000 && minimumslot == 1)
                         {
-                            minimum = Math.abs(locations[0].getCoordY() - locations[1].getCoordY());  
+                            System.out.println(minimum + "  " + locations[0].getCoord() + "  " + locations[1].getCoord());
+                            minimum = Math.abs(locations[0].getCoordY() - locations[1].getCoordY()) + 200;  
                         }
                         //System.out.println(locations[0].getCoord());
                         //System.out.println(minimum);
@@ -208,7 +209,7 @@ public class VehicleRoutingSystem {
         if (h == 8) cy1 = cy10;
         
         
-         //last thing in our code before printng out results
+         //last thing in our code before printing out results
         
                     
         }
