@@ -14,7 +14,7 @@ package vehicle.routing.system;
 
 import java.util.Scanner;
 import java.io.*;
-import java.awt.Point;
+
 import java.text.DecimalFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -274,7 +274,7 @@ public class VehicleRoutingSystem {
                     
                     
                     System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
-                    System.out.println("Salary Payout " + money.format(salary[h]));
+                    System.out.println("Salary Payout $" + money.format(salary[h]));
                    
         
 
