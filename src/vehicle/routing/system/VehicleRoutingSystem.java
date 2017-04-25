@@ -47,6 +47,7 @@ public class VehicleRoutingSystem {
         double miles[] = new double[10];
         int start[] = new int[10];
         int finish[] = new int[10];
+        double salary[] = new double[10];
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("Cycles/cycle1.txt")); //Takes in cycle 1 data
@@ -251,6 +252,7 @@ public class VehicleRoutingSystem {
                 trucktime[tnum] += truckmiles[tnum] * 150;
                 trucktime[tnum] -= (30 * truckvisited[tnum]); //idk if truckvisited is how many houses are visited per cycle, i need that variable
                 truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2); //salary
+                salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2);
                 if(tnum <= 5)
                 {
                     truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
@@ -272,6 +274,7 @@ public class VehicleRoutingSystem {
                     
                     
                     System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
+                    System.out.println("Salary Payout " + money.format(salary[h]));
                    
         
 
