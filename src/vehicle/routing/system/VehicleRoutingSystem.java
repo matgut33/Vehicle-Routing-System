@@ -133,16 +133,16 @@ public class VehicleRoutingSystem {
             }
             locations[0] = new Location(1,1,0,b,l);
             
-            if(h == 0) runningtrucks = 8;
-            if(h == 1) runningtrucks = 8;
-            if(h == 2) runningtrucks = 7;
-            if(h == 3) runningtrucks = 6;
-            if(h == 4) runningtrucks = 6;
-            if(h == 5) runningtrucks = 9;
-            if(h == 6) runningtrucks = 8;
-            if(h == 7) runningtrucks = 7;
-            if(h == 8) runningtrucks = 6;
-            if(h == 9) runningtrucks = 6;
+            if(h == 0) runningtrucks = 7;
+            if(h == 1) runningtrucks = 6;
+            if(h == 2) runningtrucks = 6;
+            if(h == 3) runningtrucks = 5;
+            if(h == 4) runningtrucks = 5;
+            if(h == 5) runningtrucks = 7;
+            if(h == 6) runningtrucks = 6;
+            if(h == 7) runningtrucks = 6;
+            if(h == 8) runningtrucks = 5;
+            if(h == 9) runningtrucks = 5;
             
             for(int int1 = 0; int1 < 10; int1++)
             {
