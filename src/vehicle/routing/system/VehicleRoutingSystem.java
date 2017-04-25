@@ -209,16 +209,15 @@ public class VehicleRoutingSystem {
             for(int tnum = 0; tnum <= 6; tnum++)
             {
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
-                truckprice[tnum] = truckmiles[tnum] * 5;
+                truckprice[tnum] += truckmiles[tnum] * 5;
                 trucktime[tnum] += truckmiles[tnum] * 150;
-               
+                truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
                 if(trucktime[tnum] > time[h])
                 {
                     time[h] = trucktime[tnum];
                 }
                 miles[h] += truckmiles[tnum];
                 price[h] += truckprice[tnum];
-                price[h] += truckmiles[tnum] * 5;
             }
             
                     
