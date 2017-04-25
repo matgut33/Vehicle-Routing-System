@@ -45,8 +45,8 @@ public class VehicleRoutingSystem {
         int minimumslot = 0;
         int arraylength = 0;
         double miles[] = new double[10];
-        int start[] = new int[8];
-        int finish[] = new int[8];
+        int start[] = new int[10];
+        int finish[] = new int[10];
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("Cycles/cycle1.txt")); //Takes in cycle 1 data
@@ -72,11 +72,12 @@ public class VehicleRoutingSystem {
         PrintWriter cy10W = new PrintWriter("Output/" + runDate + "/Output, Cycle 10.txt", "UTF-8");
         PrintWriter cyOW = new PrintWriter("Output/" + runDate + "/Output, Overall.txt", "UTF-8");
         int counter = 1; int num = 0;
-        int trucktime[] = new int[8];
-        int truckvisited[] = new int[8];
-        int truckdistance[] = new int[8];
-        double truckmiles[] = new double[8];
-        double truckprice[] = new double[8];
+        int trucktime[] = new int[10];
+        int truckvisited[] = new int[10];
+        int truckdistance[] = new int[10];
+        double truckmiles[] = new double[10];
+        double truckprice[] = new double[10];
+        int runningtrucks = 0;
         
         String useless = "";
         Scanner run = new Scanner(System.in);
@@ -130,26 +131,33 @@ public class VehicleRoutingSystem {
 
             }
             locations[0] = new Location(1,1,0,b,l);
-            start[0] = 0;
-            finish[0] = arraylength/8;
-            start[1] = arraylength/8;
-            finish[1] = arraylength/8 * 2;
-            start[2] = arraylength/8 * 2;
-            finish[2] = arraylength/8 * 3;
-            start[3] = arraylength/8 * 3;
-            finish[3] = arraylength/8 * 4;
-            start[4] = arraylength/8 * 4;
-            finish[4] = arraylength/8 * 5;
-            start[5] = arraylength/8 * 5;
-            finish[5] = arraylength/8 * 6;
-            start[6] = arraylength/8 * 6;
-            finish[6] = arraylength/8 * 7;
-            start[7] = arraylength/8 * 7;
-            finish[7] = arraylength;
             
+            if(h == 0) runningtrucks = 8;
+            if(h == 1) runningtrucks = 8;
+            if(h == 2) runningtrucks = 7;
+            if(h == 3) runningtrucks = 6;
+            if(h == 4) runningtrucks = 6;
+            if(h == 5) runningtrucks = 9;
+            if(h == 6) runningtrucks = 8;
+            if(h == 7) runningtrucks = 7;
+            if(h == 8) runningtrucks = 6;
+            if(h == 9) runningtrucks = 6;
             
+            for(int int1 = 0; int1 < 10; int1++)
+            {
+                start[int1] = 0;
+                finish[int1] = 0;
+            }
             
-            for(int tnum = 0; tnum <= 7; tnum++)
+            for(int int2 = 0; int2 < runningtrucks; int2 ++)
+            {
+                start[int2] = arraylength/runningtrucks * int2;
+                finish[int2] = arraylength/runningtrucks * (int2 + 1);
+            }
+            
+            price[h] += (runningtrucks - 6) * 15000;
+            
+            for(int tnum = 0; tnum <= runningtrucks; tnum++)
             {
                 truckdistance[tnum] = 0;
                 truckmiles[tnum] = 0;
@@ -236,12 +244,16 @@ public class VehicleRoutingSystem {
                     }
             }
                   
-            for(int tnum = 0; tnum <= 6; tnum++)
+            for(int tnum = 0; tnum <= runningtrucks; tnum++)
             {
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
                 truckprice[tnum] += truckmiles[tnum] * 5;
                 trucktime[tnum] += truckmiles[tnum] * 150;
-                truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
+                if(tnum <= 5)
+                {
+                    truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
+                }
+                
                 if(trucktime[tnum] > time[h])
                 {
                     time[h] = trucktime[tnum];
@@ -276,7 +288,7 @@ public class VehicleRoutingSystem {
         
                     
         }
-         double totalprice = 800000;
+         double totalprice = 600000;
                     for (int i = 0; i < 10; i ++) {
                         totalprice += price[i];
                     }
