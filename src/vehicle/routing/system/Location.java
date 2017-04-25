@@ -100,4 +100,9 @@ public class Location {
     public int getCoordY() {
         return Coordinate.y;
     }
+    
+    public Point getCoordSimple() {
+        Point coord = new Point(street, ave);
+        return coord;
+    }
 }

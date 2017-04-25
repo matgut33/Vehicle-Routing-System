@@ -16,6 +16,9 @@ import java.util.Scanner;
 import java.io.*;
 import java.awt.Point;
 import java.text.DecimalFormat;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 
 public class VehicleRoutingSystem {
@@ -24,6 +27,11 @@ public class VehicleRoutingSystem {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws IOException {
+        DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd  HH;mm;ss");
+        Date date = new Date();
+        String runDate = sdf.format(date);
+        String sysPath = System.getProperty("user.dir");
+        new File("Output/" + runDate).mkdirs();
         DecimalFormat two = new DecimalFormat("#.##");
         DecimalFormat money = new DecimalFormat("#.##");
         int cycleDay = 0; //For labeling cycles
@@ -41,16 +49,28 @@ public class VehicleRoutingSystem {
         int finish[] = new int[8];
         String houseLet[] = new String[10000000], runAgain = "";
         Location locations[] = new Location[10000000]; //Used for taking in locations
-        Scanner cy1 = new Scanner(new File("cycle1.txt")); //Takes in cycle 1 data
-        Scanner cy2 = new Scanner(new File("cycle2.txt")); //Takes in cycle 2 data
-        Scanner cy3 = new Scanner(new File("cycle3.txt")); //Takes in cycle 3 data
-        Scanner cy4 = new Scanner(new File("cycle4.txt")); //Takes in cycle 4 data
-        Scanner cy5 = new Scanner(new File("cycle5.txt")); //Takes in cycle 5 data
-        Scanner cy6 = new Scanner(new File("cycle6.txt")); //Takes in cycle 6 data
-        Scanner cy7 = new Scanner(new File("cycle7.txt")); //Takes in cycle 7 data
-        Scanner cy8 = new Scanner(new File("cycle8.txt")); //Takes in cycle 8 data
-        Scanner cy9 = new Scanner(new File("cycle9.txt")); //Takes in cycle 9 data
-        Scanner cy10 = new Scanner(new File("cycle10.txt")); //Takes in cycle 10 data
+        Scanner cy1 = new Scanner(new File("Cycles/cycle1.txt")); //Takes in cycle 1 data
+        Scanner cy2 = new Scanner(new File("Cycles/cycle2.txt")); //Takes in cycle 2 data
+        Scanner cy3 = new Scanner(new File("Cycles/cycle3.txt")); //Takes in cycle 3 data
+        Scanner cy4 = new Scanner(new File("Cycles/cycle4.txt")); //Takes in cycle 4 data
+        Scanner cy5 = new Scanner(new File("Cycles/cycle5.txt")); //Takes in cycle 5 data
+        Scanner cy6 = new Scanner(new File("Cycles/cycle6.txt")); //Takes in cycle 6 data
+        Scanner cy7 = new Scanner(new File("Cycles/cycle7.txt")); //Takes in cycle 7 data
+        Scanner cy8 = new Scanner(new File("Cycles/cycle8.txt")); //Takes in cycle 8 data
+        Scanner cy9 = new Scanner(new File("Cycles/cycle9.txt")); //Takes in cycle 9 data
+        Scanner cy10 = new Scanner(new File("Cycles/cycle10.txt")); //Takes in cycle 10 data
+        PrintWriter cy1W = new PrintWriter("Output/" + runDate + "/Output, Cycle 1.txt", "UTF-8");
+        cy1W.println("The locations, in order, visisted today were: ");
+        PrintWriter cy2W = new PrintWriter("Output/" + runDate + "/Output, Cycle 2.txt", "UTF-8");
+        PrintWriter cy3W = new PrintWriter("Output/" + runDate + "/Output, Cycle 3.txt", "UTF-8");
+        PrintWriter cy4W = new PrintWriter("Output/" + runDate + "/Output, Cycle 4.txt", "UTF-8");
+        PrintWriter cy5W = new PrintWriter("Output/" + runDate + "/Output, Cycle 5.txt", "UTF-8");
+        PrintWriter cy6W = new PrintWriter("Output/" + runDate + "/Output, Cycle 6.txt", "UTF-8");
+        PrintWriter cy7W = new PrintWriter("Output/" + runDate + "/Output, Cycle 7.txt", "UTF-8");
+        PrintWriter cy8W = new PrintWriter("Output/" + runDate + "/Output, Cycle 8.txt", "UTF-8");
+        PrintWriter cy9W = new PrintWriter("Output/" + runDate + "/Output, Cycle 9.txt", "UTF-8");
+        PrintWriter cy10W = new PrintWriter("Output/" + runDate + "/Output, Cycle 10.txt", "UTF-8");
+        PrintWriter cyOW = new PrintWriter("Output/" + runDate + "/Output, Overall.txt", "UTF-8");
         int counter = 1; int num = 0;
         int trucktime[] = new int[8];
         int truckvisited[] = new int[8];
@@ -203,6 +223,16 @@ public class VehicleRoutingSystem {
                             }
                             
                         }
+                        if (h == 0) cy1W.println(locations[h].getCoordSimple());
+                        if (h == 1) cy2W.println(locations[h].getCoordSimple());
+                        if (h == 2) cy3W.println(locations[h].getCoordSimple());
+                        if (h == 3) cy4W.println(locations[h].getCoordSimple());
+                        if (h == 4) cy5W.println(locations[h].getCoordSimple());
+                        if (h == 5) cy6W.println(locations[h].getCoordSimple());
+                        if (h == 6) cy7W.println(locations[h].getCoordSimple());
+                        if (h == 7) cy8W.println(locations[h].getCoordSimple());
+                        if (h == 8) cy9W.println(locations[h].getCoordSimple());
+                        if (h == 9) cy10W.println(locations[h].getCoordSimple());
                     }
             }
                   
@@ -229,7 +259,7 @@ public class VehicleRoutingSystem {
                     
                     System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
                    
-                    
+        
 
         if (h == 0) cy1 = cy2;
         if (h == 1) cy1 = cy3;
@@ -249,8 +279,49 @@ public class VehicleRoutingSystem {
          double totalprice = 800000;
                     for (int i = 0; i < 10; i ++) {
                         totalprice += price[i];
-                    }  
+                    }
+         double totalmiles = 0;
+                    for (int i = 0; i < 10; i ++) {
+                        totalmiles += miles[i];
+                    }
         System.out.println("Total price = $" + money.format(totalprice));
+        cy1W.println("The day's total price was: $" + price[0]);
+        cy2W.println("The day's total price was: $" + price[1]);
+        cy3W.println("The day's total price was: $" + price[2]);
+        cy4W.println("The day's total price was: $" + price[3]);
+        cy5W.println("The day's total price was: $" + price[4]);
+        cy6W.println("The day's total price was: $" + price[5]);
+        cy7W.println("The day's total price was: $" + price[6]);
+        cy8W.println("The day's total price was: $" + price[7]);
+        cy9W.println("The day's total price was: $" + price[8]);
+        cy10W.println("The day's total price was: $" + price[9]);
+        
+        cy1W.println("The day's toal milege was " + miles[0] + " miles");
+        cy2W.println("The day's toal milege was " + miles[1] + " miles");
+        cy3W.println("The day's toal milege was " + miles[2] + " miles");
+        cy4W.println("The day's toal milege was " + miles[3] + " miles");
+        cy5W.println("The day's toal milege was " + miles[4] + " miles");
+        cy6W.println("The day's toal milege was " + miles[5] + " miles");
+        cy7W.println("The day's toal milege was " + miles[6] + " miles");
+        cy8W.println("The day's toal milege was " + miles[7] + " miles");
+        cy9W.println("The day's toal milege was " + miles[8] + " miles");
+        cy10W.println("The day's toal milege was " + miles[9] + " miles");
+        
+        cy1W.close();
+        cy2W.close();
+        cy3W.close();
+        cy4W.close();
+        cy5W.close();
+        cy6W.close();
+        cy7W.close();
+        cy8W.close();
+        cy9W.close();
+        cy10W.close();
+        
+        cyOW.println("The overall price was $" + totalprice);
+        cyOW.println("The overall milege of the combined trucks was " + totalmiles + " miles");
+        cyOW.close();
+        
   
     }
 }
