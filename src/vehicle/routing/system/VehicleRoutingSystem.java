@@ -250,7 +250,7 @@ public class VehicleRoutingSystem {
                 truckprice[tnum] += truckmiles[tnum] * 5;
                 trucktime[tnum] += truckmiles[tnum] * 150;
                 trucktime[tnum] -= (30 * truckvisited[tnum]); //idk if truckvisited is how many houses are visited per cycle, i need that variable
-                truckprice[tnum] += (runningtrucks * ((Math.ceil((trucktime[tnum]/3600.0) - 7) * 45) + 240) * 2); //salary
+                truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2); //salary
                 if(tnum <= 5)
                 {
                     truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
