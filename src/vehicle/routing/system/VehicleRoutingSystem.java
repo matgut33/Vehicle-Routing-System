@@ -72,7 +72,7 @@ public class VehicleRoutingSystem {
         PrintWriter cy10W = new PrintWriter("Output/" + runDate + "/Output, Cycle 10.txt", "UTF-8");
         PrintWriter cyOW = new PrintWriter("Output/" + runDate + "/Output, Overall.txt", "UTF-8");
         int counter = 1; int num = 0;
-        int trucktime[] = new int[10];
+        double trucktime[] = new double[10];
         int truckvisited[] = new int[10];
         int truckdistance[] = new int[10];
         double truckmiles[] = new double[10];
@@ -249,6 +249,7 @@ public class VehicleRoutingSystem {
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
                 truckprice[tnum] += truckmiles[tnum] * 5;
                 trucktime[tnum] += truckmiles[tnum] * 150;
+                truckprice[tnum] += (Math.ceil((trucktime[tnum]/3600.0) - 7) * 45) + 240; //ADD HERE PUTA: returns number of hours
                 if(tnum <= 5)
                 {
                     truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
