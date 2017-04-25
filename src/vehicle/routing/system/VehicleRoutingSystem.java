@@ -293,7 +293,7 @@ public class VehicleRoutingSystem {
         
                     
         }
-         double totalprice = 600000;
+         double totalprice = 500000;
                     for (int i = 0; i < 10; i ++) {
                         totalprice += price[i];
                     }
