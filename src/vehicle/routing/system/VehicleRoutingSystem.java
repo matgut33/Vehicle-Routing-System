@@ -205,7 +205,7 @@ public class VehicleRoutingSystem {
                         }
                     }
             }
-            time[h] = 0;        
+                  
             for(int tnum = 0; tnum <= 6; tnum++)
             {
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
