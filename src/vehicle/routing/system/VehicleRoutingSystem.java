@@ -156,7 +156,7 @@ public class VehicleRoutingSystem {
                 finish[int2] = arraylength/runningtrucks * (int2 + 1);
             }
             
-            price[h] += (runningtrucks - 6) * 15000;
+            price[h] += (runningtrucks - 5) * 15000;
             
             for(int tnum = 0; tnum <= runningtrucks; tnum++)
             {
@@ -253,7 +253,7 @@ public class VehicleRoutingSystem {
                 trucktime[tnum] -= (30 * truckvisited[tnum]); //idk if truckvisited is how many houses are visited per cycle, i need that variable
                 truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2); //salary
                 salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2);
-                if(tnum <= 5)
+                if(tnum <= 4)
                 {
                     truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
                 }
