@@ -61,7 +61,6 @@ public class VehicleRoutingSystem {
         Scanner cy9 = new Scanner(new File("Cycles/cycle9.txt")); //Takes in cycle 9 data
         Scanner cy10 = new Scanner(new File("Cycles/cycle10.txt")); //Takes in cycle 10 data
         PrintWriter cy1W = new PrintWriter("Output/" + runDate + "/Output, Cycle 1.txt", "UTF-8");
-        cy1W.println("The locations, in order, visisted today were: ");
         PrintWriter cy2W = new PrintWriter("Output/" + runDate + "/Output, Cycle 2.txt", "UTF-8");
         PrintWriter cy3W = new PrintWriter("Output/" + runDate + "/Output, Cycle 3.txt", "UTF-8");
         PrintWriter cy4W = new PrintWriter("Output/" + runDate + "/Output, Cycle 4.txt", "UTF-8");
@@ -133,16 +132,16 @@ public class VehicleRoutingSystem {
             }
             locations[0] = new Location(1,1,0,b,l);
             
-            if(h == 0) runningtrucks = 7;
-            if(h == 1) runningtrucks = 6;
-            if(h == 2) runningtrucks = 6;
-            if(h == 3) runningtrucks = 5;
-            if(h == 4) runningtrucks = 5;
-            if(h == 5) runningtrucks = 7;
-            if(h == 6) runningtrucks = 6;
-            if(h == 7) runningtrucks = 6;
-            if(h == 8) runningtrucks = 5;
-            if(h == 9) runningtrucks = 5;
+            if(h == 0) {runningtrucks = 7; cy1W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 1) {runningtrucks = 6; cy2W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 2) {runningtrucks = 6; cy3W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 3) {runningtrucks = 5; cy4W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 5; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 5) {runningtrucks = 7; cy6W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 6) {runningtrucks = 6; cy7W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 7) {runningtrucks = 6; cy8W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 8) {runningtrucks = 5; cy9W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 9) {runningtrucks = 5; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             for(int int1 = 0; int1 < 10; int1++)
             {
@@ -302,6 +301,17 @@ public class VehicleRoutingSystem {
                         totalmiles += miles[i];
                     }
         System.out.println("Total price = $" + money.format(totalprice));
+        cy1W.println("The day's total salary paid was: $" + salary[0]);
+        cy2W.println("The day's total salary paid was: $" + salary[1]);
+        cy3W.println("The day's total salary paid was: $" + salary[2]);
+        cy4W.println("The day's total salary paid was: $" + salary[3]);
+        cy5W.println("The day's total salary paid was: $" + salary[4]);
+        cy6W.println("The day's total salary paid was: $" + salary[5]);
+        cy7W.println("The day's total salary paid was: $" + salary[6]);
+        cy8W.println("The day's total salary paid was: $" + salary[7]);
+        cy9W.println("The day's total salary paid was: $" + salary[8]);
+        cy10W.println("The day's total salary paid was: $" + salary[9]);
+        
         cy1W.println("The day's total price was: $" + price[0]);
         cy2W.println("The day's total price was: $" + price[1]);
         cy3W.println("The day's total price was: $" + price[2]);
@@ -313,16 +323,16 @@ public class VehicleRoutingSystem {
         cy9W.println("The day's total price was: $" + price[8]);
         cy10W.println("The day's total price was: $" + price[9]);
         
-        cy1W.println("The day's toal milege was " + miles[0] + " miles");
-        cy2W.println("The day's toal milege was " + miles[1] + " miles");
-        cy3W.println("The day's toal milege was " + miles[2] + " miles");
-        cy4W.println("The day's toal milege was " + miles[3] + " miles");
-        cy5W.println("The day's toal milege was " + miles[4] + " miles");
-        cy6W.println("The day's toal milege was " + miles[5] + " miles");
-        cy7W.println("The day's toal milege was " + miles[6] + " miles");
-        cy8W.println("The day's toal milege was " + miles[7] + " miles");
-        cy9W.println("The day's toal milege was " + miles[8] + " miles");
-        cy10W.println("The day's toal milege was " + miles[9] + " miles");
+        cy1W.println("The day's total mileage was " + miles[0] + " miles");
+        cy2W.println("The day's total mileage was " + miles[1] + " miles");
+        cy3W.println("The day's total mileage was " + miles[2] + " miles");
+        cy4W.println("The day's total mileage was " + miles[3] + " miles");
+        cy5W.println("The day's total mileage was " + miles[4] + " miles");
+        cy6W.println("The day's total mileage was " + miles[5] + " miles");
+        cy7W.println("The day's total mileage was " + miles[6] + " miles");
+        cy8W.println("The day's total mileage was " + miles[7] + " miles");
+        cy9W.println("The day's total mileage was " + miles[8] + " miles");
+        cy10W.println("The day's total mileage was " + miles[9] + " miles");
         
         cy1W.close();
         cy2W.close();
@@ -336,7 +346,7 @@ public class VehicleRoutingSystem {
         cy10W.close();
         
         cyOW.println("The overall price was $" + totalprice);
-        cyOW.println("The overall milege of the combined trucks was " + totalmiles + " miles");
+        cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
         cyOW.close();
         
   
