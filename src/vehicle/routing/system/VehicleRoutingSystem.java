@@ -231,16 +231,16 @@ public class VehicleRoutingSystem {
                             }
                             
                         }
-                        if (h == 0) cy1W.println(locations[h].getCoordSimple());
-                        if (h == 1) cy2W.println(locations[h].getCoordSimple());
-                        if (h == 2) cy3W.println(locations[h].getCoordSimple());
-                        if (h == 3) cy4W.println(locations[h].getCoordSimple());
-                        if (h == 4) cy5W.println(locations[h].getCoordSimple());
-                        if (h == 5) cy6W.println(locations[h].getCoordSimple());
-                        if (h == 6) cy7W.println(locations[h].getCoordSimple());
-                        if (h == 7) cy8W.println(locations[h].getCoordSimple());
-                        if (h == 8) cy9W.println(locations[h].getCoordSimple());
-                        if (h == 9) cy10W.println(locations[h].getCoordSimple());
+                        if (h == 0) cy1W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 1) cy2W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 2) cy3W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 3) cy4W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 4) cy5W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 5) cy6W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 6) cy7W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 7) cy8W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 8) cy9W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
+                        if (h == 9) cy10W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
                     }
             }
                   
