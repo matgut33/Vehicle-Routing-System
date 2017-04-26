@@ -135,7 +135,7 @@ public class VehicleRoutingSystem {
                         else if(houseLet[i].equals("J")) houseNum[i] = 900;
                         else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
                         
-                        locations[i - 1] = new Location(s[i], a[i], houseNum[i], b, l);
+                        locations[i - 1] = new Location(s[i], a[i], houseNum[i]);
                         arraylength = i - 1;
 
                     }
@@ -145,7 +145,7 @@ public class VehicleRoutingSystem {
             }
             
             //SETS STARTING POSITION OF FIRST TRUCK (BOTTOM LEFT CORNER)
-            locations[0] = new Location(1,1,0,b,l);
+            locations[0] = new Location(1,1,0);
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
             if(h == 0) {runningtrucks = 7; cy1W.println("The number of trucks used today was: " + runningtrucks);}
@@ -156,11 +156,11 @@ public class VehicleRoutingSystem {
             if(h == 5) {runningtrucks = 8; cy6W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 6) {runningtrucks = 9; cy7W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 7) {runningtrucks = 8; cy8W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 8) {runningtrucks = 6; cy9W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 8) {runningtrucks = 7; cy9W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 9) {runningtrucks = 5; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
-            rentedtrucks[h] = runningtrucks - boughttrucks;
+            rentedtrucks[h] = Math.abs(runningtrucks - boughttrucks);
             
             //Loop that resets finishing and starting position array (does it per cycle)
             for(int int1 = 0; int1 < 10; int1++)
@@ -188,10 +188,10 @@ public class VehicleRoutingSystem {
             }
             
             //ADDS COST OF RENTED TRUCKS TO THE DAILY PRICE
-            price[h] += (runningtrucks - boughttrucks) * 15000;
+            price[h] += rentedtrucks[h] * 15000;
             
             //SHOWS AMOUNT OF COST FOR RENTED TRUCKS PER DAY
-            rentingcost[h] = (runningtrucks - boughttrucks) * 15000;
+            rentingcost[h] = rentedtrucks[h] * 15000;
             
             for(int tnum = 0; tnum <= runningtrucks; tnum++)
             {

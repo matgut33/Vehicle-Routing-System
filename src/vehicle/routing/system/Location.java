@@ -8,23 +8,19 @@ package vehicle.routing.system;
 import java.awt.Point;
 
 public class Location {
-    private int street = 0, ave = 0, bart = 0, lisa = 0, houseNum = 0;
+    private int street = 0, ave = 0, houseNum = 0;
     private Point Coordinate;
     
     public Location() { //DEFAULT CONSTRUCTOR FOR HOMES
         street = 0;
         ave = 0;
         houseNum = 0;
-        bart = 0;
-        lisa = 0;
     }
     
-    public Location(int s, int a, int h, int b, int l) { //OVERLOADED CONSTRUCTOR
+    public Location(int s, int a, int h) { //OVERLOADED CONSTRUCTOR
         street = s;
         ave = a;
         houseNum = h;
-        bart = b;
-        lisa = l;
         Coordinate = new Point((street - 1) * 200, (((ave - 1) * 1000) + houseNum));
     }
     
@@ -50,22 +46,6 @@ public class Location {
     
     public int getHouse() {
         return houseNum;
-    }
-    
-    public void setBart(int b) {
-        bart = b;
-    }
-    
-    public int getBart() {
-        return bart;
-    }
-     
-    public void setLisa(int l) {
-        lisa = l;
-    }
-    
-    public int getLisa() {
-        return lisa;
     }
     
     public void clearHouse() { //clears street, avenue and house number
