@@ -44,6 +44,8 @@ public class VehicleRoutingSystem {
         int minimum = 100000;
         int minimumslot = 0;
         int arraylength = 0;
+        int boughttrucks = 0;
+        int rentedtrucks[] = new int[10];
         double miles[] = new double[10];
         int start[] = new int[10];
         int finish[] = new int[10];
@@ -78,6 +80,10 @@ public class VehicleRoutingSystem {
         double truckmiles[] = new double[10];
         double truckprice[] = new double[10];
         int runningtrucks = 0;
+        
+        //SET AMOUNT OF TRUCKS BOUGHT
+        boughttrucks = 5;
+        
         
         String useless = "";
         Scanner run = new Scanner(System.in);
@@ -133,6 +139,7 @@ public class VehicleRoutingSystem {
             }
             locations[0] = new Location(1,1,0,b,l);
             
+            //SETS AMOUNT OF TOTAL TRUCKS PER DAY
             if(h == 0) {runningtrucks = 7; cy1W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 1) {runningtrucks = 7; cy2W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 2) {runningtrucks = 8; cy3W.println("The number of trucks used today was: " + runningtrucks);}
@@ -143,6 +150,8 @@ public class VehicleRoutingSystem {
             if(h == 7) {runningtrucks = 8; cy8W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 8) {runningtrucks = 6; cy9W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 9) {runningtrucks = 5; cy10W.println("The number of trucks used today was: " + runningtrucks);}
+            
+            rentedtrucks[h] = runningtrucks - boughttrucks;
             
             //Loop that resets finishing and starting position array (does it per cycle)
             for(int int1 = 0; int1 < 10; int1++)
@@ -246,6 +255,8 @@ public class VehicleRoutingSystem {
 
                             } 
                         }
+                        
+                        //IF LOOP DOESNT FIND THE NEXT CLOSEST HOUSE THIS MOVES THE TRUCK TO THE NEXT ARRAY POINT
                         if(minimum == 100000 && minimumslot == start[tnum] + 1)
                         {
                             minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[start[tnum] + 1].getCoordY()) + 200;  
@@ -256,6 +267,8 @@ public class VehicleRoutingSystem {
                         trucktime[tnum] += 60; 
                         finish[tnum] --;
                         locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
+                        
+                        //ERASES THE CURRENT HOUSE AND MOVES ALL OTHER HOUSES UP A SPOT IN THE LOCATIONS ARRAY
                         for(int k = start[tnum] + 1; k <= finish[tnum]; k++)
                         {
                             if(k > minimumslot)
@@ -264,6 +277,7 @@ public class VehicleRoutingSystem {
                             }
                             
                         }
+                        //OUTPUTS TO FILE EVERY HOUSE VISITED
                         if (h == 0) cy1W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
                         if (h == 1) cy2W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
                         if (h == 2) cy3W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
@@ -282,20 +296,24 @@ public class VehicleRoutingSystem {
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
                 truckprice[tnum] += truckmiles[tnum] * 5;
                 trucktime[tnum] += truckmiles[tnum] * 150;
-                trucktime[tnum] -= (30 * truckvisited[tnum]); //idk if truckvisited is how many houses are visited per cycle, i need that variable
+                trucktime[tnum] -= (30 * truckvisited[tnum]); 
                 truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2); //salary
                 salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2);
-                if(tnum <= 4)
+                
+                //CALCULATES MAINTANENCE FEES PER BOUGHT TRUCK
+                if(tnum < boughttrucks)
                 {
                     truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
                 }
                 
+                //CALCULATES TRUCK THAT TOOK THE LONGEST TIME PER DAY (SAVES IT AS THE DAILY TIME)
                 if(trucktime[tnum] > time[h])
                 {
                     time[h] = trucktime[tnum];
                 }
                 miles[h] += truckmiles[tnum];
                 price[h] += truckprice[tnum];
+                
                 //Printing System to show time (in hours) per truck
                 System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
             }
@@ -311,7 +329,7 @@ public class VehicleRoutingSystem {
                     //System.out.println("Salary Payout $" + money.format(salary[h]));
                    
         
-
+        //CHANGES THE FILE THE LOOP IS READING IN FROM AND MOVES TO NEXT DAY FILE READY FOR START OF NEW LOOP                
         if (h == 0) cy1 = cy2;
         if (h == 1) cy1 = cy3;
         if (h == 2) cy1 = cy4;
@@ -323,19 +341,27 @@ public class VehicleRoutingSystem {
         if (h == 8) cy1 = cy10;
         
         
-         //last thing in our code before printing out results
+         
         
           System.out.println("END OF CYCLE " + (h + 1));         
         }
         
-         double totalprice = 500000;
-                    for (int i = 0; i < 10; i ++) {
-                        totalprice += price[i];
-                    }
-         double totalmiles = 0;
-                    for (int i = 0; i < 10; i ++) {
-                        totalmiles += miles[i];
-                    }
+        //CALCULATES COST OF BUYING TRUCKS
+        double totalprice = boughttrucks * 100000;
+            //ADDS IN DAILY COSTS (GAS, SALARY, MAINTANENCE)
+            for (int i = 0; i < 10; i ++) 
+            {
+                totalprice += price[i];
+            }
+        
+        //CALCULATES MILES DRIVEN OVER 10 DAYS            
+        double totalmiles = 0;
+            for (int i = 0; i < 10; i ++) 
+            {
+                totalmiles += miles[i];
+            }
+            
+        //OUTPUTS TO FILE COST OF THE SALARY PAID OUT EACH DAY    
         System.out.println("Total price = $" + money.format(totalprice));
         cy1W.println("The day's total salary paid was: $" + salary[0]);
         cy2W.println("The day's total salary paid was: $" + salary[1]);
@@ -348,6 +374,7 @@ public class VehicleRoutingSystem {
         cy9W.println("The day's total salary paid was: $" + salary[8]);
         cy10W.println("The day's total salary paid was: $" + salary[9]);
         
+        //OUTPUTES TO FILE COST OF THE TOTAL PRICE EACH DAY
         cy1W.println("The day's total price was: $" + price[0]);
         cy2W.println("The day's total price was: $" + price[1]);
         cy3W.println("The day's total price was: $" + price[2]);
