@@ -178,18 +178,14 @@ public class VehicleRoutingSystem {
                 truckvisited[tnum] = 0;
                 trucktime[tnum] = 0;
                 
-                //Statement to print out the starting and ending points of last truck per day
-                if(tnum == (runningtrucks - 1))
-                {
-                    System.out.println(locations[start[runningtrucks - 1]].getCoord() + " (Array slot " + start[runningtrucks - 1] + ")" + "   " + locations[finish[runningtrucks - 1]].getCoord() + " (Array slot " + finish[runningtrucks - 1] + ")");
-                }
+                
                 
                 //If statement to see if truck will do Bart
                 if(h != 9 && locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200)
                 {
                     trucktime[tnum] += 60 * locations[0].getBart();
                     //System.out.println("Bart Done");
-                    System.out.println("Truck " + (tnum + 1) + " did Bart and it added " + two.format(trucktime[tnum] / 3600) + " hours");
+                    //System.out.println("Truck " + (tnum + 1) + " did Bart and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 //If statement to see if truck will do Lisa
@@ -197,7 +193,7 @@ public class VehicleRoutingSystem {
                 {
                     trucktime[tnum] += 60 * locations[0].getLisa();
                     //System.out.println("Lisa Done");
-                    System.out.println("Truck " + (tnum + 1) + " did Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
+                    //System.out.println("Truck " + (tnum + 1) + " did Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 truckdistance[tnum] += Math.abs(locations[start[tnum]].getCoordX() - 24800) + Math.abs(locations[start[tnum]].getCoordY() - 21000);
@@ -281,7 +277,7 @@ public class VehicleRoutingSystem {
                     }
             }
                   
-            for(int tnum = 0; tnum <= runningtrucks; tnum++)
+            for(int tnum = 0; tnum < runningtrucks; tnum++)
             {
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
                 truckprice[tnum] += truckmiles[tnum] * 5;
@@ -300,7 +296,8 @@ public class VehicleRoutingSystem {
                 }
                 miles[h] += truckmiles[tnum];
                 price[h] += truckprice[tnum];
-                System.out.println(two.format(trucktime[tnum] / 3600));
+                //Printing System to show time (in hours) per truck
+                System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
             }
             
                     
