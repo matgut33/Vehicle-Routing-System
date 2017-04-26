@@ -83,6 +83,7 @@ public class VehicleRoutingSystem {
         Scanner run = new Scanner(System.in);
         
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
+            System.out.println("CYCLE " + (h + 1));
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
                 if (i < 2) {
                     useless = cy1.nextLine();
@@ -143,16 +144,28 @@ public class VehicleRoutingSystem {
             if(h == 8) {runningtrucks = 6; cy9W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 9) {runningtrucks = 5; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
+            //Loop that resets finishing and starting position array (does it per cycle)
             for(int int1 = 0; int1 < 10; int1++)
             {
                 start[int1] = 0;
                 finish[int1] = 0;
             }
             
+            //Loop that fills each starting postions (per day) (depending on #of running trucks
             for(int int2 = 0; int2 < runningtrucks; int2 ++)
             {
-                start[int2] = arraylength/runningtrucks * int2;
-                finish[int2] = arraylength/runningtrucks * (int2 + 1);
+                start[int2] = (arraylength/runningtrucks) * int2;
+            }
+            
+                        //Loop that fills each starting postions (per day) (depending on #of running trucks
+            for(int int2 = 0; int2 < runningtrucks; int2 ++)
+            {
+                finish[int2] = (start[int2 + 1] - 1);
+                if(int2 == (runningtrucks - 1))
+                {
+                    finish[int2] = arraylength;
+                }
+                    
             }
             
             price[h] += (runningtrucks - 5) * 15000;
@@ -164,6 +177,12 @@ public class VehicleRoutingSystem {
                 truckprice[tnum] = 0;
                 truckvisited[tnum] = 0;
                 trucktime[tnum] = 0;
+                
+                //Statement to print out the starting and ending points of last truck per day
+                if(tnum == (runningtrucks - 1))
+                {
+                    System.out.println(locations[start[runningtrucks - 1]].getCoord() + " (Array slot " + start[runningtrucks - 1] + ")" + "   " + locations[finish[runningtrucks - 1]].getCoord() + " (Array slot " + finish[runningtrucks - 1] + ")");
+                }
                 
                 //If statement to see if truck will do Bart
                 if(h != 9 && locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200)
@@ -309,8 +328,9 @@ public class VehicleRoutingSystem {
         
          //last thing in our code before printing out results
         
-                    
+          System.out.println("END OF CYCLE " + (h + 1));         
         }
+        
          double totalprice = 500000;
                     for (int i = 0; i < 10; i ++) {
                         totalprice += price[i];
