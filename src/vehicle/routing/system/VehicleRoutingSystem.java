@@ -39,6 +39,7 @@ public class VehicleRoutingSystem {
         int houseNum[] = new int[100000]; 
         int distance[] = new int[10]; 
         int visited[] = new int[10];
+        int rentingcost[] = new int[10];
         double time[] = new double[10];
         double price[] = new double[10];
         int minimum = 100000;
@@ -82,14 +83,19 @@ public class VehicleRoutingSystem {
         int runningtrucks = 0;
         
         //SET AMOUNT OF TRUCKS BOUGHT
-        boughttrucks = 5;
+        Scanner x = new Scanner(System.in);
+        System.out.println("How many trucks would you like to buy?");
+        boughttrucks = x.nextInt();
         
         
         String useless = "";
         Scanner run = new Scanner(System.in);
         
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
-            System.out.println("CYCLE " + (h + 1));
+            
+            //RESETS BART AND LISA
+            b = 0;
+            l = 0;
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
                 if (i < 2) {
                     useless = cy1.nextLine();
@@ -137,6 +143,8 @@ public class VehicleRoutingSystem {
                 }
 
             }
+            
+            //SETS STARTING POSITION OF FIRST TRUCK (BOTTOM LEFT CORNER)
             locations[0] = new Location(1,1,0,b,l);
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
@@ -151,6 +159,7 @@ public class VehicleRoutingSystem {
             if(h == 8) {runningtrucks = 6; cy9W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 9) {runningtrucks = 5; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
+            //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
             rentedtrucks[h] = runningtrucks - boughttrucks;
             
             //Loop that resets finishing and starting position array (does it per cycle)
@@ -160,16 +169,17 @@ public class VehicleRoutingSystem {
                 finish[int1] = 0;
             }
             
-            //Loop that fills each starting postions (per day) (depending on #of running trucks
+            //Loop that fills each starting postion (per day) (depending on #of running trucks)
             for(int int2 = 0; int2 < runningtrucks; int2 ++)
             {
                 start[int2] = (arraylength/runningtrucks) * int2;
             }
             
-                        //Loop that fills each starting postions (per day) (depending on #of running trucks
+            //Loop that fills each finishing postion (per day) (depending on #of running trucks)
             for(int int2 = 0; int2 < runningtrucks; int2 ++)
             {
                 finish[int2] = (start[int2 + 1] - 1);
+                //If it is last truck, finishing point is the last point in the array
                 if(int2 == (runningtrucks - 1))
                 {
                     finish[int2] = arraylength;
@@ -177,7 +187,11 @@ public class VehicleRoutingSystem {
                     
             }
             
-            price[h] += (runningtrucks - 5) * 15000;
+            //ADDS COST OF RENTED TRUCKS TO THE DAILY PRICE
+            price[h] += (runningtrucks - boughttrucks) * 15000;
+            
+            //SHOWS AMOUNT OF COST FOR RENTED TRUCKS PER DAY
+            rentingcost[h] = (runningtrucks - boughttrucks) * 15000;
             
             for(int tnum = 0; tnum <= runningtrucks; tnum++)
             {
@@ -190,19 +204,19 @@ public class VehicleRoutingSystem {
                 
                 
                 //If statement to see if truck will do Bart
-                if(h != 9 && locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200)
+                if(locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200)
                 {
-                    trucktime[tnum] += 60 * locations[0].getBart();
+                    trucktime[tnum] += 60 * b;
                     //System.out.println("Bart Done");
-                    //System.out.println("Truck " + (tnum + 1) + " did Bart and it added " + two.format(trucktime[tnum] / 3600) + " hours");
+                    //System.out.println("Truck " + (tnum + 1) + " drove to Bart and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 //If statement to see if truck will do Lisa
-                if(h != 9 && locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900)
+                if(locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900)
                 {
-                    trucktime[tnum] += 60 * locations[0].getLisa();
+                    trucktime[tnum] += 60 * l;
                     //System.out.println("Lisa Done");
-                    //System.out.println("Truck " + (tnum + 1) + " did Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
+                    //System.out.println("Truck " + (tnum + 1) + " drove to Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 truckdistance[tnum] += Math.abs(locations[start[tnum]].getCoordX() - 24800) + Math.abs(locations[start[tnum]].getCoordY() - 21000);
@@ -315,7 +329,7 @@ public class VehicleRoutingSystem {
                 price[h] += truckprice[tnum];
                 
                 //Printing System to show time (in hours) per truck
-                System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                //System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
             }
             
                     
@@ -343,7 +357,7 @@ public class VehicleRoutingSystem {
         
          
         
-          System.out.println("END OF CYCLE " + (h + 1));         
+                 
         }
         
         //CALCULATES COST OF BUYING TRUCKS
