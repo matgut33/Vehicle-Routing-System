@@ -165,7 +165,22 @@ public class VehicleRoutingSystem {
                 truckvisited[tnum] = 0;
                 trucktime[tnum] = 0;
                 
+                //If statement to see if truck will do Bart
+                if(h != 9 && locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200)
+                {
+                    trucktime[tnum] += 60 * locations[0].getBart();
+                    System.out.println("Bart Done");
+                }
+                
+                //If statement to see if truck will do Lisa
+                if(h != 9 && locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900)
+                {
+                    trucktime[tnum] += 60 * locations[0].getLisa();
+                    System.out.println("Lisa Done");
+                }
+                
                 truckdistance[tnum] += Math.abs(locations[start[tnum]].getCoordX() - 24800) + Math.abs(locations[start[tnum]].getCoordY() - 21000);
+                
                 while(finish[tnum] != start[tnum])
                     {
                         minimum = 100000;
@@ -218,6 +233,7 @@ public class VehicleRoutingSystem {
                         {
                             minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[start[tnum] + 1].getCoordY()) + 200;  
                         }
+                        
                         truckdistance[tnum] += minimum;
                         truckvisited[tnum] ++;
                         trucktime[tnum] += 60; 
