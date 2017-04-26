@@ -133,14 +133,14 @@ public class VehicleRoutingSystem {
             locations[0] = new Location(1,1,0,b,l);
             
             if(h == 0) {runningtrucks = 7; cy1W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 1) {runningtrucks = 6; cy2W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 2) {runningtrucks = 6; cy3W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 3) {runningtrucks = 5; cy4W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 4) {runningtrucks = 5; cy5W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 5) {runningtrucks = 7; cy6W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 6) {runningtrucks = 6; cy7W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 7) {runningtrucks = 6; cy8W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 8) {runningtrucks = 5; cy9W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 1) {runningtrucks = 7; cy2W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 2) {runningtrucks = 8; cy3W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 3) {runningtrucks = 7; cy4W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 7; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 5) {runningtrucks = 8; cy6W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 6) {runningtrucks = 9; cy7W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 7) {runningtrucks = 8; cy8W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 8) {runningtrucks = 6; cy9W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 9) {runningtrucks = 5; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             for(int int1 = 0; int1 < 10; int1++)
@@ -169,14 +169,16 @@ public class VehicleRoutingSystem {
                 if(h != 9 && locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200)
                 {
                     trucktime[tnum] += 60 * locations[0].getBart();
-                    System.out.println("Bart Done");
+                    //System.out.println("Bart Done");
+                    System.out.println("Truck " + (tnum + 1) + " did Bart and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 //If statement to see if truck will do Lisa
                 if(h != 9 && locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900)
                 {
                     trucktime[tnum] += 60 * locations[0].getLisa();
-                    System.out.println("Lisa Done");
+                    //System.out.println("Lisa Done");
+                    System.out.println("Truck " + (tnum + 1) + " did Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 truckdistance[tnum] += Math.abs(locations[start[tnum]].getCoordX() - 24800) + Math.abs(locations[start[tnum]].getCoordY() - 21000);
@@ -279,6 +281,7 @@ public class VehicleRoutingSystem {
                 }
                 miles[h] += truckmiles[tnum];
                 price[h] += truckprice[tnum];
+                System.out.println(two.format(trucktime[tnum] / 3600));
             }
             
                     
@@ -289,7 +292,7 @@ public class VehicleRoutingSystem {
                     
                     
                     System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
-                    System.out.println("Salary Payout $" + money.format(salary[h]));
+                    //System.out.println("Salary Payout $" + money.format(salary[h]));
                    
         
 
