@@ -154,7 +154,7 @@ public class VehicleRoutingSystem {
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
             if(h == 0) {runningtrucks = 7; cy1W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 1) {runningtrucks = 7; cy2W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 1) {runningtrucks = 8; cy2W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 2) {runningtrucks = 8; cy3W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 3) {runningtrucks = 7; cy4W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 4) {runningtrucks = 7; cy5W.println("The number of trucks used today was: " + runningtrucks);}
@@ -230,8 +230,11 @@ public class VehicleRoutingSystem {
                 //EXECUTES LOOP PER TRUCK UNTIL ALL POINTS/HOMES ARE TRAVELLED TO
                 while(finish[tnum] != start[tnum])
                     {
+                        //RESETS MINIMUM DISTANCE TO ARBITRARY NUMBER
                         minimum = 100000;
+                        //SETS MINIMUMSLOT TO THE NEXT ONE IN THE ARRAY
                         minimumslot = start[tnum] + 1;
+                        
                         for(int k = start[tnum] + 1; k <= finish[tnum]; k ++) 
                         {
                             //TRY TO FIND HOMES ON SAME STREET
@@ -274,6 +277,7 @@ public class VehicleRoutingSystem {
                                         {
                                             minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + 200;
                                             minimumslot = k;
+                                            
                                             //IF HOUSES ON DIFFERENT STREET ARE ON SAME AVENUE (BLOCK) IT RECALCULATES MINIMUM TO GO AROUND THE BLOCK (AKA NOT CROSS THROUGH HOMES)
                                             if(locations[start[tnum]].getAve() == locations[k].getAve())
                                             {
@@ -289,7 +293,7 @@ public class VehicleRoutingSystem {
                         //IF LOOP DOESNT FIND THE NEXT CLOSEST HOUSE THIS MOVES THE TRUCK TO THE NEXT ARRAY POINT
                         if(minimum == 100000 && minimumslot == start[tnum] + 1)
                         {
-                            minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[start[tnum] + 1].getCoordY()) + 200;  
+                            minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[minimumslot].getCoordY()) + Math.abs(locations[start[tnum]].getCoordY() - locations[start[tnum] + 1].getCoordY()) + Math.abs(locations[start[tnum]].getCoordX() - locations[minimumslot].getCoordX());  
                         }
                         
                         truckdistance[tnum] += minimum;
