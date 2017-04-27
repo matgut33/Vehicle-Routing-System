@@ -82,8 +82,40 @@ public class VehicleRoutingSystem {
         int truckdistance[] = new int[10];
         double truckmiles[] = new double[10];
         double truckprice[] = new double[10];
+        double trucktimeavg[] = new double[10];
         int runningtrucks = 0;
-        
+        for(int i = 0; i < 10; i ++) {
+            if (i == 0) {
+                trucktimeavg[i] = 20.53428571;
+            }
+            if (i == 1) {
+                trucktimeavg[i] = 20.06;
+            }
+            if (i == 2) {
+                trucktimeavg[i] = 18.42142857;
+            }
+            if (i == 3) {
+                trucktimeavg[i] = 19.22;
+            }
+            if (i == 4) {
+                trucktimeavg[i] = 23.024;
+            }
+            if (i == 5) {
+                trucktimeavg[i] = 19;
+            }
+            if (i == 6) {
+                trucktimeavg[i] = 20.03428571;
+            }
+            if (i == 7) {
+                trucktimeavg[i] = 20.83;
+            }
+            if (i == 8) {
+                trucktimeavg[i] = 20.00666667;
+            }
+            if (i == 9) {
+                trucktimeavg[i] = 22.272;
+            }
+        }
         //SET AMOUNT OF TRUCKS BOUGHT
         //Scanner x = new Scanner(System.in);
         //System.out.println("How many trucks would you like to buy?");
