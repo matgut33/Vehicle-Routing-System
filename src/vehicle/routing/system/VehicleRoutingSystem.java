@@ -49,6 +49,7 @@ public class VehicleRoutingSystem {
         int rentedtrucks[] = new int[10];
         double miles[] = new double[10];
         int start[] = new int[10];
+        int current[] = new int[10];
         int finish[] = new int[10];
         double salary[] = new double[10];
         String houseLet[] = new String[10000000], runAgain = "";
@@ -84,14 +85,15 @@ public class VehicleRoutingSystem {
         int runningtrucks = 0;
         
         //SET AMOUNT OF TRUCKS BOUGHT
-        Scanner x = new Scanner(System.in);
-        System.out.println("How many trucks would you like to buy?");
-        boughttrucks = x.nextInt();
-        
+        //Scanner x = new Scanner(System.in);
+        //System.out.println("How many trucks would you like to buy?");
+        //boughttrucks = x.nextInt();
+        boughttrucks = 5;
         //SET EMPLOYEES PER TRUCK
-        Scanner e = new Scanner(System.in);
-        System.out.println("1 or 2 employees per truck?");
-        employees = e.nextInt();
+        //Scanner e = new Scanner(System.in);
+        //System.out.println("1 or 2 employees per truck?");
+        //employees = e.nextInt();
+        employees = 2;
         
         String useless = "";
         Scanner run = new Scanner(System.in);
@@ -154,14 +156,14 @@ public class VehicleRoutingSystem {
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
             if(h == 0) {runningtrucks = 7; cy1W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 1) {runningtrucks = 8; cy2W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 2) {runningtrucks = 8; cy3W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 3) {runningtrucks = 7; cy4W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 4) {runningtrucks = 7; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 1) {runningtrucks = 7; cy2W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 2) {runningtrucks = 7; cy3W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 3) {runningtrucks = 6; cy4W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 5; cy5W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 5) {runningtrucks = 8; cy6W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 6) {runningtrucks = 9; cy7W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 7) {runningtrucks = 8; cy8W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 8) {runningtrucks = 7; cy9W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 6) {runningtrucks = 7; cy7W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 7) {runningtrucks = 6; cy8W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 8) {runningtrucks = 6; cy9W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 9) {runningtrucks = 5; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
@@ -205,21 +207,21 @@ public class VehicleRoutingSystem {
                 truckprice[tnum] = 0;
                 truckvisited[tnum] = 0;
                 trucktime[tnum] = 0;
-                
+                current[tnum] = finish[tnum];
                 
                 
                 //If statement to see if truck will do Bart
-                if(locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200)
+                if(locations[start[tnum]].getCoordX() <= 200 && locations[current[tnum]].getCoordX() >= 200)
                 {
-                    trucktime[tnum] += 60 * b;
+                    trucktime[tnum] += (60 * b) / employees;
                     //System.out.println("Bart Done");
                     //System.out.println("Truck " + (tnum + 1) + " drove to Bart and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 //If statement to see if truck will do Lisa
-                if(locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900)
+                if(locations[start[tnum]].getCoordX() <= 26900 && locations[current[tnum]].getCoordX() >= 26900)
                 {
-                    trucktime[tnum] += 60 * l;
+                    trucktime[tnum] += (60 * l) / employees;
                     //System.out.println("Lisa Done");
                     //System.out.println("Truck " + (tnum + 1) + " drove to Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
@@ -228,14 +230,14 @@ public class VehicleRoutingSystem {
                 truckdistance[tnum] += Math.abs(locations[start[tnum]].getCoordX() - 24800) + Math.abs(locations[start[tnum]].getCoordY() - 21000);
                 
                 //EXECUTES LOOP PER TRUCK UNTIL ALL POINTS/HOMES ARE TRAVELLED TO
-                while(finish[tnum] != start[tnum])
+                while(current[tnum] != start[tnum])
                     {
                         //RESETS MINIMUM DISTANCE TO ARBITRARY NUMBER
                         minimum = 100000;
                         //SETS MINIMUMSLOT TO THE NEXT ONE IN THE ARRAY
                         minimumslot = start[tnum] + 1;
                         
-                        for(int k = start[tnum] + 1; k <= finish[tnum]; k ++) 
+                        for(int k = start[tnum] + 1; k <= current[tnum]; k ++) 
                         {
                             //TRY TO FIND HOMES ON SAME STREET
                             if(locations[start[tnum]].getCoordX() == locations[k].getCoordX())
@@ -251,7 +253,7 @@ public class VehicleRoutingSystem {
                         if(minimum == 100000)
                         {
                             //LOOP FOR TRAVERSING ALL POINTS THE TRUCK CAN VISIT
-                            for (int k = start[tnum] + 1; k <= finish[tnum]; k++) { //closest avenue values (y)
+                            for (int k = start[tnum] + 1; k <= current[tnum]; k++) { //closest avenue values (y)
                                 if (locations[start[tnum]].getCoordX() + 200 == locations[k].getCoordX()) 
                                 {
                                     //IF CURRENT POINT IS ON TOP HALF, IT SEARCHES FOR HOUSE ON NEXT STREET CLOSEST TO TOP
@@ -299,11 +301,11 @@ public class VehicleRoutingSystem {
                         truckdistance[tnum] += minimum;
                         truckvisited[tnum] ++;
                         trucktime[tnum] += 60; 
-                        finish[tnum] --;
+                        current[tnum] --;
                         locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
                         
                         //ERASES THE CURRENT HOUSE AND MOVES ALL OTHER HOUSES UP A SPOT IN THE LOCATIONS ARRAY
-                        for(int k = start[tnum] + 1; k <= finish[tnum]; k++)
+                        for(int k = start[tnum] + 1; k <= current[tnum]; k++)
                         {
                             if(k > minimumslot)
                             {
@@ -336,7 +338,7 @@ public class VehicleRoutingSystem {
                 //IF EMPLOYEES PER TRUCK = 2, THIS CUTS DOWN DELIVERY BY 30 SECONDS EACH HOUSE + BART AND LISA PACKAGES
                 if(employees == 2)
                 {
-                    trucktime[tnum] -= (30 * truckvisited[tnum]) + (30 * (b + 1)); 
+                    trucktime[tnum] -= (30 * truckvisited[tnum]); 
                 }
                 truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees); //salary
                 salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees);
@@ -356,7 +358,7 @@ public class VehicleRoutingSystem {
                 price[h] += truckprice[tnum];
                 
                 //Printing System to show time (in hours) per truck
-                //System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
             }
             
                     
