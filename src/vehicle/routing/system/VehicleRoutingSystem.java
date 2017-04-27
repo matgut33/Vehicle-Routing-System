@@ -75,6 +75,7 @@ public class VehicleRoutingSystem {
         PrintWriter cy10W = new PrintWriter("Output/" + runDate + "/Output, Cycle 10.txt", "UTF-8");
         PrintWriter cyOW = new PrintWriter("Output/" + runDate + "/Output, Overall.txt", "UTF-8");
         int counter = 1; int num = 0;
+        int employees = 1;
         double trucktime[] = new double[10];
         int truckvisited[] = new int[10];
         int truckdistance[] = new int[10];
@@ -87,13 +88,17 @@ public class VehicleRoutingSystem {
         System.out.println("How many trucks would you like to buy?");
         boughttrucks = x.nextInt();
         
+        //SET EMPLOYEES PER TRUCK
+        Scanner e = new Scanner(System.in);
+        System.out.println("1 or 2 employees per truck?");
+        employees = e.nextInt();
         
         String useless = "";
         Scanner run = new Scanner(System.in);
         
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
             
-            //RESETS BART AND LISA
+            //RESETS BART AND LISA EVERY DAY
             b = 0;
             l = 0;
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
@@ -219,14 +224,17 @@ public class VehicleRoutingSystem {
                     //System.out.println("Truck " + (tnum + 1) + " drove to Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
+                //CALCULATES THE TRUCK MOVING FROM DISTRIBUTION CENTER TO START POINT AND ADDS DISTANCE IN FEET
                 truckdistance[tnum] += Math.abs(locations[start[tnum]].getCoordX() - 24800) + Math.abs(locations[start[tnum]].getCoordY() - 21000);
                 
+                //EXECUTES LOOP PER TRUCK UNTIL ALL POINTS/HOMES ARE TRAVELLED TO
                 while(finish[tnum] != start[tnum])
                     {
                         minimum = 100000;
                         minimumslot = start[tnum] + 1;
                         for(int k = start[tnum] + 1; k <= finish[tnum]; k ++) 
-                        { //closest avenue values (y)
+                        {
+                            //TRY TO FIND HOMES ON SAME STREET
                             if(locations[start[tnum]].getCoordX() == locations[k].getCoordX())
                             {
                                 if(Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) < minimum)
@@ -236,29 +244,37 @@ public class VehicleRoutingSystem {
                                     }
                             }
                         }
+                        //IF NO HOMES ARE LEFT ON STREET THIS EXECUTES TO GO TO NEXT STREET
                         if(minimum == 100000)
                         {
+                            //LOOP FOR TRAVERSING ALL POINTS THE TRUCK CAN VISIT
                             for (int k = start[tnum] + 1; k <= finish[tnum]; k++) { //closest avenue values (y)
                                 if (locations[start[tnum]].getCoordX() + 200 == locations[k].getCoordX()) 
                                 {
+                                    //IF CURRENT POINT IS ON TOP HALF, IT SEARCHES FOR HOUSE ON NEXT STREET CLOSEST TO TOP
                                     if(locations[start[tnum]].getCoordY() > 25000)
                                     {
+                                        //IF THE NEW COORD IS HIGHER THAN PREVIOUS SET POINT IT SETS THAT AS MINIMUM(sistance) AND EXECUTES LOOP AGAIN
                                         if(locations[k].getCoordY() > locations[minimumslot].getCoordY())
                                         {
                                             minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + 200;
                                             minimumslot = k;
+                                            //IF HOUSES ON DIFFERENT STREET ARE ON SAME AVENUE (BLOCK) IT RECALCULATES MINIMUM TO GO AROUND THE BLOCK (AKA NOT CROSS THROUGH HOMES)
                                             if (locations[start[tnum]].getAve() == locations[k].getAve()) 
                                             {
                                                 minimum = ((locations[start[tnum]].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
                                             }
                                         }      
                                     }
+                                    //IF CURRENT POINT IS ON BOTTOM HALF, IT SEARCHES FOR HOUSE ON NEXT STREET CLOSEST TO BOTTOM
                                     if(locations[start[tnum]].getCoordY() <= 25000)
                                     {
+                                        //IF THE NEW COORD IS LOWER THAN PREVIOUS SET POINT IT SETS THAT AS MINIMUM(distance) AND EXECUTES LOOP AGAIN
                                         if(locations[k].getCoordY() < locations[minimumslot].getCoordY())
                                         {
                                             minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + 200;
                                             minimumslot = k;
+                                            //IF HOUSES ON DIFFERENT STREET ARE ON SAME AVENUE (BLOCK) IT RECALCULATES MINIMUM TO GO AROUND THE BLOCK (AKA NOT CROSS THROUGH HOMES)
                                             if(locations[start[tnum]].getAve() == locations[k].getAve())
                                             {
                                                 minimum = ((locations[start[tnum]].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
@@ -307,12 +323,19 @@ public class VehicleRoutingSystem {
                   
             for(int tnum = 0; tnum < runningtrucks; tnum++)
             {
+                //CONVERTS FEET TO MILES
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
+                //ADD PRICE OF GAS ($5 PER MILE)
                 truckprice[tnum] += truckmiles[tnum] * 5;
+                //ADDS TIME IN SECONDS (150 SECONDS PER MILE)
                 trucktime[tnum] += truckmiles[tnum] * 150;
-                trucktime[tnum] -= (30 * truckvisited[tnum]); 
-                truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2); //salary
-                salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * 2);
+                //IF EMPLOYEES PER TRUCK = 2, THIS CUTS DOWN DELIVERY BY 30 SECONDS EACH HOUSE + BART AND LISA PACKAGES
+                if(employees == 2)
+                {
+                    trucktime[tnum] -= (30 * truckvisited[tnum]) + (30 * (b + 1)); 
+                }
+                truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees); //salary
+                salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees);
                 
                 //CALCULATES MAINTANENCE FEES PER BOUGHT TRUCK
                 if(tnum < boughttrucks)
@@ -368,7 +391,7 @@ public class VehicleRoutingSystem {
                 totalprice += price[i];
             }
         
-        //CALCULATES MILES DRIVEN OVER 10 DAYS            
+        //CALCULATES TOTAL MILES DRIVEN OVER 10 DAYS            
         double totalmiles = 0;
             for (int i = 0; i < 10; i ++) 
             {
