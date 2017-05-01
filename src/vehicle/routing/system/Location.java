@@ -10,6 +10,7 @@ import java.awt.Point;
 public class Location {
     private int street = 0, ave = 0, houseNum = 0;
     private Point Coordinate;
+    private String HouseLetter;
     
     public Location() { //DEFAULT CONSTRUCTOR FOR HOMES
         street = 0;
@@ -84,5 +85,15 @@ public class Location {
     public Point getCoordSimple() {
         Point coord = new Point(street, ave);
         return coord;
+    }
+    
+    public String getHouseLetter()
+    {
+        return HouseLetter;
+    }
+    
+    public void setHouseLetter(String hl)
+    {
+        HouseLetter = hl;
     }
 }

@@ -28,6 +28,7 @@ public class VehicleRoutingSystem {
      */
     public static void main(String[] args) throws IOException {
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd  HH;mm;ss");
+        DateFormat timef = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         String runDate = sdf.format(date);
         String sysPath = System.getProperty("user.dir");
@@ -176,6 +177,7 @@ public class VehicleRoutingSystem {
                         
                         locations[i - 1] = new Location(s[i], a[i], houseNum[i]);
                         arraylength = i - 1;
+                        locations[i - 1].setHouseLetter(houseLet[i]); 
 
                     }
                     
@@ -332,10 +334,22 @@ public class VehicleRoutingSystem {
                         
                         truckdistance[tnum] += minimum;
                         truckvisited[tnum] ++;
-                        trucktime[tnum] += 60; 
+                        trucktime[tnum] += 30; 
                         current[tnum] --;
                         locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
                         
+                        //OUTPUTS TO FILE EVERY HOUSE VISITED
+                        if (h == 0) cy1W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " at approximately " + ((int)Math.floor(trucktime[tnum]/3600)) + ":" + ((int)Math.floor((trucktime[tnum]%3600)/60)));
+                        if (h == 1) cy2W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                        if (h == 2) cy3W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                        if (h == 3) cy4W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                        if (h == 4) cy5W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                        if (h == 5) cy6W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                        if (h == 6) cy7W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                        if (h == 7) cy8W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                        if (h == 8) cy9W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                        if (h == 9) cy10W.println("street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter());
+                   
                         //ERASES THE CURRENT HOUSE AND MOVES ALL OTHER HOUSES UP A SPOT IN THE LOCATIONS ARRAY
                         for(int k = start[tnum] + 1; k <= current[tnum]; k++)
                         {
@@ -345,18 +359,7 @@ public class VehicleRoutingSystem {
                             }
                             
                         }
-                        //OUTPUTS TO FILE EVERY HOUSE VISITED
-                        if (h == 0) cy1W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 1) cy2W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 2) cy3W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 3) cy4W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 4) cy5W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 5) cy6W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 6) cy7W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 7) cy8W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 8) cy9W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                        if (h == 9) cy10W.println("street " + locations[h].getStreet() + ", ave " + locations[h].getAve() + ", house " + locations[h].getHouse());
-                    }
+                        }
             }
                   
             for(int tnum = 0; tnum < runningtrucks; tnum++)
