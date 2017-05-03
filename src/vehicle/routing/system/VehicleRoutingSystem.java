@@ -87,6 +87,7 @@ public class VehicleRoutingSystem {
         double truckprice[] = new double[10];
         double trucktimeavg[] = new double[10];
         int runningtrucks = 0;
+        int traveldistance = 0;
         for(int i = 0; i < 10; i ++) {
             if (i == 0) {
                 trucktimeavg[i] = 20.53428571;
@@ -120,10 +121,10 @@ public class VehicleRoutingSystem {
             }
         }
         //SET AMOUNT OF TRUCKS BOUGHT
-        //Scanner x = new Scanner(System.in);
-        //System.out.println("How many trucks would you like to buy?");
-        //boughttrucks = x.nextInt();
-        boughttrucks = 6;
+        Scanner x = new Scanner(System.in);
+        System.out.println("How many trucks would you like to buy?");
+        boughttrucks = x.nextInt();
+        //boughttrucks = 6;
         //SET EMPLOYEES PER TRUCK
         //Scanner e = new Scanner(System.in);
         //System.out.println("1 or 2 employees per truck?");
@@ -191,16 +192,16 @@ public class VehicleRoutingSystem {
             locations[0] = new Location(1,1,0);
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
-            if(h == 0) {runningtrucks = 7; cy1W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 1) {runningtrucks = 7; cy2W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 2) {runningtrucks = 7; cy3W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 3) {runningtrucks = 6; cy4W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 4) {runningtrucks = 5; cy5W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 5) {runningtrucks = 8; cy6W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 6) {runningtrucks = 7; cy7W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 7) {runningtrucks = 6; cy8W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 8) {runningtrucks = 6; cy9W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 9) {runningtrucks = 5; cy10W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 0) {runningtrucks = 4; cy1W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 1) {runningtrucks = 4; cy2W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 2) {runningtrucks = 3; cy3W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 3) {runningtrucks = 3; cy4W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 3; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 5) {runningtrucks = 5; cy6W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 6) {runningtrucks = 4; cy7W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 7) {runningtrucks = 3; cy8W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 8) {runningtrucks = 3; cy9W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 9) {runningtrucks = 2; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
             rentedtrucks[h] = Math.abs(runningtrucks - boughttrucks);
@@ -241,7 +242,7 @@ public class VehicleRoutingSystem {
                 truckdistance[tnum] = 0;
                 truckmiles[tnum] = 0;
                 truckprice[tnum] = 0;
-                truckvisited[tnum] = 0;
+                truckvisited[tnum] = 1;
                 trucktime[tnum] = 0;
                 current[tnum] = finish[tnum];
                 
@@ -269,79 +270,36 @@ public class VehicleRoutingSystem {
                 while(current[tnum] != start[tnum])
                     {
                         //RESETS MINIMUM DISTANCE TO ARBITRARY NUMBER
-                        minimum = 100000;
+                        minimum = Math.abs(locations[start[tnum]].getCoordX() - locations[(start[tnum] + 1)].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[(start[tnum] + 1)].getCoordY());
                         //SETS MINIMUMSLOT TO THE NEXT ONE IN THE ARRAY
                         minimumslot = start[tnum] + 1;
                         
                         for(int k = start[tnum] + 1; k <= current[tnum]; k ++) 
                         {
-                            //TRY TO FIND HOMES ON SAME STREET
-                            if(locations[start[tnum]].getCoordX() == locations[k].getCoordX())
+                            //If new search spot is on same avenue
+                            if(locations[start[tnum]].getAve() == locations[k].getAve())
                             {
-                                if(Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) < minimum)
-                                    {
-                                    minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY());
-                                    minimumslot = k;
-                                    }
+                                traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + locations[start[tnum]].getHouse() + locations[k].getHouse();
                             }
-                        }
-                        //IF NO HOMES ARE LEFT ON STREET THIS EXECUTES TO GO TO NEXT STREET
-                        if(minimum == 100000)
-                        {
-                            //LOOP FOR TRAVERSING ALL POINTS THE TRUCK CAN VISIT
-                            for (int k = start[tnum] + 1; k <= current[tnum]; k++) { //closest avenue values (y)
-                                if (locations[start[tnum]].getCoordX() + 200 == locations[k].getCoordX()) 
-                                {
-                                    //IF CURRENT POINT IS ON TOP HALF, IT SEARCHES FOR HOUSE ON NEXT STREET CLOSEST TO TOP
-                                    if(locations[start[tnum]].getCoordY() > 25000)
-                                    {
-                                        //IF THE NEW COORD IS HIGHER THAN PREVIOUS SET POINT IT SETS THAT AS MINIMUM(sistance) AND EXECUTES LOOP AGAIN
-                                        if(locations[k].getCoordY() > locations[minimumslot].getCoordY())
-                                        {
-                                            minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + 200;
-                                            minimumslot = k;
-                                            //IF HOUSES ON DIFFERENT STREET ARE ON SAME AVENUE (BLOCK) IT RECALCULATES MINIMUM TO GO AROUND THE BLOCK (AKA NOT CROSS THROUGH HOMES)
-                                            if (locations[start[tnum]].getAve() == locations[k].getAve()) 
-                                            {
-                                                minimum = ((locations[start[tnum]].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
-                                            }
-                                        }      
-                                    }
-                                    //IF CURRENT POINT IS ON BOTTOM HALF, IT SEARCHES FOR HOUSE ON NEXT STREET CLOSEST TO BOTTOM
-                                    if(locations[start[tnum]].getCoordY() <= 25000)
-                                    {
-                                        //IF THE NEW COORD IS LOWER THAN PREVIOUS SET POINT IT SETS THAT AS MINIMUM(distance) AND EXECUTES LOOP AGAIN
-                                        if(locations[k].getCoordY() < locations[minimumslot].getCoordY())
-                                        {
-                                            minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + 200;
-                                            minimumslot = k;
-                                            
-                                            //IF HOUSES ON DIFFERENT STREET ARE ON SAME AVENUE (BLOCK) IT RECALCULATES MINIMUM TO GO AROUND THE BLOCK (AKA NOT CROSS THROUGH HOMES)
-                                            if(locations[start[tnum]].getAve() == locations[k].getAve())
-                                            {
-                                                minimum = ((locations[start[tnum]].getCoordY() % 1000) + (locations[k].getCoordY() % 1000) + 200);
-                                            }
-                                        }      
-                                    }
-                                }
-
-                            } 
-                        }
-                        
-                        //IF LOOP DOESNT FIND THE NEXT CLOSEST HOUSE THIS MOVES THE TRUCK TO THE NEXT ARRAY POINT
-                        if(minimum == 100000 && minimumslot == start[tnum] + 1)
-                        {
-                            minimum = Math.abs(locations[start[tnum]].getCoordY() - locations[minimumslot].getCoordY()) + Math.abs(locations[start[tnum]].getCoordY() - locations[start[tnum] + 1].getCoordY()) + Math.abs(locations[start[tnum]].getCoordX() - locations[minimumslot].getCoordX());  
+                            if(locations[start[tnum]].getAve() != locations[k].getAve())
+                            {
+                                traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY());
+                            }
+                            if(traveldistance < minimum)
+                            {
+                            minimum = traveldistance;
+                            minimumslot = k;
+                            }
+                            
                         }
                         
                         truckdistance[tnum] += minimum;
                         truckvisited[tnum] ++;
                         trucktime[tnum] += 60 / employees; 
-                        current[tnum] --;
                         locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
                         
                         //OUTPUTS TO FILE EVERY HOUSE VISITED
-                        if (h == 0) cy1W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " at approximately " + ((int)Math.floor(trucktime[tnum]/3600)) + ":" + ((int)Math.floor((trucktime[tnum]%3600)/60)));
+                        if (h == 0) cy1W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " at approximately " + ((int)Math.floor(trucktime[tnum]/3600)) + ":" + ((int)Math.floor((trucktime[tnum]%3600)/60)));
                         if (h == 1) cy2W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
                         if (h == 2) cy3W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
                         if (h == 3) cy4W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
@@ -362,6 +320,7 @@ public class VehicleRoutingSystem {
                             }
                             
                         }
+                        current[tnum] --;
                         }
             }
                   
@@ -389,8 +348,11 @@ public class VehicleRoutingSystem {
                 {
                     time[h] = trucktime[tnum];
                 }
+                
+                
                 miles[h] += truckmiles[tnum];
                 price[h] += truckprice[tnum];
+                visited[h] += truckvisited[tnum];
                 
                 //Printing System to show time (in hours) per truck
                 //System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
@@ -414,6 +376,7 @@ public class VehicleRoutingSystem {
                     
                     
                     System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
+                    //System.out.println(visited[h] + "   " + arraylength);
                     //System.out.println("Salary Payout $" + money.format(salary[h]));
                    
         
