@@ -121,10 +121,10 @@ public class VehicleRoutingSystem {
             }
         }
         //SET AMOUNT OF TRUCKS BOUGHT
-        Scanner x = new Scanner(System.in);
-        System.out.println("How many trucks would you like to buy?");
-        boughttrucks = x.nextInt();
-        //boughttrucks = 6;
+        //Scanner x = new Scanner(System.in);
+        //System.out.println("How many trucks would you like to buy?");
+        //boughttrucks = x.nextInt();
+        boughttrucks = 3;
         //SET EMPLOYEES PER TRUCK
         //Scanner e = new Scanner(System.in);
         //System.out.println("1 or 2 employees per truck?");
@@ -242,10 +242,11 @@ public class VehicleRoutingSystem {
                 truckdistance[tnum] = 0;
                 truckmiles[tnum] = 0;
                 truckprice[tnum] = 0;
-                truckvisited[tnum] = 1;
+                truckvisited[tnum] = 0;
                 trucktime[tnum] = 0;
                 current[tnum] = finish[tnum];
-                
+                if(tnum != 0) System.out.println((finish[tnum - 1] - start[tnum - 1]) + "   " + truckvisited[tnum - 1]);
+               
                 
                 //If statement to see if truck will do Bart
                 if(locations[start[tnum]].getCoordX() <= 200 && locations[current[tnum]].getCoordX() >= 200)
