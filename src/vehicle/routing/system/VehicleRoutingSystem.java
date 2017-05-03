@@ -124,7 +124,7 @@ public class VehicleRoutingSystem {
         //Scanner x = new Scanner(System.in);
         //System.out.println("How many trucks would you like to buy?");
         //boughttrucks = x.nextInt();
-        boughttrucks = 3;
+        boughttrucks = 2;
         //SET EMPLOYEES PER TRUCK
         //Scanner e = new Scanner(System.in);
         //System.out.println("1 or 2 employees per truck?");
@@ -139,6 +139,8 @@ public class VehicleRoutingSystem {
             //RESETS BART AND LISA EVERY DAY
             b = 0;
             l = 0;
+            Boolean bart = false;
+            Boolean lisa = false;
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
                 if (i < 2) {
                     useless = cy1.nextLine();
@@ -192,15 +194,15 @@ public class VehicleRoutingSystem {
             locations[0] = new Location(1,1,0);
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
-            if(h == 0) {runningtrucks = 4; cy1W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 1) {runningtrucks = 4; cy2W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 2) {runningtrucks = 3; cy3W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 3) {runningtrucks = 3; cy4W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 4) {runningtrucks = 3; cy5W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 5) {runningtrucks = 5; cy6W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 6) {runningtrucks = 4; cy7W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 7) {runningtrucks = 3; cy8W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 8) {runningtrucks = 3; cy9W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 0) {runningtrucks = 2; cy1W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 1) {runningtrucks = 2; cy2W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 2) {runningtrucks = 2; cy3W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 3) {runningtrucks = 2; cy4W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 2; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 5) {runningtrucks = 3; cy6W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 6) {runningtrucks = 2; cy7W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 7) {runningtrucks = 2; cy8W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 8) {runningtrucks = 2; cy9W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 9) {runningtrucks = 2; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
@@ -249,17 +251,21 @@ public class VehicleRoutingSystem {
                
                 
                 //If statement to see if truck will do Bart
-                if(locations[start[tnum]].getCoordX() <= 200 && locations[current[tnum]].getCoordX() >= 200)
+                if(locations[start[tnum]].getCoordX() <= 200 && locations[current[tnum]].getCoordX() >= 200 && bart == false)
                 {
                     trucktime[tnum] += (60 * b) / employees;
-                    //System.out.println("Bart Done");
+                    //System.out.println("Truck " + (tnum + 1) + " did Bart");
+                    bart = true;
+                    
                     //System.out.println("Truck " + (tnum + 1) + " drove to Bart and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 //If statement to see if truck will do Lisa
-                if(locations[start[tnum]].getCoordX() <= 26900 && locations[current[tnum]].getCoordX() >= 26900)
+                if(locations[start[tnum]].getCoordX() <= 26900 && locations[current[tnum]].getCoordX() >= 26900 && lisa == false)
                 {
                     trucktime[tnum] += (60 * l) / employees;
+                    //System.out.println("Truck " + (tnum + 1) + " did Lisa");
+                    lisa = true;
                     //System.out.println("Lisa Done");
                     //System.out.println("Truck " + (tnum + 1) + " drove to Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
@@ -352,8 +358,9 @@ public class VehicleRoutingSystem {
                 {
                     time[h] = trucktime[tnum];
                 }
-                System.out.println("Overall time :" + two.format(time[h]/3600));
-                System.out.println("Truck " + (tnum + 1) + " time :" + (two.format(trucktime[tnum]/3600)));
+                //System.out.println("Truck " + (tnum + 1) + " time :" + (two.format(trucktime[tnum]/3600)));
+                //System.out.println("Overall time :" + two.format(time[h]/3600));
+               
                 
                 
                 miles[h] += truckmiles[tnum];
