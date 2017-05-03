@@ -8,7 +8,7 @@
 package vehicle.routing.system;
 
 /**
- * @author Matthew Gutkin, Henry Dench, Sam Meyerowitz
+ * @author Sir Henry Franklin Dench, Master Matthew Ian Gutkin, Master Sam Jacksic Meyerowitz
  * @author Period 8
  */
 
@@ -83,6 +83,7 @@ public class VehicleRoutingSystem {
         int truckdistance[] = new int[10];
         int barttime[] = new int[10];
         int lisatime[] = new int[10];
+        
         double truckmiles[] = new double[10];
         double truckprice[] = new double[10];
         double trucktimeavg[] = new double[10];
@@ -230,6 +231,8 @@ public class VehicleRoutingSystem {
                     
             }
             
+            
+            
             //ADDS COST OF RENTED TRUCKS TO THE DAILY PRICE
             price[h] += rentedtrucks[h] * 15000;
             
@@ -244,7 +247,6 @@ public class VehicleRoutingSystem {
                 truckvisited[tnum] = 0;
                 trucktime[tnum] = 0;
                 current[tnum] = finish[tnum];
-                
                 
                 //If statement to see if truck will do Bart
                 if(locations[start[tnum]].getCoordX() <= 200 && locations[current[tnum]].getCoordX() >= 200)
@@ -368,12 +370,11 @@ public class VehicleRoutingSystem {
             for(int tnum = 0; tnum < runningtrucks; tnum++)
             {
                 //CONVERTS FEET TO MILES
-                truckmiles[tnum] = truckdistance[tnum] / 5000;
+                truckmiles[tnum] = Math.floor(truckdistance[tnum] / 5000.0);
                 //ADD PRICE OF GAS ($5 PER MILE)
-                truckprice[tnum] += truckmiles[tnum] * 5;
+                truckprice[tnum] += Math.floor(truckmiles[tnum]) * 5;
                 //ADDS TIME IN SECONDS (150 SECONDS PER MILE)
                 trucktime[tnum] += truckmiles[tnum] * 150;
-                
                 
                 truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees); //salary
                 salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees);
@@ -381,7 +382,7 @@ public class VehicleRoutingSystem {
                 //CALCULATES MAINTANENCE FEES PER BOUGHT TRUCK
                 if(tnum < boughttrucks)
                 {
-                    truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
+                    truckprice[tnum] += 1000 * (int)(Math.floor(truckmiles[tnum] / 100));
                 }
                 
                 //CALCULATES TRUCK THAT TOOK THE LONGEST TIME PER DAY (SAVES IT AS THE DAILY TIME)
