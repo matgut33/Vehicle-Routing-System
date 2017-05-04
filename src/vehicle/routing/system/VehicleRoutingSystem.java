@@ -307,7 +307,7 @@ public class VehicleRoutingSystem {
                     locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
                         
                     //OUTPUTS TO FILE EVERY HOUSE VISITED
-                    if (h == 0) cy1W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " after approximately " + ((int)(trucktime[tnum]/3600)) + ":" + (((int)trucktime[tnum]%3600)/60) + ":" + (((int)(trucktime[tnum]%3600)%60)));
+                    if (h == 0) cy1W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " at approximately " + ((int)(trucktime[tnum]/3600)) + ":" + (((int)trucktime[tnum]%3600)/60) + ":" + (((int)(trucktime[tnum]%3600)%60)) + " Military Time");
                     if (h == 1) cy2W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
                     if (h == 2) cy3W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
                     if (h == 3) cy4W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
