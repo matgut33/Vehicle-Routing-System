@@ -194,15 +194,15 @@ public class VehicleRoutingSystem {
             locations[0] = new Location(1,1,0);
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
-            if(h == 0) {runningtrucks = 2; cy1W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 1) {runningtrucks = 2; cy2W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 2) {runningtrucks = 2; cy3W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 3) {runningtrucks = 2; cy4W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 4) {runningtrucks = 2; cy5W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 5) {runningtrucks = 3; cy6W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 6) {runningtrucks = 2; cy7W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 7) {runningtrucks = 2; cy8W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 8) {runningtrucks = 2; cy9W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 0) {runningtrucks = 4; cy1W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 1) {runningtrucks = 4; cy2W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 2) {runningtrucks = 3; cy3W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 3) {runningtrucks = 3; cy4W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 3; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 5) {runningtrucks = 4; cy6W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 6) {runningtrucks = 4; cy7W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 7) {runningtrucks = 3; cy8W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 8) {runningtrucks = 3; cy9W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 9) {runningtrucks = 2; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
@@ -284,7 +284,7 @@ public class VehicleRoutingSystem {
                     for(int k = start[tnum] + 1; k <= current[tnum]; k ++) 
                     {
                             //If new search spot is on same avenue
-                        if(locations[start[tnum]].getAve() == locations[k].getAve())
+                        if(locations[start[tnum]].getAve() == locations[k].getAve() && locations[start[tnum]].getStreet() != locations[k].getStreet())
                         {
                             traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + locations[start[tnum]].getHouse() + locations[k].getHouse();
                         }
@@ -303,11 +303,11 @@ public class VehicleRoutingSystem {
                     truckdistance[tnum] += minimum;
                     truckvisited[tnum] ++;
                     trucktime[tnum] += 60 / employees; 
-                    trucktime[tnum] += ((minimum/5000) * 150);
+                    trucktime[tnum] += (minimum / 5000.0) * 150;
                     locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
                         
                     //OUTPUTS TO FILE EVERY HOUSE VISITED
-                    if (h == 0) cy1W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " after approximately " + (two.format(trucktime[tnum]/3600)) + " hours");
+                    if (h == 0) cy1W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " after approximately " + ((int)(trucktime[tnum]/3600)) + ":" + (((int)trucktime[tnum]%3600)/60) + ":" + (((int)(trucktime[tnum]%3600)%60)));
                     if (h == 1) cy2W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
                     if (h == 2) cy3W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
                     if (h == 3) cy4W.println("Truck " + (tnum + 1) + " delivered to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() );
