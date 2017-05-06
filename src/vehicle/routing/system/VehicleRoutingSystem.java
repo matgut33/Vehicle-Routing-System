@@ -190,7 +190,7 @@ public class VehicleRoutingSystem {
 
             }
             
-            locations[1000000] = new Location(125,22,0);
+            locations[1000000] = new Location(125, 22, 0);
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
             if(h == 0) {runningtrucks = 4; cy1W.println("The number of trucks used today was: " + runningtrucks);}
