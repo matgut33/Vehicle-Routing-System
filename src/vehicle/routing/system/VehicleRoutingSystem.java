@@ -198,12 +198,12 @@ public class VehicleRoutingSystem {
             if(h == 1) {runningtrucks = 4; cy2W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 2) {runningtrucks = 3; cy3W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 3) {runningtrucks = 3; cy4W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 4) {runningtrucks = 3; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 2; cy5W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 5) {runningtrucks = 5; cy6W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 6) {runningtrucks = 4; cy7W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 7) {runningtrucks = 3; cy8W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 8) {runningtrucks = 3; cy9W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 9) {runningtrucks = 3; cy10W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 9) {runningtrucks = 2; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
             if(runningtrucks > boughttrucks) rentedtrucks[h] = Math.abs(runningtrucks - boughttrucks);
@@ -287,7 +287,7 @@ public class VehicleRoutingSystem {
                             //If new search spot is on same avenue
                         if(locations[start[tnum]].getAve() == locations[k].getAve() && locations[start[tnum]].getStreet() != locations[k].getStreet())
                         {
-                            traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY()) + locations[start[tnum]].getHouse() + locations[k].getHouse();
+                            traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + (1000 - Math.abs(1000 - (locations[start[tnum]].getHouse() + locations[k].getHouse())));
                         }
                         if(locations[start[tnum]].getAve() != locations[k].getAve())
                         {
