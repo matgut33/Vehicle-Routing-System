@@ -124,7 +124,7 @@ public class VehicleRoutingSystem {
         //Scanner x = new Scanner(System.in);
         //System.out.println("How many trucks would you like to buy?");
         //boughttrucks = x.nextInt();
-        boughttrucks = 3;
+        boughttrucks = 2;
         //SET EMPLOYEES PER TRUCK
         //Scanner e = new Scanner(System.in);
         //System.out.println("1 or 2 employees per truck?");
@@ -180,9 +180,9 @@ public class VehicleRoutingSystem {
                         else if(houseLet[i].equals("J")) houseNum[i] = 900;
                         else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
                         
-                        locations[i - 1] = new Location(s[i], a[i], houseNum[i]);
-                        arraylength = i - 1;
-                        locations[i - 1].setHouseLetter(houseLet[i]); 
+                        locations[i - 2] = new Location(s[i], a[i], houseNum[i]);
+                        arraylength = i - 2;
+                        locations[i - 2].setHouseLetter(houseLet[i]); 
 
                     }
                     
@@ -190,8 +190,7 @@ public class VehicleRoutingSystem {
 
             }
             
-            //SETS STARTING POSITION OF FIRST TRUCK (BOTTOM LEFT CORNER)
-            locations[0] = new Location(1,1,0);
+            locations[1000000] = new Location(125,22,0);
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY
             if(h == 0) {runningtrucks = 4; cy1W.println("The number of trucks used today was: " + runningtrucks);}
@@ -234,6 +233,7 @@ public class VehicleRoutingSystem {
                     
             }
             
+            
             //ADDS COST OF RENTED TRUCKS TO THE DAILY PRICE
             price[h] += rentedtrucks[h] * 15000;
             
@@ -252,7 +252,7 @@ public class VehicleRoutingSystem {
                
                 
                 //If statement to see if truck will do Bart
-                if(locations[start[tnum]].getCoordX() <= 200 && locations[current[tnum]].getCoordX() >= 200 && bart == false)
+                if(locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200 && bart == false)
                 {
                     trucktime[tnum] += (60 * b) / employees;
                     //System.out.println("Truck " + (tnum + 1) + " did Bart");
@@ -262,7 +262,7 @@ public class VehicleRoutingSystem {
                 }
                 
                 //If statement to see if truck will do Lisa
-                if(locations[start[tnum]].getCoordX() <= 26900 && locations[current[tnum]].getCoordX() >= 26900 && lisa == false)
+                if(locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900 && lisa == false)
                 {
                     trucktime[tnum] += (60 * l) / employees;
                     //System.out.println("Truck " + (tnum + 1) + " did Lisa");
@@ -271,33 +271,49 @@ public class VehicleRoutingSystem {
                     //System.out.println("Truck " + (tnum + 1) + " drove to Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
-                //CALCULATES THE TRUCK MOVING FROM DISTRIBUTION CENTER TO START POINT AND ADDS DISTANCE IN FEET
-                truckdistance[tnum] += Math.abs(locations[start[tnum]].getCoordX() - 24800) + Math.abs(locations[start[tnum]].getCoordY() - 21000);
                 
                 //EXECUTES LOOP PER TRUCK UNTIL ALL POINTS/HOMES ARE TRAVELLED TO
                 while(current[tnum] != start[tnum])
                 {
                     //RESETS MINIMUM DISTANCE TO ARBITRARY NUMBER
-                    minimum = Math.abs(locations[start[tnum]].getCoordX() - locations[(start[tnum] + 1)].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[(start[tnum] + 1)].getCoordY());
+                    minimum = 100000000;
                     //SETS MINIMUMSLOT TO THE NEXT ONE IN THE ARRAY
                     minimumslot = start[tnum] + 1;
                         
-                    for(int k = start[tnum] + 1; k <= current[tnum]; k ++) 
+                    if(current[tnum] == finish[tnum])
                     {
-                            //If new search spot is on same avenue
-                        if(locations[start[tnum]].getAve() == locations[k].getAve() && locations[start[tnum]].getStreet() != locations[k].getStreet())
-                        {
-                            traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + (1000 - Math.abs(1000 - (locations[start[tnum]].getHouse() + locations[k].getHouse())));
-                        }
-                        if(locations[start[tnum]].getAve() != locations[k].getAve())
-                        {
-                            traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY());
-                        }
+                        for(int k = start[tnum]; k <= current[tnum]; k ++) 
+                    {
+                        
+                        traveldistance = Math.abs(locations[1000000].getCoordX() - locations[k].getCoordX()) + Math.abs(locations[1000000].getCoordY() - locations[k].getCoordY());
                         if(traveldistance < minimum)
                         {
                             minimum = traveldistance;
                             minimumslot = k;
+                        } 
+                    } 
+                        
+                    }
+                    if(current[tnum] != finish[tnum])
+                    {
+                       for(int k = start[tnum] + 1; k <= current[tnum]; k ++) 
+                        {
+                            //If new search spot is on same avenue
+                            if(locations[start[tnum]].getAve() == locations[k].getAve() && locations[start[tnum]].getStreet() != locations[k].getStreet())
+                            {
+                            traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + (1000 - Math.abs(1000 - (locations[start[tnum]].getHouse() + locations[k].getHouse())));
+                            }
+                            if(locations[start[tnum]].getAve() != locations[k].getAve())
+                            {
+                                traveldistance = Math.abs(locations[start[tnum]].getCoordX() - locations[k].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[k].getCoordY());
+                            }
+                            if(traveldistance < minimum)
+                            {
+                                minimum = traveldistance;
+                                minimumslot = k;
+                            } 
                         }
+                    
                             
                     }
                         
@@ -305,7 +321,8 @@ public class VehicleRoutingSystem {
                     truckvisited[tnum] ++;
                     trucktime[tnum] += 60 / employees; 
                     trucktime[tnum] += (minimum / 5000.0) * 150;
-                    locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
+                    if(current[tnum] != finish[tnum]) locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
+                    
                         
                     //OUTPUTS TO FILE EVERY HOUSE VISITED
                     int trucktimehours[] = new int[10];
@@ -418,7 +435,9 @@ public class VehicleRoutingSystem {
                     if (h == 9) cy10W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " at approximately " + (trucktimehours[tnum]) + ":0" + (trucktimemins[tnum]) + ":" + (trucktimesecs[tnum]) + " Military Time");
                     }
                     //ERASES THE CURRENT HOUSE AND MOVES ALL OTHER HOUSES UP A SPOT IN THE LOCATIONS ARRAY
-                    for(int k = start[tnum] + 1; k <= current[tnum]; k++)
+                    if(current[tnum] != finish[tnum])
+                    {
+                        for(int k = start[tnum] + 1; k <= current[tnum]; k++)
                         {
                         if(k > minimumslot)
                         {
@@ -426,6 +445,9 @@ public class VehicleRoutingSystem {
                         }
                             
                     }
+                    }
+                    if(current[tnum] == finish[tnum]) System.out.println(minimum);
+                    
                         
                     current[tnum] --;
                         
