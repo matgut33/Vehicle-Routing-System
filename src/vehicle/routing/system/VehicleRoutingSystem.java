@@ -53,8 +53,8 @@ public class VehicleRoutingSystem {
         int current[] = new int[10];
         int finish[] = new int[10];
         double salary[] = new double[10];
-        String houseLet[] = new String[10000000], runAgain = "";
-        Location locations[] = new Location[10000000]; //Used for taking in locations
+        String houseLet[] = new String[1000001], runAgain = "";
+        Location locations[] = new Location[1000001]; //Used for taking in locations
         Scanner cy1 = new Scanner(new File("Cycles/cycle1.txt")); //Takes in cycle 1 data
         Scanner cy2 = new Scanner(new File("Cycles/cycle2.txt")); //Takes in cycle 2 data
         Scanner cy3 = new Scanner(new File("Cycles/cycle3.txt")); //Takes in cycle 3 data
@@ -88,38 +88,7 @@ public class VehicleRoutingSystem {
         double trucktimeavg[] = new double[10];
         int runningtrucks = 0;
         int traveldistance = 0;
-        for(int i = 0; i < 10; i ++) {
-            if (i == 0) {
-                trucktimeavg[i] = 20.53428571;
-            }
-            if (i == 1) {
-                trucktimeavg[i] = 20.06;
-            }
-            if (i == 2) {
-                trucktimeavg[i] = 18.42142857;
-            }
-            if (i == 3) {
-                trucktimeavg[i] = 19.22;
-            }
-            if (i == 4) {
-                trucktimeavg[i] = 23.024;
-            }
-            if (i == 5) {
-                trucktimeavg[i] = 19;
-            }
-            if (i == 6) {
-                trucktimeavg[i] = 20.03428571;
-            }
-            if (i == 7) {
-                trucktimeavg[i] = 20.83;
-            }
-            if (i == 8) {
-                trucktimeavg[i] = 20.00666667;
-            }
-            if (i == 9) {
-                trucktimeavg[i] = 22.272;
-            }
-        }
+        
         //SET AMOUNT OF TRUCKS BOUGHT
         //Scanner x = new Scanner(System.in);
         //System.out.println("How many trucks would you like to buy?");
@@ -276,12 +245,13 @@ public class VehicleRoutingSystem {
                 while(current[tnum] != start[tnum])
                 {
                     //RESETS MINIMUM DISTANCE TO ARBITRARY NUMBER
-                    minimum = 100000000;
+                    minimum = Math.abs(locations[start[tnum]].getCoordX() - locations[(start[tnum] + 1)].getCoordX()) + Math.abs(locations[start[tnum]].getCoordY() - locations[(start[tnum] + 1)].getCoordY());
                     //SETS MINIMUMSLOT TO THE NEXT ONE IN THE ARRAY
                     minimumslot = start[tnum] + 1;
                         
                     if(current[tnum] == finish[tnum])
                     {
+                        minimum = 100000000;
                         for(int k = start[tnum]; k <= current[tnum]; k ++) 
                     {
                         
