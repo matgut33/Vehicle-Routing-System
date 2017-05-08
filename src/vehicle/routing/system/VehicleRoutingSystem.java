@@ -93,7 +93,7 @@ public class VehicleRoutingSystem {
         //Scanner x = new Scanner(System.in);
         //System.out.println("How many trucks would you like to buy?");
         //boughttrucks = x.nextInt();
-        boughttrucks = 2;
+        boughttrucks = 3;
         //SET EMPLOYEES PER TRUCK
         //Scanner e = new Scanner(System.in);
         //System.out.println("1 or 2 employees per truck?");
@@ -101,7 +101,6 @@ public class VehicleRoutingSystem {
         employees = 2;
         
         String useless = "";
-        Scanner run = new Scanner(System.in);
         
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
             
@@ -166,12 +165,12 @@ public class VehicleRoutingSystem {
             if(h == 1) {runningtrucks = 4; cy2W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 2) {runningtrucks = 3; cy3W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 3) {runningtrucks = 3; cy4W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 4) {runningtrucks = 2; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 3; cy5W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 5) {runningtrucks = 5; cy6W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 6) {runningtrucks = 4; cy7W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 7) {runningtrucks = 3; cy8W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 8) {runningtrucks = 3; cy9W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 9) {runningtrucks = 2; cy10W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 9) {runningtrucks = 3; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
             if(runningtrucks > boughttrucks) rentedtrucks[h] = Math.abs(runningtrucks - boughttrucks);
