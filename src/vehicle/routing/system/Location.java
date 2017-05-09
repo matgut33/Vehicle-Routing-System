@@ -16,6 +16,8 @@ public class Location {
         street = 0;
         ave = 0;
         houseNum = 0;
+        Coordinate.x = 0;
+        Coordinate.y = 0;
     }
     
     public Location(int s, int a, int h) { //OVERLOADED CONSTRUCTOR
@@ -60,6 +62,9 @@ public class Location {
     public void setCoord(int x, int y) {
         Coordinate.x = x;
         Coordinate.y = y;
+        houseNum = y % 1000;
+        street = (x / 200) + 1;
+        ave = ((y - houseNum) / 1000) + 1;
     }
     
     public Point getCoord() {
