@@ -36,8 +36,8 @@ public class VehicleRoutingSystem {
         DecimalFormat two = new DecimalFormat("#.##");
         DecimalFormat money = new DecimalFormat("#.##");
         int cycleDay = 0; //For labeling cycles
-        int s[] = new int[100000], a[] = new int[100000], b = 0, l = 0; 
-        int houseNum[] = new int[100000]; 
+        int s[] = new int[10000], a[] = new int[10000], organ[][] = new int[249][50], b = 0, l = 0; 
+        int houseNum[] = new int[10000]; 
         int distance[] = new int[10]; 
         int visited[] = new int[10];
         int rentingcost[] = new int[10];
@@ -156,6 +156,19 @@ public class VehicleRoutingSystem {
                     
                 }
 
+            }
+            
+            int streetcount = 0;
+            int avecount = 0;
+            for(int count = 1; count < arraylength + 3; count++)
+            {
+                if(s[count] != s[count - 1]) 
+                {
+                    streetcount ++;
+                    avecount = 0;
+                }
+                if(streetcount >= 1) organ[streetcount - 1][avecount] = a[count];
+                avecount ++;
             }
             
             locations[1000000] = new Location(125, 22, 0);
