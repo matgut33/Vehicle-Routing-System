@@ -503,10 +503,10 @@ public class VehicleRoutingSystem {
                 salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees);
                 
                 //CALCULATES MAINTANENCE FEES PER BOUGHT TRUCK
-                if(tnum < boughttrucks)
-                {
-                    truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
-                }
+                //if(tnum < boughttrucks)
+                //{
+                //    truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
+                //}
                 
                 //CALCULATES TRUCK THAT TOOK THE LONGEST TIME PER DAY (SAVES IT AS THE DAILY TIME)
                 if(trucktime[tnum] > time[h])
@@ -536,7 +536,26 @@ public class VehicleRoutingSystem {
                 if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
             }
             
-                    
+            for (int i = 0; i < runningtrucks; i++) 
+            {
+                
+                for (int j = i + 1; j < runningtrucks; j++) 
+                {
+                    if (truckmiles[i] < truckmiles[j] && truckmiles[i] != 0) 
+                    {
+                        double temp = truckmiles[i];
+                        truckmiles[i] = truckmiles[j];
+                        truckmiles[j] = temp;
+                    }
+                }
+            }
+            
+            for(int i = 0; i < (boughttrucks - 1); i++)
+            {
+                price[h] += 1000 * Math.floor(truckmiles[i] / 100);
+                
+            }
+            
                     
                     
                     
