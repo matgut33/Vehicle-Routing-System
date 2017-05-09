@@ -36,7 +36,7 @@ public class VehicleRoutingSystem {
         DecimalFormat two = new DecimalFormat("#.##");
         DecimalFormat money = new DecimalFormat("#.##");
         int cycleDay = 0; //For labeling cycles
-        int s[] = new int[10000], a[] = new int[10000], organ[][] = new int[249][50], b = 0, l = 0; 
+        int s[] = new int[10000], a[] = new int[10000], organ[][] = new int[250][50], b = 0, l = 0; 
         int houseNum[] = new int[10000]; 
         int distance[] = new int[10]; 
         int visited[] = new int[10];
@@ -88,6 +88,7 @@ public class VehicleRoutingSystem {
         double trucktimeavg[] = new double[10];
         int runningtrucks = 0;
         int traveldistance = 0;
+        int ii = 0;
         
         //SET AMOUNT OF TRUCKS BOUGHT
         //Scanner x = new Scanner(System.in);
@@ -110,6 +111,7 @@ public class VehicleRoutingSystem {
             Boolean bart = false;
             Boolean lisa = false;
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
+                ii = i - 2;
                 if (i < 2) {
                     useless = cy1.nextLine();
                 } else {
@@ -122,35 +124,34 @@ public class VehicleRoutingSystem {
                         break;
                     } else {
                         num = useless.indexOf("s");
-                        s[i] = Integer.parseInt(useless.substring(0, num));
+                        s[ii] = Integer.parseInt(useless.substring(0, num));
                         counter = useless.indexOf("a");
-                        a[i] = Integer.parseInt(useless.substring((num+2), counter));
+                        a[ii] = Integer.parseInt(useless.substring((num+2), counter));
                         num = useless.length();
-                        houseLet[i] = (useless.substring((counter+2), num));
-                        if(houseLet[i].equals("A")) houseNum[i] = 0;
-                        else if(houseLet[i].equals("AA")) houseNum[i] = 0;
-                        else if(houseLet[i].equals("B")) houseNum[i] = 100;
-                        else if(houseLet[i].equals("BB")) houseNum[i] = 100;
-                        else if(houseLet[i].equals("C")) houseNum[i] = 200;
-                        else if(houseLet[i].equals("CC")) houseNum[i] = 200;
-                        else if(houseLet[i].equals("D")) houseNum[i] = 300;
-                        else if(houseLet[i].equals("DD")) houseNum[i] = 300;
-                        else if(houseLet[i].equals("E")) houseNum[i] = 400;
-                        else if(houseLet[i].equals("EE")) houseNum[i] = 400;
-                        else if(houseLet[i].equals("F")) houseNum[i] = 500;
-                        else if(houseLet[i].equals("FF")) houseNum[i] = 500;
-                        else if(houseLet[i].equals("G")) houseNum[i] = 600;
-                        else if(houseLet[i].equals("GG")) houseNum[i] = 600;
-                        else if(houseLet[i].equals("H")) houseNum[i] = 700;
-                        else if(houseLet[i].equals("HH")) houseNum[i] = 700;
-                        else if(houseLet[i].equals("I")) houseNum[i] = 800;
-                        else if(houseLet[i].equals("II")) houseNum[i] = 800;
-                        else if(houseLet[i].equals("J")) houseNum[i] = 900;
-                        else if(houseLet[i].equals("JJ")) houseNum[i] = 900;
-                        
-                        locations[i - 2] = new Location(s[i], a[i], houseNum[i]);
-                        arraylength = i - 2;
-                        locations[i - 2].setHouseLetter(houseLet[i]); 
+                        houseLet[ii] = (useless.substring((counter+2), num));
+                        if(houseLet[ii].equals("A")) houseNum[ii] = 0;
+                        else if(houseLet[ii].equals("AA")) houseNum[ii] = 0;
+                        else if(houseLet[ii].equals("B")) houseNum[ii] = 100;
+                        else if(houseLet[ii].equals("BB")) houseNum[ii] = 100;
+                        else if(houseLet[ii].equals("C")) houseNum[ii] = 200;
+                        else if(houseLet[ii].equals("CC")) houseNum[ii] = 200;
+                        else if(houseLet[ii].equals("D")) houseNum[ii] = 300;
+                        else if(houseLet[ii].equals("DD")) houseNum[ii] = 300;
+                        else if(houseLet[ii].equals("E")) houseNum[ii] = 400;
+                        else if(houseLet[ii].equals("EE")) houseNum[ii] = 400;
+                        else if(houseLet[ii].equals("F")) houseNum[ii] = 500;
+                        else if(houseLet[ii].equals("FF")) houseNum[ii] = 500;
+                        else if(houseLet[ii].equals("G")) houseNum[ii] = 600;
+                        else if(houseLet[ii].equals("GG")) houseNum[ii] = 600;
+                        else if(houseLet[ii].equals("H")) houseNum[ii] = 700;
+                        else if(houseLet[ii].equals("HH")) houseNum[ii] = 700;
+                        else if(houseLet[ii].equals("I")) houseNum[ii] = 800;
+                        else if(houseLet[ii].equals("II")) houseNum[ii] = 800;
+                        else if(houseLet[ii].equals("J")) houseNum[ii] = 900;
+                        else if(houseLet[ii].equals("JJ")) houseNum[ii] = 900;
+                        locations[ii] = new Location(s[ii], a[ii], houseNum[ii]);
+                        arraylength = ii;
+                         
 
                     }
                     
@@ -174,7 +175,7 @@ public class VehicleRoutingSystem {
                     streetcount ++;
                     avecount = 0;
                 }
-                if(streetcount >= 1) organ[streetcount - 1][avecount] = a[count];
+                if(streetcount >= 1) organ[streetcount - 1][avecount] = (a[count] - 1) * 1000 + houseNum[count];
                 avecount ++;
             }
             
@@ -201,6 +202,27 @@ public class VehicleRoutingSystem {
                     organ[i][k] = organsorted[i][k];
                     }
                 }
+            }
+            
+            avecount = 0;
+            for(int i = 0; i <= arraylength; i++)
+            {
+                
+                int x = 0;
+                int y = 0;
+                x = (s[i] - 1) * 200;
+                if(i > 0)
+                {
+                    if(s[i] != s[i-1])
+                    {
+                    avecount = 0;
+                    }
+                    y = organ[s[i] - 1][avecount];
+                }
+                if(i == 0) y = organ[s[i]][i];
+                
+                locations[i].setCoord(x, y);
+                avecount ++;
             }
             
             locations[1000000] = new Location(125, 22, 0);
