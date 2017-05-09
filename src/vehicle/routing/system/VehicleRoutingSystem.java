@@ -14,7 +14,7 @@ package vehicle.routing.system;
 
 import java.util.Scanner;
 import java.io.*;
-
+import java.util.Arrays;
 import java.text.DecimalFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -160,6 +160,13 @@ public class VehicleRoutingSystem {
             
             int streetcount = 0;
             int avecount = 0;
+            
+            for(int i = 0; i <= 248; i++) {
+                for(int j = 0; j <= 49; j++) {
+                    organ[i][j] = 0;
+                }
+            }
+                
             for(int count = 1; count < arraylength + 3; count++)
             {
                 if(s[count] != s[count - 1]) 
@@ -169,6 +176,31 @@ public class VehicleRoutingSystem {
                 }
                 if(streetcount >= 1) organ[streetcount - 1][avecount] = a[count];
                 avecount ++;
+            }
+            
+            int organmin = 100000;
+            int organsorted[][] = new int[249][50];
+            int organminindex = 0;
+            for(int i = 0; i <= 248; i++) {
+                for(int k = 0; k <= 49; k++) {
+                for(int j = 0; j <= 49; j++) {
+                    if(organ[i][j] != 0 && organ[i][j] < organmin) {
+                        organmin = organ[i][j];
+                        organminindex = j;
+                    }
+                }
+                organsorted[i][k] = organmin;
+                organ[i][organminindex] = 0;
+                organmin = 100000;
+                }
+            }    
+            
+            for(int i = 0; i <= 248; i++) {
+                for(int k = 0; k <= 49; k++) {
+                    if(organsorted[i][k] != 100000) {
+                    organ[i][k] = organsorted[i][k];
+                    }
+                }
             }
             
             locations[1000000] = new Location(125, 22, 0);
