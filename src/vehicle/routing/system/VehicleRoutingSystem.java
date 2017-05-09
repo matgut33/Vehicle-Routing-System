@@ -499,8 +499,8 @@ public class VehicleRoutingSystem {
                 //trucktime[tnum] += truckmiles[tnum] * 150;
                 
                 
-                truckprice[tnum] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees); //salary
-                salary[h] += ((((Math.ceil(trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees);
+                truckprice[tnum] += (((((trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees); //salary
+                salary[h] += (((((trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees);
                 
                 //CALCULATES MAINTANENCE FEES PER BOUGHT TRUCK
                 //if(tnum < boughttrucks)
