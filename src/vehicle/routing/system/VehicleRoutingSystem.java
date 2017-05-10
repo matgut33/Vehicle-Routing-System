@@ -377,7 +377,7 @@ public class VehicleRoutingSystem {
                         
                     truckdistance[tnum] += minimum;
                     truckvisited[tnum] ++;
-                    trucktime[tnum] += 60 / employees; 
+                     
                     trucktime[tnum] += (minimum / 5000.0) * 150;
                     if(current[tnum] != finish[tnum]) locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
                     
@@ -492,6 +492,7 @@ public class VehicleRoutingSystem {
                     if (h == 8) cy9W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " at approximately " + (trucktimehours[tnum]) + ":0" + (trucktimemins[tnum]) + ":" + (trucktimesecs[tnum]) + " Military Time");
                     if (h == 9) cy10W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " at approximately " + (trucktimehours[tnum]) + ":0" + (trucktimemins[tnum]) + ":" + (trucktimesecs[tnum]) + " Military Time");
                     }
+                    trucktime[tnum] += 60 / employees;
                     //ERASES THE CURRENT HOUSE AND MOVES ALL OTHER HOUSES UP A SPOT IN THE LOCATIONS ARRAY
                     if(current[tnum] != finish[tnum])
                     {
