@@ -150,7 +150,7 @@ public class VehicleRoutingSystem {
                         else if(houseLet[ii].equals("II")) houseNum[ii] = 800;
                         else if(houseLet[ii].equals("J")) houseNum[ii] = 900;
                         else if(houseLet[ii].equals("JJ")) houseNum[ii] = 900;
-                        locations[ii] = new Location(s[ii], a[ii], houseNum[ii]);
+                        
                         arraylength = ii;
                          
 
@@ -172,14 +172,14 @@ public class VehicleRoutingSystem {
                 
             for(int count = 1; count < arraylength + 3; count++)
             {
+                
+                if(count == 1) organ[streetcount][avecount] = ((a[0] - 1) * 1000) + houseNum[0];
+                organ[streetcount][avecount] = (a[count - 1] - 1) * 1000 + houseNum[count - 1];
+                organhouselet[streetcount][avecount] = houseLet[count - 1];
                 if(s[count] != s[count - 1]) 
                 {
                     streetcount ++;
-                    avecount = 0;
-                }
-                if(streetcount >= 1) {
-                    organ[streetcount - 1][avecount] = (a[count] - 1) * 1000 + houseNum[count];
-                    organhouselet[streetcount - 1][avecount] = houseLet[count - 1];
+                    avecount = -1;
                 }
                 avecount ++;
             }
@@ -213,10 +213,12 @@ public class VehicleRoutingSystem {
                 }
             }
             
-            avecount = 0;
+            avecount = -1;
             for(int i = 0; i <= arraylength; i++)
             {
-                
+                locations[i] = new Location(0,0,0);
+                avecount ++;
+                String letter = "";
                 int x = 0;
                 int y = 0;
                 x = (s[i] - 1) * 200;
@@ -227,13 +229,24 @@ public class VehicleRoutingSystem {
                     avecount = 0;
                     }
                     y = organ[s[i] - 1][avecount];
+                    letter = organhouselet[s[i] - 1][avecount];
+                    locations[i].setCoord(x, y, letter);
                 }
-                if(i == 0) y = organ[s[i]][i];
+                if(i == 0) 
+                {
+                    y = organ[0][0];
+                    letter = organhouselet[0][0];
+                    locations[i].setCoord(0, y, letter);
+                }
                 
-                locations[i].setCoord(x, y);
-                avecount ++;
+                
+                
+                //locations[i].setStreet(s[i]);
+                //locations[i].setHouseLetter(letter);
+                
+                
             }
-            
+
             locations[1000000] = new Location(125, 22, 0);
             
             //SETS AMOUNT OF TOTAL TRUCKS PER DAY

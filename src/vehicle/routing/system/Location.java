@@ -59,12 +59,13 @@ public class Location {
         Coordinate.y = 0;
     }
     
-    public void setCoord(int x, int y) {
+    public void setCoord(int x, int y, String houselet) {
         Coordinate.x = x;
         Coordinate.y = y;
         houseNum = y % 1000;
         street = (x / 200) + 1;
         ave = ((y - houseNum) / 1000) + 1;
+        HouseLetter = houselet;
     }
     
     public Point getCoord() {
