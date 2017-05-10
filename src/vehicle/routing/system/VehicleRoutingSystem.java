@@ -494,7 +494,7 @@ public class VehicleRoutingSystem {
                 //CONVERTS FEET TO MILES
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
                 //ADD PRICE OF GAS ($5 PER MILE)
-                truckprice[tnum] += truckmiles[tnum] * 5;
+                truckprice[tnum] += Math.floor(truckmiles[tnum]) * 5;
                 //ADDS TIME IN SECONDS (150 SECONDS PER MILE)
                 //trucktime[tnum] += truckmiles[tnum] * 150;
                 
@@ -502,11 +502,6 @@ public class VehicleRoutingSystem {
                 truckprice[tnum] += (((((trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees); //salary
                 salary[h] += (((((trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees);
                 
-                //CALCULATES MAINTANENCE FEES PER BOUGHT TRUCK
-                //if(tnum < boughttrucks)
-                //{
-                //    truckprice[tnum] += 1000 * (int)(truckmiles[tnum] / 100);
-                //}
                 
                 //CALCULATES TRUCK THAT TOOK THE LONGEST TIME PER DAY (SAVES IT AS THE DAILY TIME)
                 if(trucktime[tnum] > time[h])
@@ -535,7 +530,7 @@ public class VehicleRoutingSystem {
                 if (h == 8) cy9W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
                 if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
             }
-            
+            //organized truckmiles[] for the day
             for (int i = 0; i < runningtrucks; i++) 
             {
                 
@@ -549,10 +544,10 @@ public class VehicleRoutingSystem {
                     }
                 }
             }
-            
+            //adds maintenance costs for trucks (lowest possible)
             for(int i = 0; i < (boughttrucks - 1); i++)
             {
-                price[h] += 1000 * Math.floor(truckmiles[i] / 100);
+                price[h] += 1000 * Math.floor(truckmiles[i] / 100.0);
                 
             }
             
