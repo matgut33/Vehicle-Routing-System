@@ -37,6 +37,7 @@ public class VehicleRoutingSystem {
         DecimalFormat money = new DecimalFormat("#.##");
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[10000], a[] = new int[10000], organ[][] = new int[250][50], b = 0, l = 0; 
+        String organhouselet[][] = new String[250][50];
         int houseNum[] = new int[10000]; 
         int distance[] = new int[10]; 
         int visited[] = new int[10];
@@ -165,6 +166,7 @@ public class VehicleRoutingSystem {
             for(int i = 0; i <= 248; i++) {
                 for(int j = 0; j <= 49; j++) {
                     organ[i][j] = 0;
+                    organhouselet[i][j] = "";
                 }
             }
                 
@@ -175,13 +177,17 @@ public class VehicleRoutingSystem {
                     streetcount ++;
                     avecount = 0;
                 }
-                if(streetcount >= 1) organ[streetcount - 1][avecount] = (a[count] - 1) * 1000 + houseNum[count];
+                if(streetcount >= 1) {
+                    organ[streetcount - 1][avecount] = (a[count] - 1) * 1000 + houseNum[count];
+                    organhouselet[streetcount - 1][avecount] = houseLet[count - 1];
+                }
                 avecount ++;
             }
             
             int organmin = 100000;
-            int organsorted[][] = new int[249][50];
+            int organsorted[][] = new int[250][50];
             int organminindex = 0;
+            String organhouseletsorted[][] = new String[250][50];
             for(int i = 0; i <= 248; i++) {
                 for(int k = 0; k <= 49; k++) {
                 for(int j = 0; j <= 49; j++) {
@@ -191,7 +197,9 @@ public class VehicleRoutingSystem {
                     }
                 }
                 organsorted[i][k] = organmin;
+                organhouseletsorted[i][k] = organhouselet[i][organminindex];
                 organ[i][organminindex] = 0;
+                organhouselet[i][organminindex] = "";
                 organmin = 100000;
                 }
             }    
@@ -200,6 +208,7 @@ public class VehicleRoutingSystem {
                 for(int k = 0; k <= 49; k++) {
                     if(organsorted[i][k] != 100000) {
                     organ[i][k] = organsorted[i][k];
+                    organhouselet[i][k] = organhouseletsorted[i][k];
                     }
                 }
             }
