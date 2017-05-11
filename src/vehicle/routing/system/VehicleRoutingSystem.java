@@ -53,6 +53,7 @@ public class VehicleRoutingSystem {
         int start[] = new int[10];
         int current[] = new int[10];
         int finish[] = new int[10];
+        int echange = 0;
         double salary[] = new double[10];
         String houseLet[] = new String[1000001], runAgain = "";
         Location locations[] = new Location[1000001]; //Used for taking in locations
@@ -301,7 +302,7 @@ public class VehicleRoutingSystem {
             {
                 truckdistance[tnum] = 0;
                 trucktimeemploy[tnum] = 0;
-                boolean employeees = true;
+                echange = 1;
                 truckmiles[tnum] = 0;
                 truckprice[tnum] = 0;
                 truckvisited[tnum] = 0;
@@ -500,13 +501,15 @@ public class VehicleRoutingSystem {
                     trucktime[tnum] += 60 / employees;
                     trucktimeemploy[tnum] += 60 / employees;
                     
-                    if(trucktimeemploy[tnum] > 28800 && employeees == true)
+                    
+                    if(trucktimeemploy[tnum] > 28800)
                     {
                         minimum = 2 * Math.abs(locations[1000000].getCoordX() - locations[minimumslot].getCoordX()) + Math.abs(locations[1000000].getCoordY() - locations[minimumslot].getCoordY());
-                        employeees = false;
+                        echange += 1;
                         salary[h] += 240 * employees;
                         price[h] += 240 * employees;
                         trucktime[tnum] += (minimum / 5000.0) * 150;
+                        trucktimeemploy[tnum] = (minimum / 5000.0) * 150;
                     }
                     
                     
@@ -527,9 +530,31 @@ public class VehicleRoutingSystem {
                     current[tnum] --;
                         
                 }
+                truckmiles[tnum] = truckdistance[tnum] / 5000;
+                truckprice[tnum] += Math.floor(truckmiles[tnum]) * 5;
+                truckprice[tnum] += (((trucktime[tnum]/3600.0) - (8 * echange) * 30) + 240) * employees;
+                salary[h] += (((trucktime[tnum]/3600.0) - (8 * echange) * 30) + 240) * employees;
+                if(trucktime[tnum] > time[h]) time[h] = trucktime[tnum];
+                miles[h] += truckmiles[tnum];
+                price[h] += truckprice[tnum];
+                visited[h] += truckvisited[tnum];
+                
+                //Printing System to show time (in hours) per truck
+                //System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 0) cy1W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 1) cy2W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 2) cy3W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 3) cy4W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 4) cy5W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 5) cy6W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 6) cy7W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 7) cy8W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 8) cy9W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
             }
+            
                   
-            for(int tnum = 0; tnum < runningtrucks; tnum++)
+            /*for(int tnum = 0; tnum < runningtrucks; tnum++)
             {
                 //CONVERTS FEET TO MILES
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
@@ -539,8 +564,8 @@ public class VehicleRoutingSystem {
                 //trucktime[tnum] += truckmiles[tnum] * 150;
                 
                 
-                truckprice[tnum] += ((((((trucktime[tnum]/3600.0) - 8 ) - 8) * 45) + 240) * employees); //salary
-                salary[h] += ((((((trucktime[tnum]/3600.0) - 8) - 8) * 45) + 240) * employees);
+                truckprice[tnum] += (((trucktime[tnum]/3600.0) - (8 * echange) * 30) + 240) * employees;
+                salary[h] += (trucktime[tnum]/3600.0);
                 
                 
                 //CALCULATES TRUCK THAT TOOK THE LONGEST TIME PER DAY (SAVES IT AS THE DAILY TIME)
@@ -569,7 +594,7 @@ public class VehicleRoutingSystem {
                 if (h == 7) cy8W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
                 if (h == 8) cy9W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
                 if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-            }
+            }*/
             //organized truckmiles[] for the day
             for (int i = 0; i < runningtrucks; i++) 
             {
