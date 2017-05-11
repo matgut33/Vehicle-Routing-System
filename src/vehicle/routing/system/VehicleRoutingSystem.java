@@ -86,7 +86,7 @@ public class VehicleRoutingSystem {
         int lisatime[] = new int[10];
         double truckmiles[] = new double[10];
         double truckprice[] = new double[10];
-        double trucktimeavg[] = new double[10];
+        double trucktimeemploy[] = new double[10];
         int runningtrucks = 0;
         int traveldistance = 0;
         int ii = 0;
@@ -300,6 +300,8 @@ public class VehicleRoutingSystem {
             for(int tnum = 0; tnum <= runningtrucks; tnum++)
             {
                 truckdistance[tnum] = 0;
+                trucktimeemploy[tnum] = 0;
+                boolean employeees = true;
                 truckmiles[tnum] = 0;
                 truckprice[tnum] = 0;
                 truckvisited[tnum] = 0;
@@ -379,6 +381,9 @@ public class VehicleRoutingSystem {
                     truckvisited[tnum] ++;
                      
                     trucktime[tnum] += (minimum / 5000.0) * 150;
+                    trucktimeemploy[tnum] += (minimum / 5000.0) * 150;
+                    
+                    
                     if(current[tnum] != finish[tnum]) locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
                     
                         
@@ -493,6 +498,18 @@ public class VehicleRoutingSystem {
                     if (h == 9) cy10W.println("Truck " + (tnum + 1) + " travelled " + minimum + " feet to house at: street " + locations[start[tnum]].getStreet() + ", ave " + locations[start[tnum]].getAve() + ", house " + locations[start[tnum]].getHouseLetter() + " at approximately " + (trucktimehours[tnum]) + ":0" + (trucktimemins[tnum]) + ":" + (trucktimesecs[tnum]) + " Military Time");
                     }
                     trucktime[tnum] += 60 / employees;
+                    trucktimeemploy[tnum] += 60 / employees;
+                    
+                    if(trucktimeemploy[tnum] > 28800 && employeees == true)
+                    {
+                        minimum = 2 * Math.abs(locations[1000000].getCoordX() - locations[minimumslot].getCoordX()) + Math.abs(locations[1000000].getCoordY() - locations[minimumslot].getCoordY());
+                        employeees = false;
+                        salary[h] += 240 * employees;
+                        price[h] += 240 * employees;
+                        trucktime[tnum] += (minimum / 5000.0) * 150;
+                    }
+                    
+                    
                     //ERASES THE CURRENT HOUSE AND MOVES ALL OTHER HOUSES UP A SPOT IN THE LOCATIONS ARRAY
                     if(current[tnum] != finish[tnum])
                     {
@@ -522,8 +539,8 @@ public class VehicleRoutingSystem {
                 //trucktime[tnum] += truckmiles[tnum] * 150;
                 
                 
-                truckprice[tnum] += (((((trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees); //salary
-                salary[h] += (((((trucktime[tnum]/3600.0) - 8) * 45) + 240) * employees);
+                truckprice[tnum] += ((((((trucktime[tnum]/3600.0) - 8 ) - 8) * 45) + 240) * employees); //salary
+                salary[h] += ((((((trucktime[tnum]/3600.0) - 8) - 8) * 45) + 240) * employees);
                 
                 
                 //CALCULATES TRUCK THAT TOOK THE LONGEST TIME PER DAY (SAVES IT AS THE DAILY TIME)
