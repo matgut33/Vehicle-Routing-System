@@ -632,16 +632,16 @@ public class VehicleRoutingSystem {
         cy10W.println("The day's total salary paid was: $" + salary[9]);
         
         //OUTPUTES TO FILE COST OF THE TOTAL PRICE EACH DAY
-        cy1W.println("The day's total price was: $" + price[0]);
-        cy2W.println("The day's total price was: $" + price[1]);
-        cy3W.println("The day's total price was: $" + price[2]);
-        cy4W.println("The day's total price was: $" + price[3]);
-        cy5W.println("The day's total price was: $" + price[4]);
-        cy6W.println("The day's total price was: $" + price[5]);
-        cy7W.println("The day's total price was: $" + price[6]);
-        cy8W.println("The day's total price was: $" + price[7]);
-        cy9W.println("The day's total price was: $" + price[8]);
-        cy10W.println("The day's total price was: $" + price[9]);
+        cy1W.println("The day's total price was: $" + money.format(price[0]));
+        cy2W.println("The day's total price was: $" + money.format(price[1]));
+        cy3W.println("The day's total price was: $" + money.format(price[2]));
+        cy4W.println("The day's total price was: $" + money.format(price[3]));
+        cy5W.println("The day's total price was: $" + money.format(price[4]));
+        cy6W.println("The day's total price was: $" + money.format(price[5]));
+        cy7W.println("The day's total price was: $" + money.format(price[6]));
+        cy8W.println("The day's total price was: $" + money.format(price[7]));
+        cy9W.println("The day's total price was: $" + money.format(price[8]));
+        cy10W.println("The day's total price was: $" + money.format(price[9]));
         
         cy1W.println("The day's total mileage was " + miles[0] + " miles");
         cy2W.println("The day's total mileage was " + miles[1] + " miles");
