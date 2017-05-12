@@ -553,48 +553,6 @@ public class VehicleRoutingSystem {
                 if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
             }
             
-                  
-            /*for(int tnum = 0; tnum < runningtrucks; tnum++)
-            {
-                //CONVERTS FEET TO MILES
-                truckmiles[tnum] = truckdistance[tnum] / 5000;
-                //ADD PRICE OF GAS ($5 PER MILE)
-                truckprice[tnum] += Math.floor(truckmiles[tnum]) * 5;
-                //ADDS TIME IN SECONDS (150 SECONDS PER MILE)
-                //trucktime[tnum] += truckmiles[tnum] * 150;
-                
-                
-                truckprice[tnum] += (((trucktime[tnum]/3600.0) - (8 * echange) * 30) + 240) * employees;
-                salary[h] += (trucktime[tnum]/3600.0);
-                
-                
-                //CALCULATES TRUCK THAT TOOK THE LONGEST TIME PER DAY (SAVES IT AS THE DAILY TIME)
-                if(trucktime[tnum] > time[h])
-                {
-                    time[h] = trucktime[tnum];
-                }
-                //System.out.println("Truck " + (tnum + 1) + " time :" + (two.format(trucktime[tnum]/3600)));
-                //System.out.println("Overall time :" + two.format(time[h]/3600));
-               
-                
-                
-                miles[h] += truckmiles[tnum];
-                price[h] += truckprice[tnum];
-                visited[h] += truckvisited[tnum];
-                
-                //Printing System to show time (in hours) per truck
-                //System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 0) cy1W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 1) cy2W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 2) cy3W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 3) cy4W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 4) cy5W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 5) cy6W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 6) cy7W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 7) cy8W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 8) cy9W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-            }*/
             //organized truckmiles[] for the day
             for (int i = 0; i < runningtrucks; i++) 
             {
