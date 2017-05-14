@@ -80,11 +80,11 @@ public class VehicleRoutingSystem {
         int ii = 0;
         
         //SET AMOUNT OF TRUCKS BOUGHT
-<<<<<<< HEAD
+
 
         boughttrucks = 3;
 
-=======
+
         //Scanner x = new Scanner(System.in);
         //System.out.println("How many trucks would you like to buy?");
         //boughttrucks = x.nextInt();
@@ -93,7 +93,7 @@ public class VehicleRoutingSystem {
         //Scanner e = new Scanner(System.in);
         //System.out.println("1 or 2 employees per truck?");
         //employees = e.nextInt();
->>>>>>> origin/master
+
         employees = 2;
         
         String useless = "";
@@ -292,24 +292,24 @@ public class VehicleRoutingSystem {
                 //If statement to see if truck will do Bart
                 if(locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200 && bart == false)
                 {
-<<<<<<< HEAD
+
                     trucktime[tnum] += (60 * b) / employees;
-=======
+
                     trucktime[tnum] += (30 * b) / employees;
                     //System.out.println("Truck " + (tnum + 1) + " did Bart");
->>>>>>> origin/master
+
                     bart = true;
                 }
                 
                 //If statement to see if truck will do Lisa
                 if(locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900 && lisa == false)
                 {
-<<<<<<< HEAD
+
                     trucktime[tnum] += (60 * l) / employees;
-=======
+
                     trucktime[tnum] += (30 * l) / employees;
                     //System.out.println("Truck " + (tnum + 1) + " did Lisa");
->>>>>>> origin/master
+
                     lisa = true;
                 }
                 
@@ -626,11 +626,11 @@ public class VehicleRoutingSystem {
         cy10W.close();
         
         cyOW.println("The overall price was $" + money.format(totalprice));
-<<<<<<< HEAD
+
         cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
-=======
+
         cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
->>>>>>> origin/master
+
         cyOW.close();
         
   
