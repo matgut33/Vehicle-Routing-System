@@ -80,9 +80,20 @@ public class VehicleRoutingSystem {
         int ii = 0;
         
         //SET AMOUNT OF TRUCKS BOUGHT
+<<<<<<< HEAD
 
         boughttrucks = 3;
 
+=======
+        //Scanner x = new Scanner(System.in);
+        //System.out.println("How many trucks would you like to buy?");
+        //boughttrucks = x.nextInt();
+        boughttrucks = 2;
+        //SET EMPLOYEES PER TRUCK
+        //Scanner e = new Scanner(System.in);
+        //System.out.println("1 or 2 employees per truck?");
+        //employees = e.nextInt();
+>>>>>>> origin/master
         employees = 2;
         
         String useless = "";
@@ -224,13 +235,13 @@ public class VehicleRoutingSystem {
             if(h == 0) {runningtrucks = 4; cy1W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 1) {runningtrucks = 4; cy2W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 2) {runningtrucks = 3; cy3W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 3) {runningtrucks = 3; cy4W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 4) {runningtrucks = 3; cy5W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 3) {runningtrucks = 2; cy4W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 4) {runningtrucks = 2; cy5W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 5) {runningtrucks = 5; cy6W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 6) {runningtrucks = 4; cy7W.println("The number of trucks used today was: " + runningtrucks);}
             if(h == 7) {runningtrucks = 3; cy8W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 8) {runningtrucks = 3; cy9W.println("The number of trucks used today was: " + runningtrucks);}
-            if(h == 9) {runningtrucks = 3; cy10W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 8) {runningtrucks = 2; cy9W.println("The number of trucks used today was: " + runningtrucks);}
+            if(h == 9) {runningtrucks = 2; cy10W.println("The number of trucks used today was: " + runningtrucks);}
             
             //CALCULATES AMOUNT OF RENTED TRUCKS PER CYCLE
             if(runningtrucks > boughttrucks) rentedtrucks[h] = Math.abs(runningtrucks - boughttrucks);
@@ -267,11 +278,11 @@ public class VehicleRoutingSystem {
             //SHOWS AMOUNT OF COST FOR RENTED TRUCKS PER DAY
             rentingcost[h] = rentedtrucks[h] * 15000;
             
-            for(int tnum = 0; tnum <= runningtrucks; tnum++)
+            for(int tnum = 0; tnum < runningtrucks; tnum++)
             {
                 truckdistance[tnum] = 0;
                 trucktimeemploy[tnum] = 0;
-                echange = 1;
+                echange = 0;
                 truckmiles[tnum] = 0;
                 truckprice[tnum] = 0;
                 truckvisited[tnum] = 0;
@@ -281,14 +292,24 @@ public class VehicleRoutingSystem {
                 //If statement to see if truck will do Bart
                 if(locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200 && bart == false)
                 {
+<<<<<<< HEAD
                     trucktime[tnum] += (60 * b) / employees;
+=======
+                    trucktime[tnum] += (30 * b) / employees;
+                    //System.out.println("Truck " + (tnum + 1) + " did Bart");
+>>>>>>> origin/master
                     bart = true;
                 }
                 
                 //If statement to see if truck will do Lisa
                 if(locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900 && lisa == false)
                 {
+<<<<<<< HEAD
                     trucktime[tnum] += (60 * l) / employees;
+=======
+                    trucktime[tnum] += (30 * l) / employees;
+                    //System.out.println("Truck " + (tnum + 1) + " did Lisa");
+>>>>>>> origin/master
                     lisa = true;
                 }
                 
@@ -558,28 +579,28 @@ public class VehicleRoutingSystem {
             
         //OUTPUTS TO FILE COST OF THE SALARY PAID OUT EACH DAY    
         System.out.println("Total price = $" + money.format(totalprice));
-        cy1W.println("The day's total salary paid was: $" + salary[0]);
-        cy2W.println("The day's total salary paid was: $" + salary[1]);
-        cy3W.println("The day's total salary paid was: $" + salary[2]);
-        cy4W.println("The day's total salary paid was: $" + salary[3]);
-        cy5W.println("The day's total salary paid was: $" + salary[4]);
-        cy6W.println("The day's total salary paid was: $" + salary[5]);
-        cy7W.println("The day's total salary paid was: $" + salary[6]);
-        cy8W.println("The day's total salary paid was: $" + salary[7]);
-        cy9W.println("The day's total salary paid was: $" + salary[8]);
-        cy10W.println("The day's total salary paid was: $" + salary[9]);
+        cy1W.println("The day's total salary paid was: $" + money.format(salary[0]));
+        cy2W.println("The day's total salary paid was: $" + money.format(salary[1]));
+        cy3W.println("The day's total salary paid was: $" + money.format(salary[2]));
+        cy4W.println("The day's total salary paid was: $" + money.format(salary[3]));
+        cy5W.println("The day's total salary paid was: $" + money.format(salary[4]));
+        cy6W.println("The day's total salary paid was: $" + money.format(salary[5]));
+        cy7W.println("The day's total salary paid was: $" + money.format(salary[6]));
+        cy8W.println("The day's total salary paid was: $" + money.format(salary[7]));
+        cy9W.println("The day's total salary paid was: $" + money.format(salary[8]));
+        cy10W.println("The day's total salary paid was: $" + money.format(salary[9]));
         
         //OUTPUTES TO FILE COST OF THE TOTAL PRICE EACH DAY
-        cy1W.println("The day's total price was: $" + price[0]);
-        cy2W.println("The day's total price was: $" + price[1]);
-        cy3W.println("The day's total price was: $" + price[2]);
-        cy4W.println("The day's total price was: $" + price[3]);
-        cy5W.println("The day's total price was: $" + price[4]);
-        cy6W.println("The day's total price was: $" + price[5]);
-        cy7W.println("The day's total price was: $" + price[6]);
-        cy8W.println("The day's total price was: $" + price[7]);
-        cy9W.println("The day's total price was: $" + price[8]);
-        cy10W.println("The day's total price was: $" + price[9]);
+        cy1W.println("The day's total price was: $" + money.format(price[0]));
+        cy2W.println("The day's total price was: $" + money.format(price[1]));
+        cy3W.println("The day's total price was: $" + money.format(price[2]));
+        cy4W.println("The day's total price was: $" + money.format(price[3]));
+        cy5W.println("The day's total price was: $" + money.format(price[4]));
+        cy6W.println("The day's total price was: $" + money.format(price[5]));
+        cy7W.println("The day's total price was: $" + money.format(price[6]));
+        cy8W.println("The day's total price was: $" + money.format(price[7]));
+        cy9W.println("The day's total price was: $" + money.format(price[8]));
+        cy10W.println("The day's total price was: $" + money.format(price[9]));
         
         //OUTPUTES TO FILE MILES OF THE TRUCKS EACH DAY
         cy1W.println("The day's total mileage was " + miles[0] + " miles");
@@ -605,7 +626,11 @@ public class VehicleRoutingSystem {
         cy10W.close();
         
         cyOW.println("The overall price was $" + money.format(totalprice));
+<<<<<<< HEAD
         cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
+=======
+        cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
+>>>>>>> origin/master
         cyOW.close();
         
   
