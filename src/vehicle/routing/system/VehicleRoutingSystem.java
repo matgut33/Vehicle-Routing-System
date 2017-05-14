@@ -13,8 +13,9 @@ package vehicle.routing.system;
  */
 
 import java.util.Scanner;
-import java.io.*;
-import java.util.Arrays;
+import java.io.IOException;
+import java.io.File;
+import java.io.PrintWriter;
 import java.text.DecimalFormat;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -28,32 +29,18 @@ public class VehicleRoutingSystem {
      */
     public static void main(String[] args) throws IOException {
         DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd  HH;mm;ss");
-        DateFormat timef = new SimpleDateFormat("HH:mm");
         Date date = new Date();
         String runDate = sdf.format(date);
-        String sysPath = System.getProperty("user.dir");
         new File("Output/" + runDate).mkdirs();
-        DecimalFormat two = new DecimalFormat("#.##");
         DecimalFormat money = new DecimalFormat("#.##");
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[10000], a[] = new int[10000], organ[][] = new int[250][50], b = 0, l = 0; 
         String organhouselet[][] = new String[250][50];
-        int houseNum[] = new int[10000]; 
-        int distance[] = new int[10]; 
-        int visited[] = new int[10];
-        int rentingcost[] = new int[10];
-        double time[] = new double[10];
-        double price[] = new double[10];
-        int minimum = 100000;
-        int minimumslot = 0;
-        int arraylength = 0;
-        int boughttrucks = 0;
-        int rentedtrucks[] = new int[10];
+        int houseNum[] = new int[10000], distance[] = new int[10], visited[] = new int[10], rentingcost[] = new int[10];
+        double time[] = new double[10], price[] = new double[10];
+        int minimum = 100000, minimumslot = 0, arraylength = 0, boughttrucks = 0, rentedtrucks[] = new int[10];
         double miles[] = new double[10];
-        int start[] = new int[10];
-        int current[] = new int[10];
-        int finish[] = new int[10];
-        int echange = 0;
+        int start[] = new int[10], current[] = new int[10], finish[] = new int[10], echange = 0;
         double salary[] = new double[10];
         String houseLet[] = new String[1000001], runAgain = "";
         Location locations[] = new Location[1000001]; //Used for taking in locations
@@ -93,18 +80,12 @@ public class VehicleRoutingSystem {
         int ii = 0;
         
         //SET AMOUNT OF TRUCKS BOUGHT
-        //Scanner x = new Scanner(System.in);
-        //System.out.println("How many trucks would you like to buy?");
-        //boughttrucks = x.nextInt();
+
         boughttrucks = 3;
-        //SET EMPLOYEES PER TRUCK
-        //Scanner e = new Scanner(System.in);
-        //System.out.println("1 or 2 employees per truck?");
-        //employees = e.nextInt();
+
         employees = 2;
         
         String useless = "";
-        
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
             
             //RESETS BART AND LISA EVERY DAY
@@ -153,12 +134,8 @@ public class VehicleRoutingSystem {
                         else if(houseLet[ii].equals("JJ")) houseNum[ii] = 900;
                         
                         arraylength = ii;
-                         
-
-                    }
-                    
+                    }   
                 }
-
             }
             
             int streetcount = 0;
@@ -239,13 +216,6 @@ public class VehicleRoutingSystem {
                     letter = organhouselet[0][0];
                     locations[i].setCoord(0, y, letter);
                 }
-                
-                
-                
-                //locations[i].setStreet(s[i]);
-                //locations[i].setHouseLetter(letter);
-                
-                
             }
 
             locations[1000000] = new Location(125, 22, 0);
@@ -291,7 +261,6 @@ public class VehicleRoutingSystem {
                     
             }
             
-            
             //ADDS COST OF RENTED TRUCKS TO THE DAILY PRICE
             price[h] += rentedtrucks[h] * 15000;
             
@@ -308,27 +277,19 @@ public class VehicleRoutingSystem {
                 truckvisited[tnum] = 0;
                 trucktime[tnum] = 0;
                 current[tnum] = finish[tnum];
-                //if(tnum != 0) System.out.println((finish[tnum - 1] - start[tnum - 1]) + "   " + truckvisited[tnum - 1]);
-               
                 
                 //If statement to see if truck will do Bart
                 if(locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200 && bart == false)
                 {
                     trucktime[tnum] += (60 * b) / employees;
-                    //System.out.println("Truck " + (tnum + 1) + " did Bart");
                     bart = true;
-                    
-                    //System.out.println("Truck " + (tnum + 1) + " drove to Bart and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 //If statement to see if truck will do Lisa
                 if(locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900 && lisa == false)
                 {
                     trucktime[tnum] += (60 * l) / employees;
-                    //System.out.println("Truck " + (tnum + 1) + " did Lisa");
                     lisa = true;
-                    //System.out.println("Lisa Done");
-                    //System.out.println("Truck " + (tnum + 1) + " drove to Lisa and it added " + two.format(trucktime[tnum] / 3600) + " hours");
                 }
                 
                 
@@ -380,11 +341,8 @@ public class VehicleRoutingSystem {
                         
                     truckdistance[tnum] += minimum;
                     truckvisited[tnum] ++;
-                     
                     trucktime[tnum] += (minimum / 5000.0) * 150;
                     trucktimeemploy[tnum] += (minimum / 5000.0) * 150;
-                    
-                    
                     if(current[tnum] != finish[tnum]) locations[start[tnum]] = locations[minimumslot]; //reset 0 to the new point
                     
                         
@@ -521,12 +479,9 @@ public class VehicleRoutingSystem {
                         if(k > minimumslot)
                         {
                             locations[k - 1] = locations[k];
-                        }
-                            
+                        }  
                     }
                     }
-                    
-                        
                     current[tnum] --;
                         
                 }
@@ -540,61 +495,18 @@ public class VehicleRoutingSystem {
                 visited[h] += truckvisited[tnum];
                 
                 //Printing System to show time (in hours) per truck
-                //System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 0) cy1W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 1) cy2W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 2) cy3W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 3) cy4W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 4) cy5W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 5) cy6W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 6) cy7W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 7) cy8W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 8) cy9W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 0) cy1W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 1) cy2W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 2) cy3W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 3) cy4W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 4) cy5W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 5) cy6W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 6) cy7W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 7) cy8W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 8) cy9W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
+                if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + money.format(trucktime[tnum] / 3600) + " hours");
             }
             
-                  
-            /*for(int tnum = 0; tnum < runningtrucks; tnum++)
-            {
-                //CONVERTS FEET TO MILES
-                truckmiles[tnum] = truckdistance[tnum] / 5000;
-                //ADD PRICE OF GAS ($5 PER MILE)
-                truckprice[tnum] += Math.floor(truckmiles[tnum]) * 5;
-                //ADDS TIME IN SECONDS (150 SECONDS PER MILE)
-                //trucktime[tnum] += truckmiles[tnum] * 150;
-                
-                
-                truckprice[tnum] += (((trucktime[tnum]/3600.0) - (8 * echange) * 30) + 240) * employees;
-                salary[h] += (trucktime[tnum]/3600.0);
-                
-                
-                //CALCULATES TRUCK THAT TOOK THE LONGEST TIME PER DAY (SAVES IT AS THE DAILY TIME)
-                if(trucktime[tnum] > time[h])
-                {
-                    time[h] = trucktime[tnum];
-                }
-                //System.out.println("Truck " + (tnum + 1) + " time :" + (two.format(trucktime[tnum]/3600)));
-                //System.out.println("Overall time :" + two.format(time[h]/3600));
-               
-                
-                
-                miles[h] += truckmiles[tnum];
-                price[h] += truckprice[tnum];
-                visited[h] += truckvisited[tnum];
-                
-                //Printing System to show time (in hours) per truck
-                //System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 0) cy1W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 1) cy2W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 2) cy3W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 3) cy4W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 4) cy5W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 5) cy6W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 6) cy7W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 7) cy8W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 8) cy9W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-                if (h == 9) cy10W.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
-            }*/
             //organized truckmiles[] for the day
             for (int i = 0; i < runningtrucks; i++) 
             {
@@ -613,19 +525,9 @@ public class VehicleRoutingSystem {
             for(int i = 0; i < (boughttrucks - 1); i++)
             {
                 price[h] += 1000 * Math.floor(truckmiles[i] / 100.0);
-                
             }
             
-                    
-                    
-                    
-                    
-                    
-                    
-                    System.out.println(two.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));
-                    //System.out.println(visited[h] + "   " + arraylength);
-                    //System.out.println("Salary Payout $" + money.format(salary[h]));
-                   
+            System.out.println(money.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));               
         
         //CHANGES THE FILE THE LOOP IS READING IN FROM AND MOVES TO NEXT DAY FILE READY FOR START OF NEW LOOP                
         if (h == 0) cy1 = cy2;
@@ -637,12 +539,6 @@ public class VehicleRoutingSystem {
         if (h == 6) cy1 = cy8;
         if (h == 7) cy1 = cy9;
         if (h == 8) cy1 = cy10;
-
-        
-        
-         
-        
-                 
         }
         
         //CALCULATES COST OF BUYING TRUCKS
@@ -685,6 +581,7 @@ public class VehicleRoutingSystem {
         cy9W.println("The day's total price was: $" + price[8]);
         cy10W.println("The day's total price was: $" + price[9]);
         
+        //OUTPUTES TO FILE MILES OF THE TRUCKS EACH DAY
         cy1W.println("The day's total mileage was " + miles[0] + " miles");
         cy2W.println("The day's total mileage was " + miles[1] + " miles");
         cy3W.println("The day's total mileage was " + miles[2] + " miles");
@@ -707,8 +604,8 @@ public class VehicleRoutingSystem {
         cy9W.close();
         cy10W.close();
         
-        cyOW.println("The overall price was $" + totalprice);
-        cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
+        cyOW.println("The overall price was $" + money.format(totalprice));
+        cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
         cyOW.close();
         
   
