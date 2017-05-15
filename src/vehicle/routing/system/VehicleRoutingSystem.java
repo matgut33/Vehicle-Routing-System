@@ -292,11 +292,14 @@ public class VehicleRoutingSystem {
                 //If statement to see if truck will do Bart
                 if(locations[start[tnum]].getCoordX() <= 200 && locations[finish[tnum]].getCoordX() >= 200 && bart == false)
                 {
-
-                    trucktime[tnum] += (60 * b) / employees;
-
                     trucktime[tnum] += (30 * b) / employees;
                     //System.out.println("Truck " + (tnum + 1) + " did Bart");
+                    if(tnum != runningtrucks)
+                    {
+                        finish[tnum] -= (b / 10);
+                        start[tnum + 1] = finish[tnum] + 1; 
+                    }
+                    
 
                     bart = true;
                 }
@@ -304,11 +307,14 @@ public class VehicleRoutingSystem {
                 //If statement to see if truck will do Lisa
                 if(locations[start[tnum]].getCoordX() <= 26900 && locations[finish[tnum]].getCoordX() >= 26900 && lisa == false)
                 {
-
-                    trucktime[tnum] += (60 * l) / employees;
-
                     trucktime[tnum] += (30 * l) / employees;
                     //System.out.println("Truck " + (tnum + 1) + " did Lisa");
+                    
+                    if(tnum != runningtrucks)
+                    {
+                       finish[tnum] -= (l / 10);
+                       start[tnum + 1] = finish[tnum] + 1; 
+                    }
 
                     lisa = true;
                 }
