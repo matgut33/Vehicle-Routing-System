@@ -44,6 +44,8 @@ public class VehicleRoutingSystem {
         int rentingcost[] = new int[10];
         double time[] = new double[10];
         double price[] = new double[10];
+        int daye[] = new int[10];
+        int totale = 0;
         int minimum = 100000;
         int minimumslot = 0;
         int arraylength = 0;
@@ -89,6 +91,9 @@ public class VehicleRoutingSystem {
         double truckprice[] = new double[10];
         double trucktimeemploy[] = new double[10];
         int runningtrucks = 0;
+        double maintainance = 0;
+        double gas = 0;
+        double renting = 0;
         int traveldistance = 0;
         int ii = 0;
         
@@ -297,6 +302,7 @@ public class VehicleRoutingSystem {
             
             //SHOWS AMOUNT OF COST FOR RENTED TRUCKS PER DAY
             rentingcost[h] = rentedtrucks[h] * 15000;
+            renting += rentedtrucks[h] * 15000;
             
             for(int tnum = 0; tnum < runningtrucks; tnum++)
             {
@@ -532,12 +538,15 @@ public class VehicleRoutingSystem {
                 }
                 truckmiles[tnum] = truckdistance[tnum] / 5000;
                 truckprice[tnum] += Math.floor(truckmiles[tnum]) * 5;
+                gas += Math.floor(truckmiles[tnum]) * 5;
                 truckprice[tnum] += (((trucktime[tnum]/3600.0) - (8 * echange) * 30) + 240) * employees;
                 salary[h] += (((trucktime[tnum]/3600.0) - (8 * echange) * 30) + 240) * employees;
                 if(trucktime[tnum] > time[h]) time[h] = trucktime[tnum];
                 miles[h] += truckmiles[tnum];
                 price[h] += truckprice[tnum];
                 visited[h] += truckvisited[tnum];
+                daye[h] = (echange + 1) * employees;
+                
                 
                 //Printing System to show time (in hours) per truck
                 //System.out.println("Truck " + (tnum + 1) + " took " + two.format(trucktime[tnum] / 3600) + " hours");
@@ -571,6 +580,7 @@ public class VehicleRoutingSystem {
             for(int i = 0; i < (boughttrucks - 1); i++)
             {
                 price[h] += 1000 * Math.floor(truckmiles[i] / 100.0);
+                maintainance += 1000 * Math.floor(truckmiles[i] / 100.0);
                 
             }
             
@@ -605,19 +615,18 @@ public class VehicleRoutingSystem {
         
         //CALCULATES COST OF BUYING TRUCKS
         double totalprice = boughttrucks * 100000;
+        double totalsalary = 0;
+        double totalmiles = 0;
             //ADDS IN DAILY COSTS (GAS, SALARY, MAINTANENCE)
             for (int i = 0; i < 10; i ++) 
             {
                 totalprice += price[i];
-            }
-        
-        //CALCULATES TOTAL MILES DRIVEN OVER 10 DAYS            
-        double totalmiles = 0;
-            for (int i = 0; i < 10; i ++) 
-            {
                 totalmiles += miles[i];
+                totalsalary += salary[i];
+                totale += daye[i];
             }
             
+        
         //OUTPUTS TO FILE COST OF THE SALARY PAID OUT EACH DAY    
         System.out.println("Total price = $" + money.format(totalprice));
         cy1W.println("The day's total salary paid was: $" + money.format(salary[0]));
@@ -666,7 +675,14 @@ public class VehicleRoutingSystem {
         cy10W.close();
         
         cyOW.println("The overall price was $" + money.format(totalprice));
+        cyOW.println("The price paid in salary was $" + money.format(totalsalary) + " over " + (totale) + " employees");
+        cyOW.println("The price paid in maintainance was $" + money.format(maintainance));
+        cyOW.println("The price paid in gas was $" + money.format(gas));
+        cyOW.println("The price paid in renting trucks was $" + money.format(renting));
+        cyOW.println("The price paid in bought trucks was $" + money.format(boughttrucks * 100000));
         cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
+        
+        
         cyOW.close();
         
   
