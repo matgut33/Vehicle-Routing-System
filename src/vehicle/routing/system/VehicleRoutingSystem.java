@@ -96,25 +96,10 @@ public class VehicleRoutingSystem {
         double gas = 0;
         double renting = 0;
         int traveldistance = 0;
-        int ii = 0;
         
-        //SET AMOUNT OF TRUCKS BOUGHT
-
-
-        boughttrucks = 3;
-
-
-        //Scanner x = new Scanner(System.in);
-        //System.out.println("How many trucks would you like to buy?");
-        //boughttrucks = x.nextInt();
+ 
         boughttrucks = 2;
-        //SET EMPLOYEES PER TRUCK
-        //Scanner e = new Scanner(System.in);
-        //System.out.println("1 or 2 employees per truck?");
-        //employees = e.nextInt();
-
         employees = 2;
-        
         String useless = "";
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
             
@@ -124,7 +109,7 @@ public class VehicleRoutingSystem {
             Boolean bart = false;
             Boolean lisa = false;
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
-                ii = i - 2;
+                int ii = i - 2;
                 if (i < 2) {
                     useless = cy1.nextLine();
                 } else {
