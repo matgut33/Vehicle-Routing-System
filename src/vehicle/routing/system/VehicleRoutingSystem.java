@@ -36,9 +36,25 @@ public class VehicleRoutingSystem {
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[10000], a[] = new int[10000], organ[][] = new int[250][50], b = 0, l = 0; 
         String organhouselet[][] = new String[250][50];
+<<<<<<< HEAD
         int houseNum[] = new int[10000], visited[] = new int[10], rentingcost[] = new int[10];
         double time[] = new double[10], price[] = new double[10]; int totale = 0;
         int minimum = 100000, minimumslot = 0, arraylength = 0, boughttrucks = 0, rentedtrucks[] = new int[10];
+=======
+        int houseNum[] = new int[10000]; 
+        int distance[] = new int[10]; 
+        int visited[] = new int[10];
+        int rentingcost[] = new int[10];
+        double time[] = new double[10];
+        double price[] = new double[10];
+        int daye[] = new int[10];
+        int totale = 0;
+        int minimum = 100000;
+        int minimumslot = 0;
+        int arraylength = 0;
+        int boughttrucks = 0;
+        int rentedtrucks[] = new int[10];
+>>>>>>> origin/master
         double miles[] = new double[10];
         int start[] = new int[10], current[] = new int[10], finish[] = new int[10], daye[] = new int[10], echange = 0;
         double salary[] = new double[10];
@@ -80,25 +96,10 @@ public class VehicleRoutingSystem {
         double gas = 0;
         double renting = 0;
         int traveldistance = 0;
-        int ii = 0;
         
-        //SET AMOUNT OF TRUCKS BOUGHT
-
-
-        boughttrucks = 3;
-
-
-        //Scanner x = new Scanner(System.in);
-        //System.out.println("How many trucks would you like to buy?");
-        //boughttrucks = x.nextInt();
+ 
         boughttrucks = 2;
-        //SET EMPLOYEES PER TRUCK
-        //Scanner e = new Scanner(System.in);
-        //System.out.println("1 or 2 employees per truck?");
-        //employees = e.nextInt();
-
         employees = 2;
-        
         String useless = "";
         for (int h = 0; h <= 9; h++)  { //Outside for loop used for performing code for all 9 cycles, h as cycle counter
             
@@ -108,7 +109,7 @@ public class VehicleRoutingSystem {
             Boolean bart = false;
             Boolean lisa = false;
             for (int i = 0; cy1.hasNext(); i++) { //Inside loop used for each individual cycle, i as text file line counter
-                ii = i - 2;
+                int ii = i - 2;
                 if (i < 2) {
                     useless = cy1.nextLine();
                 } else {
@@ -640,13 +641,18 @@ public class VehicleRoutingSystem {
         
         cyOW.println("The overall price was $" + money.format(totalprice));
         cyOW.println("The price paid in salary was $" + money.format(totalsalary) + " over " + (totale) + " employees");
-        cyOW.println("The price paid in maintainance was $" + money.format(maintainance));
+        cyOW.println("The price paid in maintenance was $" + money.format(maintainance));
         cyOW.println("The price paid in gas was $" + money.format(gas));
         cyOW.println("The price paid in renting trucks was $" + money.format(renting));
         cyOW.println("The price paid in bought trucks was $" + money.format(boughttrucks * 100000));
+<<<<<<< HEAD
         cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
         cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
         cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
+=======
+        cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
+
+>>>>>>> origin/master
         cyOW.close();
         
   
