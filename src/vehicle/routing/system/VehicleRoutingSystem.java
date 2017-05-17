@@ -36,7 +36,6 @@ public class VehicleRoutingSystem {
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[10000], a[] = new int[10000], organ[][] = new int[250][50], b = 0, l = 0; 
         String organhouselet[][] = new String[250][50];
-<<<<<<< HEAD
         int houseNum[] = new int[10000]; 
         int distance[] = new int[10]; 
         int visited[] = new int[10];
@@ -50,11 +49,6 @@ public class VehicleRoutingSystem {
         int arraylength = 0;
         int boughttrucks = 0;
         int rentedtrucks[] = new int[10];
-=======
-        int houseNum[] = new int[10000], distance[] = new int[10], visited[] = new int[10], rentingcost[] = new int[10];
-        double time[] = new double[10], price[] = new double[10];
-        int minimum = 100000, minimumslot = 0, arraylength = 0, boughttrucks = 0, rentedtrucks[] = new int[10];
->>>>>>> origin/master
         double miles[] = new double[10];
         int start[] = new int[10], current[] = new int[10], finish[] = new int[10], echange = 0;
         double salary[] = new double[10];
@@ -560,11 +554,7 @@ public class VehicleRoutingSystem {
             for(int i = 0; i < (boughttrucks - 1); i++)
             {
                 price[h] += 1000 * Math.floor(truckmiles[i] / 100.0);
-<<<<<<< HEAD
                 maintainance += 1000 * Math.floor(truckmiles[i] / 100.0);
-                
-=======
->>>>>>> origin/master
             }
             
             System.out.println(money.format(time[h] / 3600 ) + " hours on Cycle " + (h+1) + " at $" + money.format(price[h]));               
@@ -644,22 +634,15 @@ public class VehicleRoutingSystem {
         cy10W.close();
         
         cyOW.println("The overall price was $" + money.format(totalprice));
-<<<<<<< HEAD
         cyOW.println("The price paid in salary was $" + money.format(totalsalary) + " over " + (totale) + " employees");
         cyOW.println("The price paid in maintainance was $" + money.format(maintainance));
         cyOW.println("The price paid in gas was $" + money.format(gas));
         cyOW.println("The price paid in renting trucks was $" + money.format(renting));
         cyOW.println("The price paid in bought trucks was $" + money.format(boughttrucks * 100000));
         cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
-        
-        
-=======
-
         cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
-
         cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
 
->>>>>>> origin/master
         cyOW.close();
         
   
