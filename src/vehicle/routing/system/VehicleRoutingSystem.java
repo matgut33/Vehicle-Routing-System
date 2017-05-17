@@ -635,13 +635,11 @@ public class VehicleRoutingSystem {
         
         cyOW.println("The overall price was $" + money.format(totalprice));
         cyOW.println("The price paid in salary was $" + money.format(totalsalary) + " over " + (totale) + " employees");
-        cyOW.println("The price paid in maintainance was $" + money.format(maintainance));
+        cyOW.println("The price paid in maintenance was $" + money.format(maintainance));
         cyOW.println("The price paid in gas was $" + money.format(gas));
         cyOW.println("The price paid in renting trucks was $" + money.format(renting));
         cyOW.println("The price paid in bought trucks was $" + money.format(boughttrucks * 100000));
-        cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
         cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
-        cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
 
         cyOW.close();
         
