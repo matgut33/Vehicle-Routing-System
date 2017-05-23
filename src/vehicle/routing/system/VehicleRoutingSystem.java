@@ -36,12 +36,18 @@ public class VehicleRoutingSystem {
         int cycleDay = 0; //For labeling cycles
         int s[] = new int[10000], a[] = new int[10000], organ[][] = new int[250][50], b = 0, l = 0; 
         String organhouselet[][] = new String[250][50];
+<<<<<<< HEAD
  
         int houseNum[] = new int[10000], visited[] = new int[10], rentingcost[] = new int[10];
         double time[] = new double[10], price[] = new double[10]; int totale = 0;
         int minimum = 100000, minimumslot = 0, arraylength = 0, boughttrucks = 0, rentedtrucks[] = new int[10];
 
         
+=======
+        int houseNum[] = new int[10000], visited[] = new int[10], rentingcost[] = new int[10];
+        double time[] = new double[10], price[] = new double[10]; int totale = 0;
+        int minimum = 100000, minimumslot = 0, arraylength = 0, boughttrucks = 0, rentedtrucks[] = new int[10];
+>>>>>>> origin/master
         double miles[] = new double[10];
         int start[] = new int[10], current[] = new int[10], finish[] = new int[10], daye[] = new int[10], echange = 0;
         double salary[] = new double[10];
@@ -633,6 +639,12 @@ public class VehicleRoutingSystem {
         cyOW.println("The price paid in renting trucks was $" + money.format(renting));
         cyOW.println("The price paid in bought trucks was $" + money.format(boughttrucks * 100000));
         cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
+<<<<<<< HEAD
+=======
+        cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
+        cyOW.println("The overall mileage of the combined trucks was " + totalmiles + " miles");
+        cyOW.println("The overall mileage of the combined trucks was " + money.format(totalmiles) + " miles");
+>>>>>>> origin/master
         cyOW.close();
     }
 }
